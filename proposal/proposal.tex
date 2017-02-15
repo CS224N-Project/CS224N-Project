@@ -32,90 +32,81 @@ Ignacio Cases
 \section*{Problem Description}
 
 Sentiment analysis via deep learning has the potential to revolutionize customer
-service across all industries.  However, adoption of this powerful technology
-will accelerated or slowed by the humans who own those customer relationships.
-The value of a system that predicts where customer issues might lie (hidden) is
-reinforced by an equivalent ability to justify that prediction to human business
-operators. 
+service across all industries. However, adoption of this powerful technology
+will be accelerated or slowed by humans who own the customer relationships. A
+system that provides both a quantitative measure (rating) and qualitative
+example (brief description) of a review would bridge this gap and increase
+trust.
 
-One such method to providing evidence with prediction is extracting example
-phrases from the corpus that represent the predicted sentiment. This method is
-described in \textit{Rationalizing Neural Predictions}. We wish to re-implement
-this process in tensorflow and attempt to match the authors' results.
+Such a method is described in \textit{Rationalizing Neural Predictions}. The
+paper prescribes a two-part model which predicts a multi-sentiment analysis
+(called encoder) and extracts summary phrases (called generator). We wish to re-
+implement this process in tensorflow, attempting to match the authors' results.
 
-If time permits, we wish to explore the applicability of this algorithm on
-datasets not used in the paper. Further, the authors use a general `encoder' and
-`generator' abstraction that are used to predict sentiment and extract summary
-phrases respectively. The authors used a RCNN for both. We wish to explore other
-combinations of encoders and generators to see if we can get better results.
-Specifically, the paper uses a fairly strong conditional independence assumption
-in the generator in that each word is conditionally independent to be picked for
-the summary given the review and the words already picked. We want to explore
-generator methods that allow for a more general independence assumption.
+If time permits, we wish to explore: 
+
+\begin{itemize}
+\item Applicability of algorithm on new datasets
+\item Combinations of other encoders and generators to improve upon results
+\begin{itemize}
+\item Specifically, generator methods that allow for a more general independence assumption (see related work for more details)
+\end{itemize}
+\end{itemize}
+
+
 
 \section*{Data}
 
-We will use the BeerAdvocate review data set that was also used in the primary
-paper. There are approximately 1,580 thousand reviews, with each review on
-average containing 144.9 words \textbf{CITATION MIT PAPER}. Each review contains
-a numeric rating target for various aspects of the beer being reviewed (e.g.
-aroma, head, and taste). This data represents a multi-sentiment analysis problem
-with user provided labeled sentiment.
-
-\textbf{Other multi-sentiment datasets?}
+We will use the BeerAdvocate review data set also used in the paper. This data
+represents a multi-sentiment analysis problem with user provided labeled
+sentiment. There are approximately 1.5 million reviews, with each review on
+average containing 144.9 words \cite{Lei}. Each review contains a numeric rating
+target for various aspects of the beer being reviewed (e.g. aroma, head, and
+taste).
 
 \section*{Methodology/Algorithm}
 
-The methodology is specified in the primary paper \textit{Rationalizing Neural
-Predictions}. In general, we want a model that is proficient at predicting
-multiple sentiments (called the encoder) and a model that can generate a short
-summary of the sentiment using words from the text (called the generator). This is accomplished by:
+The methodology is specified in detail in the paper \textit{Rationalizing Neural
+Predictions}. In general, the model is proficient at predicting multiple
+sentiments (encoder) and generating a short summary of the sentiment using words
+from the text (generator). This is accomplished by:
 
 \begin{itemize}
-	\item Represent a review $x$ that contains $l$ words. Each word is 
-	represented by a $d$ dimensional vector (\textbf{are these pre-trained?}).
-	\item Each review has $m$ sentiments, and is labeled by a $m$ dimensional 
-	vector $y$.
-	\item Abstract an encoding process on $x$ to minimize the $L_{2}$ loss 
-	between $enc(x)$ and $y$. In the paper, they used a $RCNN$ to model the 
-	encoding stage.
-	\item Define $z$, a $l$ dimensional binary vector that ``picks'' words from 
-	$x$ to represent a summary.
-	\item We wish to estimate $P(z | x)$. We make the simplifying assumption 
-	that each $z_{i}$ is conditionally independent given $x$ and the $i - 1$ 
-	prior values of $z_{k}$ for $1 \le k \le i - 1$.
-	\item Abstract a generating process that estimates 
-	$p(z_{i} | x, z_{1, i - 1})$. In the paper, they use a $RCNN$ for this 
-	generator abstraction.
-	\item We jointly optimize encoding and generating by enforcing that the 
-	encoding of the generated summary must also predict as well as the original 
-	text. Thus, we optimize $enc(z, x)$ as we would with just $enc(x)$.
-	\item We add two regularization parameters for $z$ enforcing that $z$ should 
-	not pick too many words (size of $z$ is small) and that word selection 
-	should be prefer words closer together (distance between consecutive picked 
-	words is small).
+\item Encoding Step: Abstract an encoding process on each review $x$ to minimize $L_{2}$ loss between $enc(x)$ and true rating $y$, using a $RCNN$
+    \item Generator Step: 
+    \begin{itemize}
+\item Define $z$, a $l$ dimensional binary vector that ``picks'' words from $x$ to represent a summary. We wish to estimate $P(z | x)$. 
+\item We wish to estimate $P(z | x)$ with $\prod_{i = 1}^{n} p(z_{i} | x, z_{1, i - 1})$, using a RCNN
+\end{itemize}
+\item Jointly optimize encoding and generating by enforcing that the 
+encoding of the generated summary must also predict as well as the original 
+text
+\item Add regularization parameters for $z$ to enforce small $z$ (number of words) and distance between words in $z$
 \end{itemize}
 
 \section*{Related Work}
 
-Our primary source is the \textit{Rationalizing Neural Predictions}, which
+Our primary source is the paper \textit{Rationalizing Neural Predictions}, which
 describes the general algorithm for extracting rationals from predictions.
 
 One possible improvement to their process is allowing for a more general
 independence assumption in their rational generator model. The current generator
-assumes that picked are conditionally independent of all future words picked
-given the review and the prior picked words. A possible improvement is specified
-in the paper ``Generating Sentences from Continuous Space'', which recommends a
-methodology for generating sentences rather than just words using a RNN-based
-variational autoencoder.
+assumes that words picked are conditionally independent of all future words
+picked given the review and the prior picked words. A possible improvement is
+specified in the paper ``Generating Sentences from Continuous Space'', which
+recommends a methodology for generating sentences rather than just words using a
+RNN-based variational autoencoder \cite{Bowman}.
 
 \section*{Evaluation Plan}
 
-\textbf{Do we have the original test/train/dev split?}
+The primary evaluation will be a precision metric that will be based on
+sentence-level annotations and whether selected words are in the sentences
+describing the target aspect (e.g. appearance, smell, palate.). If time permits,
+we wish to try to improve their model on the same accuracy metric.
 
-% {\small
-% \bibliographystyle{plain}
-% \bibliography{proposal}
-% }
+{\small
+\bibliographystyle{plain}
+\bibliography{proposal}
+}
 
 \end{document} 

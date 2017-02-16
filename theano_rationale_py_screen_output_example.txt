@@ -1,0 +1,39 @@
+python rationale.py --embedding /Users/stanford/Desktop/Winter2017/CS224n/FinalProject/beer/review+wiki.filtered.200.txt.gz --train /Users/stanford/Desktop/Winter2017/CS224n/FinalProject/beer/reviews.aspect1.train.txt.gz --dev /Users/stanford/Desktop/Winter2017/CS224n/FinalProject/beer/reviews.aspect1.heldout.txt.gz --load_rationale /Users/stanford/Desktop/Winter2017/CS224n/FinalProject/beer/annotations.json --aspect 0 --dump outputs.json --sparsity 0.0003 --coherent 2.0
+
+ERROR (theano.sandbox.cuda): nvcc compiler not found on $PATH. Check your nvcc installation and try again.
+Namespace(activation='tanh', aspect=0, batch=256, beta1=0.9, beta2=0.999, coherent=2.0, decay_lr=1, depth=2, dev='/Users/stanford/Desktop/Winter2017/CS224n/FinalProject/beer/reviews.aspect1.heldout.txt.gz', dropout=0.1, dump='outputs.json', embedding='/Users/stanford/Desktop/Winter2017/CS224n/FinalProject/beer/review+wiki.filtered.200.txt.gz', eval_period=-1, fix_emb=1, hidden_dimension=200, hidden_dimension2=30, l2_reg=1e-06, layer='rcnn', learning='adam', learning_rate=0.0005, load_model='', load_rationale='/Users/stanford/Desktop/Winter2017/CS224n/FinalProject/beer/annotations.json', max_epochs=100, max_len=256, order=2, pooling=0, save_model='', sparsity=0.0003, test='', train='/Users/stanford/Desktop/Winter2017/CS224n/FinalProject/beer/reviews.aspect1.train.txt.gz', use_all=1)
+147759 pre-trained embeddings loaded.
+70000 examples loaded from /Users/stanford/Desktop/Winter2017/CS224n/FinalProject/beer/reviews.aspect1.train.txt.gz
+max text length: 1145
+10000 examples loaded from /Users/stanford/Desktop/Winter2017/CS224n/FinalProject/beer/reviews.aspect1.heldout.txt.gz
+max text length: 915
+total # parameters: 322805
+total # parameters: 321201
+cost.dtype float32
+2.47s to create training batches
+
+200/274     
+Generator Epoch 1.00  costg=0.0431  scost=0.0194  lossg=0.0237  p[1]=0.12  |g|=0.0937 0.1182	[50.51m / 50.51m]
+	['6.1', '6.2', '8.6', '0.6', '0.5', '5.9', '6.2', '11.2', '0.8', '0.6', '0.7', '0.0']
+	['6.4', '6.3', '8.0', '0.4', '0.5', '6.5', '6.4', '8.2', '0.4', '0.6', '1.0', '0.0']
+	sampling devg=0.0287  mseg=0.0211  avg_diffg=0.2266  p[1]g=0.03  best_dev=0.0287
+	rationale mser=0.0129  p[1]r=0.03  prec1=0.2100  prec2=0.2038
+200/274     
+Generator Epoch 2.00  costg=0.0283  scost=0.0058  lossg=0.0224  p[1]=0.03  |g|=0.3675 0.1973	[52.90m / 52.90m]
+	['6.2', '6.3', '9.2', '0.6', '0.5', '6.0', '6.3', '12.6', '0.9', '0.6', '0.7', '0.1']
+	['6.7', '6.4', '7.9', '0.5', '0.5', '6.6', '6.5', '8.3', '0.4', '0.5', '1.0', '0.0']
+	sampling devg=0.0282  mseg=0.0205  avg_diffg=0.2238  p[1]g=0.03  best_dev=0.0282
+	rationale mser=0.0127  p[1]r=0.04  prec1=0.2344  prec2=0.2301
+200/274     
+Generator Epoch 3.00  costg=0.0277  scost=0.0054  lossg=0.0224  p[1]=0.03  |g|=0.4428 0.1206	[46.81m / 46.81m]
+	['6.3', '6.4', '9.7', '0.5', '0.5', '6.1', '6.3', '11.9', '1.0', '0.6', '0.7', '0.1']
+	['7.0', '6.7', '7.9', '0.5', '0.5', '6.9', '6.9', '8.5', '0.4', '0.5', '1.1', '0.0']
+	sampling devg=0.0269  mseg=0.0206  avg_diffg=0.2275  p[1]g=0.03  best_dev=0.0269
+	rationale mser=0.0124  p[1]r=0.03  prec1=0.3163  prec2=0.3057
+200/274     
+Generator Epoch 4.00  costg=0.0267  scost=0.0049  lossg=0.0217  p[1]=0.02  |g|=0.2447 0.1372	[48.37m / 48.37m]
+	['6.4', '6.5', '10.0', '0.5', '0.5', '6.1', '6.2', '10.7', '0.9', '0.6', '0.7', '0.2']
+	['7.3', '7.3', '8.7', '0.5', '0.5', '7.5', '7.5', '9.2', '0.4', '0.5', '1.2', '0.0']
+	sampling devg=0.0257  mseg=0.0199  avg_diffg=0.2243  p[1]g=0.03  best_dev=0.0257
+	rationale mser=0.0123  p[1]r=0.03  prec1=0.4296  prec2=0.4409
+...

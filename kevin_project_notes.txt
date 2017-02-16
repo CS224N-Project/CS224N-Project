@@ -1,0 +1,37 @@
+
+https://github.com/taolei87/rcnn/tree/master/code/rationale
+
+Commands that I ran...
+
+
+
+pip install Theano
+
+export PYTHONPATH=/Users/stanford/Desktop/Winter2017/CS224n/FinalProject/rcnn-master/code
+
+if GPU...
+export THEANO_FLAGS='device=gpu,floatX=float32'
+
+if no GPU...
+export THEANO_FLAGS='device=cpu,floatX=float32'
+
+Note: must run exports above (environment variable sets) with each new shell session, or else add to 
+
+To see current environment variables:
+printenv | more
+
+python rationale.py --embedding /Users/stanford/Desktop/Winter2017/CS224n/FinalProject/beer/review+wiki.filtered.200.txt.gz --train /Users/stanford/Desktop/Winter2017/CS224n/FinalProject/beer/reviews.aspect1.train.txt.gz --dev /Users/stanford/Desktop/Winter2017/CS224n/FinalProject/beer/reviews.aspect1.heldout.txt.gz --load_rationale /Users/stanford/Desktop/Winter2017/CS224n/FinalProject/beer/annotations.json --aspect 0 --dump outputs.json --sparsity 0.0003 --coherent 2.0
+
+python rationale.py                             # independent selection version
+      --embedding /path/to/vectors              # path to load word vectors (required)
+      --train reviews.aspect0.train.txt.gz      # path to training set (required)
+      --dev reviews.aspect0.heldout.txt.gz      # path to development set (required)        
+      --load_rationale annotations.json         # path to rationale annotation for testing (required)
+      --aspect 0                                # which aspect (-1 means all aspects)
+      --dump outputs.json                       # dump selected rationales and predictions
+      --sparsity 0.0003 --coherent 2.0          # regularizations      
+
+
+
+
+

@@ -1,9 +1,14 @@
 
+==== TASKS ====
+
+_ implement tensorflow version in exact same/similar structure as theano (i.e. use their code framework exactly), then rearchitect (keep it simple and reproduce results as closely as possible)
+
+
+==== INSTALLATION AND INITIAL RUN ====
+
 https://github.com/taolei87/rcnn/tree/master/code/rationale
 
 Commands that I ran...
-
-
 
 pip install Theano
 

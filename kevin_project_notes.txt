@@ -20,10 +20,12 @@ export THEANO_FLAGS='device=gpu,floatX=float32'
 if no GPU...
 export THEANO_FLAGS='device=cpu,floatX=float32'
 
-Note: must run exports above (environment variable sets) with each new shell session, or else add to 
+Note: must run exports above (environment variable sets) with each new shell session, or else add to a unix shell script to execute at startup
 
 To see current environment variables:
 printenv | more
+
+python rationale.py --embedding /Users/stanford/Desktop/Winter2017/CS224n/FinalProject/beer/review+wiki.filtered.200.txt.gz --train /Users/stanford/Desktop/Winter2017/CS224n/FinalProject/beer/reviews.aspect1.train.txt.gz --dev /Users/stanford/Desktop/Winter2017/CS224n/FinalProject/beer/reviews.aspect1.heldout.txt.gz --load_rationale /Users/stanford/Desktop/Winter2017/CS224n/FinalProject/beer/annotations.json --aspect 0 --dump outputs.json --sparsity 0.0003 --coherent 2.0
 
 python rationale.py --embedding /Users/stanford/Desktop/Winter2017/CS224n/FinalProject/beer/review+wiki.filtered.200.txt.gz --train /Users/stanford/Desktop/Winter2017/CS224n/FinalProject/beer/reviews.aspect1.train.txt.gz --dev /Users/stanford/Desktop/Winter2017/CS224n/FinalProject/beer/reviews.aspect1.heldout.txt.gz --load_rationale /Users/stanford/Desktop/Winter2017/CS224n/FinalProject/beer/annotations.json --aspect 0 --dump outputs.json --sparsity 0.0003 --coherent 2.0
 

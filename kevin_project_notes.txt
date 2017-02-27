@@ -20,12 +20,10 @@ export THEANO_FLAGS='device=gpu,floatX=float32'
 if no GPU...
 export THEANO_FLAGS='device=cpu,floatX=float32'
 
-Note: must run exports above (environment variable sets) with each new shell session, or else add to a unix shell script to execute at startup
+Note: must run exports above (environment variable sets) with each new shell session, or else add to ~/.bash_profile (a unix shell script to execute at startup)
 
 To see current environment variables:
 printenv | more
-
-python rationale.py --embedding /Users/stanford/Desktop/Winter2017/CS224n/FinalProject/beer/review+wiki.filtered.200.txt.gz --train /Users/stanford/Desktop/Winter2017/CS224n/FinalProject/beer/reviews.aspect1.train.txt.gz --dev /Users/stanford/Desktop/Winter2017/CS224n/FinalProject/beer/reviews.aspect1.heldout.txt.gz --load_rationale /Users/stanford/Desktop/Winter2017/CS224n/FinalProject/beer/annotations.json --aspect 0 --dump outputs.json --sparsity 0.0003 --coherent 2.0
 
 python rationale.py --embedding /Users/stanford/Desktop/Winter2017/CS224n/FinalProject/beer/review+wiki.filtered.200.txt.gz --train /Users/stanford/Desktop/Winter2017/CS224n/FinalProject/beer/reviews.aspect1.train.txt.gz --dev /Users/stanford/Desktop/Winter2017/CS224n/FinalProject/beer/reviews.aspect1.heldout.txt.gz --load_rationale /Users/stanford/Desktop/Winter2017/CS224n/FinalProject/beer/annotations.json --aspect 0 --dump outputs.json --sparsity 0.0003 --coherent 2.0
 
@@ -40,5 +38,34 @@ python rationale.py                             # independent selection version
 
 
 
+==== GENERATING SMALLER DATA SETS FOR FAST RUNS AND BASIC TESTING ====
+
+
+python select_modified.py 1 /Users/stanford/Desktop/Winter2017/CS224n/FinalProject/beer/reviews.aspect1.heldout.txt.gz /Users/stanford/Desktop/Winter2017/CS224n/FinalProject/beer/reviews.aspect1.small
+
+--- select.py requires sklearn, scipy etc. to be installed
+--- created select_modified.py to modify some parameters
+--- to run select_modified.py had to move select.py out of the directory! actually, renaming to select_.py also worked
+--- first integer argument above is “aspect” and looks like 1,2,3 are valid as indicated by the sample train/heldout files provide… “aspect” specifies the element from the returned correlation coefficient matrix: https://docs.scipy.org/doc/numpy/reference/generated/numpy.corrcoef.html
+
+python rationale.py --embedding /Users/stanford/Desktop/Winter2017/CS224n/FinalProject/beer/review+wiki.filtered.200.txt.gz --train /Users/stanford/Desktop/Winter2017/CS224n/FinalProject/beer/reviews.aspect1.small.train.txt.gz --dev /Users/stanford/Desktop/Winter2017/CS224n/FinalProject/beer/reviews.aspect1.small.heldout.txt.gz --load_rationale /Users/stanford/Desktop/Winter2017/CS224n/FinalProject/beer/annotations.json --aspect 0 --dump outputs.json --sparsity 0.0003 --coherent 2.0 --max_epochs 1 --hidden_dimension 20 --hidden_dimension2 3
+
+--- select.py requires sklearn, scipy etc. to be installed
+
+-- example multi-line review entry from Beeradvocate.txt (raw data to be re-processed for further testing):
+
+beer/name: Sausa Weizen
+beer/beerId: 47986
+beer/brewerId: 10325
+beer/ABV: 5.00
+beer/style: Hefeweizen
+review/appearance: 2.5
+review/aroma: 2
+review/palate: 1.5
+review/taste: 1.5
+review/overall: 1.5
+review/time: 1234817823
+review/profileName: stcules
+review/text: A lot of foam. But a lot.  In the smell some banana, and then lactic and tart. Not a good start.   Quite dark orange in color, with a lively carbonation (now visible, under the foam).    Again tending to lactic sourness.       Same for the taste. With some yeast and banana.
 
 

@@ -1,8 +1,17 @@
 
-Azure VM
-Machine: rational
+==== AZURE VMs ====
+
+Azure VM 1 - TensorFlow
+Machine: rational-tf
 User: neuron
-ssh neuron@23.96.212.36
+ssh neuron@157.55.141.160
+Password: J7O6TJ0MgdN0
+Once you are done working, stop your VM!
+
+Azure VM 1 - Theano
+Machine: rational-theano
+User: neuron
+ssh neuron@65.52.234.33
 Password: J7O6TJ0MgdN0
 Once you are done working, stop your VM!
 
@@ -85,6 +94,9 @@ sudo apt-get install nvidia-current nvidia-settings
 sudo nvidia-xconfig
 sudo reboot
 
+Alternatively:
+http://askubuntu.com/questions/481414/install-nvidia-driver-instead-nouveau
+
 Then:
 https://docs.google.com/document/d/1RhrTHOplbb_iTpOBE1luIESW2197xbaX8zw2lsifCow/edit#
 
@@ -104,4 +116,32 @@ export PYTHONPATH=/home/neuron/rcnn-master_copy/code
 nvidia-smi
 
 python rationale.py --embedding /home/neuron/beer/review+wiki.filtered.200.txt.gz --train /home/neuron/beer/reviews.aspect1.train.txt.gz --dev /home/neuron/beer/reviews.aspect1.heldout.txt.gz --load_rationale /home/neuron/beer/annotations.json --aspect 0 --dump outputs.json --sparsity 0.0003 --coherent 2.0
+
+
+==== AZURE THEANO INSTALL ===
+
+Did this first:
+http://askubuntu.com/questions/481414/install-nvidia-driver-instead-nouveau
+
+Following these instructions:
+http://deeplearning.net/software/theano_versions/dev/install_ubuntu.html
+
+https://conda.io/docs/install/quick.html
+scp Miniconda2-latest-Linux-x86_64.sh neuron@65.52.234.33:
+https://conda.io/docs/test-drive.html
+
+https://developer.nvidia.com/cuda-downloads
+
+FULL INSTRUCTIONS:
+http://developer.download.nvidia.com/compute/cuda/8.0/secure/Prod2/docs/sidebar/CUDA_Installation_Guide_Linux.pdf
+
+==== CRITICAL POST-INSTALLATION STEP ===
+export PATH=/usr/local/cuda-8.0/bin${PATH:+:${PATH}}
+==== CRITICAL POST-INSTALLATION STEP ===
+
+
+sudo dpkg -i cuda-repo-<distro>_<version>_<architecture>.deb
+sudo dpkg -i cuda-repo-8.0.61_375.26_linux.deb
+
+
 

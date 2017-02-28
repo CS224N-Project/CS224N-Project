@@ -1,4 +1,12 @@
 
+Azure VM
+Machine: rational
+User: neuron
+ssh neuron@23.96.212.36
+Password: J7O6TJ0MgdN0
+Once you are done working, stop your VM!
+
+
 ==== TASKS ====
 
 _ implement tensorflow version in exact same/similar structure as theano (i.e. use their code framework exactly), then rearchitect (keep it simple and reproduce results as closely as possible)
@@ -12,7 +20,8 @@ Commands that I ran...
 
 pip install Theano
 
-export PYTHONPATH=/Users/stanford/Desktop/Winter2017/CS224n/FinalProject/rcnn-master/code
+export PYTHONPATH=/Users/stanford/Desktop/Winter2017/CS224n/FinalProject/rcnn-master_tf/code
+export PYTHONPATH=/Users/stanford/Desktop/Winter2017/CS224n/FinalProject/rcnn-master_theano/code
 
 if GPU...
 export THEANO_FLAGS='device=gpu,floatX=float32'
@@ -50,9 +59,9 @@ python select_modified.py 1 /Users/stanford/Desktop/Winter2017/CS224n/FinalProje
 
 python rationale.py --embedding /Users/stanford/Desktop/Winter2017/CS224n/FinalProject/beer/review+wiki.filtered.200.txt.gz --train /Users/stanford/Desktop/Winter2017/CS224n/FinalProject/beer/reviews.aspect1.small.train.txt.gz --dev /Users/stanford/Desktop/Winter2017/CS224n/FinalProject/beer/reviews.aspect1.small.heldout.txt.gz --load_rationale /Users/stanford/Desktop/Winter2017/CS224n/FinalProject/beer/annotations.json --aspect 0 --dump outputs.json --sparsity 0.0003 --coherent 2.0 --max_epochs 1 --hidden_dimension 20 --hidden_dimension2 3
 
---- select.py requires sklearn, scipy etc. to be installed
+--- with '.small' train / holdout files and additional parameters (--max_epochs 1 --hidden_dimension 20 --hidden_dimension2 3) a full run takes <3mins
 
--- example multi-line review entry from Beeradvocate.txt (raw data to be re-processed for further testing):
+--- example multi-line review entry from Beeradvocate.txt (raw data to be re-processed for further variety in testing):
 
 beer/name: Sausa Weizen
 beer/beerId: 47986
@@ -68,4 +77,31 @@ review/time: 1234817823
 review/profileName: stcules
 review/text: A lot of foam. But a lot.  In the smell some banana, and then lactic and tart. Not a good start.   Quite dark orange in color, with a lively carbonation (now visible, under the foam).    Again tending to lactic sourness.       Same for the taste. With some yeast and banana.
 
+
+==== AZURE COMMANDS ====
+
+First:
+sudo apt-get install nvidia-current nvidia-settings
+sudo nvidia-xconfig
+sudo reboot
+
+Then:
+https://docs.google.com/document/d/1RhrTHOplbb_iTpOBE1luIESW2197xbaX8zw2lsifCow/edit#
+
+<record additional steps here>
+
+sudo apt <installed nvcc compiler>
+
+
+export THEANO_FLAGS='floatX=float32,device=gpu,nvcc.flags=-D_FORCE_INLINES'
+export THEANO_FLAGS='floatX=float32,device=gpu0,nvcc.flags=-D_FORCE_INLINES'
+export THEANO_FLAGS='floatX=float32,device=cuda0,nvcc.flags=-D_FORCE_INLINES'
+
+export PYTHONPATH=/home/neuron/rcnn-master_copy/code
+
+
+
+nvidia-smi
+
+python rationale.py --embedding /home/neuron/beer/review+wiki.filtered.200.txt.gz --train /home/neuron/beer/reviews.aspect1.train.txt.gz --dev /home/neuron/beer/reviews.aspect1.heldout.txt.gz --load_rationale /home/neuron/beer/annotations.json --aspect 0 --dump outputs.json --sparsity 0.0003 --coherent 2.0
 

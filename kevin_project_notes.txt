@@ -89,39 +89,20 @@ review/text: A lot of foam. But a lot.  In the smell some banana, and then lacti
 
 ==== AZURE COMMANDS ====
 
-First:
-sudo apt-get install nvidia-current nvidia-settings
-sudo nvidia-xconfig
-sudo reboot
-
-Alternatively:
-http://askubuntu.com/questions/481414/install-nvidia-driver-instead-nouveau
-
-Then:
 https://docs.google.com/document/d/1RhrTHOplbb_iTpOBE1luIESW2197xbaX8zw2lsifCow/edit#
+https://bitbucket.org/jhong1/azure-gpu-setup/src
 
-<record additional steps here>
+thought this (pre-installation) was needed, but instead need path var (post-installation):
+http://askubuntu.com/questions/481414/install-nvidia-driver-instead-nouveau
+==== CRITICAL POST-INSTALLATION STEP ===
+export PATH=/usr/local/cuda-8.0/bin${PATH:+:${PATH}}
+==== CRITICAL POST-INSTALLATION STEP ===
 
-sudo apt <installed nvcc compiler>
-
-
-export THEANO_FLAGS='floatX=float32,device=gpu,nvcc.flags=-D_FORCE_INLINES'
-export THEANO_FLAGS='floatX=float32,device=gpu0,nvcc.flags=-D_FORCE_INLINES'
-export THEANO_FLAGS='floatX=float32,device=cuda0,nvcc.flags=-D_FORCE_INLINES'
-
-export PYTHONPATH=/home/neuron/rcnn-master_copy/code
-
-
-
-nvidia-smi
-
-python rationale.py --embedding /home/neuron/beer/review+wiki.filtered.200.txt.gz --train /home/neuron/beer/reviews.aspect1.train.txt.gz --dev /home/neuron/beer/reviews.aspect1.heldout.txt.gz --load_rationale /home/neuron/beer/annotations.json --aspect 0 --dump outputs.json --sparsity 0.0003 --coherent 2.0
-
+scp beer.zip neuron@65.52.234.33:
 
 ==== AZURE THEANO INSTALL ===
 
-Did this first:
-http://askubuntu.com/questions/481414/install-nvidia-driver-instead-nouveau
+http://deeplearning.net/software/theano/tutorial/using_gpu.html
 
 Following these instructions:
 http://deeplearning.net/software/theano_versions/dev/install_ubuntu.html
@@ -135,13 +116,56 @@ https://developer.nvidia.com/cuda-downloads
 FULL INSTRUCTIONS:
 http://developer.download.nvidia.com/compute/cuda/8.0/secure/Prod2/docs/sidebar/CUDA_Installation_Guide_Linux.pdf
 
+sudo dpkg -i cuda-repo-<distro>_<version>_<architecture>.deb
+sudo dpkg -i cuda-repo-8.0.61_375.26_linux.deb
+
 ==== CRITICAL POST-INSTALLATION STEP ===
 export PATH=/usr/local/cuda-8.0/bin${PATH:+:${PATH}}
 ==== CRITICAL POST-INSTALLATION STEP ===
 
+also:
+export LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64\${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 
-sudo dpkg -i cuda-repo-<distro>_<version>_<architecture>.deb
-sudo dpkg -i cuda-repo-8.0.61_375.26_linux.deb
+
+test with:
+nvidia-smi
+nvcc -V
+
+pip install Theano
+
+CUDA root directory:
+/usr/local/cuda/bin
+
+export CUDA_ROOT=/usr/local/cuda-8.0/bin${CUDA_ROOT:+:${CUDA_ROOT}}
+or
+THEANO_FLAGS='cuda.root=/usr/local/cuda-8.0/bin'
+
+https://bruceoutdoors.wordpress.com/2016/07/29/setting-up-cudacudnn-for-theano-in-ubuntu/
+
+export PYTHONPATH=/home/neuron/rcnn-master_copy/code
+export THEANO_FLAGS='device=gpu,floatX=float32'
+
+python rationale.py --embedding /home/neuron/beer/review+wiki.filtered.200.txt.gz --train /home/neuron/beer/reviews.aspect1.train.txt.gz --dev /home/neuron/beer/reviews.aspect1.heldout.txt.gz --load_rationale /home/neuron/beer/annotations.json --aspect 0 --dump outputs.json --sparsity 0.0003 --coherent 2.0
 
 
+
+to install cudnn...
+wget https://web.stanford.edu/~jamesh93/tmp/cudnn-8.0-linux-x64-v5.1.tgz
+tar xzvf cudnn-8.0-linux-x64-v5.1.tgz
+sudo cp -P cuda/include/cudnn.h /usr/local/cuda/include/
+sudo cp -P cuda/lib64/libcudnn* /usr/local/cuda/lib64/
+sudo chmod a+r /usr/local/cuda/include/cudnn.h /usr/local/cuda/lib64/libcudnn*
+
+
+export LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64\${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/cuda-8.0/lib64:/usr/local/cuda-8.0/extras/CUPTI/lib64"
+export CUDA_HOME=/usr/local/cuda-8.0
+
+echo $LD_LIBRARY_PATH
+
+/home/neuron/cuda/lib64
+
+run a Unix process in the background:
+https://kb.iu.edu/d/afnz
+also, IMPORTANT -- pipe the screen output to file
 

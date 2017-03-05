@@ -4,15 +4,13 @@
 Azure VM 1 - TensorFlow
 Machine: rational-tf
 User: neuron
-ssh neuron@157.55.141.160
-Password: J7O6TJ0MgdN0
+ssh neuron@ip
 Once you are done working, stop your VM!
 
 Azure VM 1 - Theano
 Machine: rational-theano
 User: neuron
-ssh neuron@65.52.234.33
-Password: J7O6TJ0MgdN0
+ssh neuron@ip
 Once you are done working, stop your VM!
 
 
@@ -142,8 +140,18 @@ THEANO_FLAGS='cuda.root=/usr/local/cuda-8.0/bin'
 
 https://bruceoutdoors.wordpress.com/2016/07/29/setting-up-cudacudnn-for-theano-in-ubuntu/
 
+
+============= RUN THESE COMMANDS AT START UP OF VIRTUAL MACHINE =============
 export PYTHONPATH=/home/neuron/rcnn-master_copy/code
-export THEANO_FLAGS='device=gpu,floatX=float32'
+export THEANO_FLAGS='device=gpu,floatX=float32,cuda.root=/usr/local/cuda-8.0/bin'
+export PATH=/usr/local/cuda-8.0/bin${PATH:+:${PATH}}
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/cuda-8.0/lib64:/usr/local/cuda-8.0/extras/CUPTI/lib64"
+export CUDA_HOME=/usr/local/cuda-8.0
+============= RUN THESE COMMANDS AT START UP OF VIRTUAL MACHINE =============
+
+
+export LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64\${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+
 
 python rationale.py --embedding /home/neuron/beer/review+wiki.filtered.200.txt.gz --train /home/neuron/beer/reviews.aspect1.train.txt.gz --dev /home/neuron/beer/reviews.aspect1.heldout.txt.gz --load_rationale /home/neuron/beer/annotations.json --aspect 0 --dump outputs.json --sparsity 0.0003 --coherent 2.0
 
@@ -157,9 +165,6 @@ sudo cp -P cuda/lib64/libcudnn* /usr/local/cuda/lib64/
 sudo chmod a+r /usr/local/cuda/include/cudnn.h /usr/local/cuda/lib64/libcudnn*
 
 
-export LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64\${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
-export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/local/cuda-8.0/lib64:/usr/local/cuda-8.0/extras/CUPTI/lib64"
-export CUDA_HOME=/usr/local/cuda-8.0
 
 echo $LD_LIBRARY_PATH
 
@@ -168,4 +173,23 @@ echo $LD_LIBRARY_PATH
 run a Unix process in the background:
 https://kb.iu.edu/d/afnz
 also, IMPORTANT -- pipe the screen output to file
+
+pipe to file AND make process run in background...
+command |& tee output.txt &
+
+tmux
+http://askubuntu.com/questions/8653/how-to-keep-processes-running-after-ending-ssh-session
+
+in a tmux run...
+
+python rationale.py --embedding /home/neuron/beer/review+wiki.filtered.200.txt.gz --train /home/neuron/beer/reviews.aspect1.train.txt.gz --dev /home/neuron/beer/reviews.aspect1.heldout.txt.gz --load_rationale /home/neuron/beer/annotations.json --aspect 0 --dump outputs.json --sparsity 0.0003 --coherent 2.0 |& tee rationale_output.txt &
+
+
+jobs
+jobs -l (to get PID)
+
+
+
+
+
 

@@ -1,0 +1,1 @@
+theano_output_2017-03-04.txt -- initial GPU run 94 epochs (evening of 3/4/2017 into 3/5/2017)

@@ -185,8 +185,15 @@ in a tmux run...
 python rationale.py --embedding /home/neuron/beer/review+wiki.filtered.200.txt.gz --train /home/neuron/beer/reviews.aspect1.train.txt.gz --dev /home/neuron/beer/reviews.aspect1.heldout.txt.gz --load_rationale /home/neuron/beer/annotations.json --aspect 0 --dump outputs.json --sparsity 0.0003 --coherent 2.0 |& tee rationale_output.txt &
 
 
+tmux cheatsheet:
+https://gist.github.com/henrik/1967800
+
+
 jobs
 jobs -l (to get PID)
+
+
+scp neuron@65.52.63.36:/home/neuron/rcnn-master_copy/code/rationale/rationale_output.txt .
 
 
 

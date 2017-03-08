@@ -80,6 +80,14 @@ class RNNCell(tf.nn.rnn_cell.RNNCell):
 class RNNModel(Model):
 
     def _read_data(self, train_path, dev_path, embedding_path):
+        '''
+        Helper function to read in our data. Used to construct our RNNModel
+        :param train_path: path to training data
+        :param dev_path: path to development data
+        :param embedding_path: path to embeddings
+        :return: read in training/development data with padding masks and
+        embedding dictionaries
+        '''
         from preprocess import readOurData
         train_x_pad, train_y, train_mask, dev_x_pad, dev_y, dev_mask, embeddingDictPad = readOurData(
             train_path, dev_path, embedding_path)
@@ -108,7 +116,7 @@ class RNNModel(Model):
                                  shape = (),
                                  name = 'l2Reg')
 
-    def create_feed_dict(self, inputs_batch, labels_batch=None, dropout=1, mask_batch, l2_reg):
+    def create_feed_dict(self, inputs_batch, mask_batch, labels_batch=None, dropout=1, l2_reg=0):
         '''
         Feed Dictionary
         '''
@@ -127,51 +135,60 @@ class RNNModel(Model):
         return feed_dict
 
     def add_embedding(self):
-        pretrainEmbeds = tf.Variable(self.pretrained_embeddings)
-        embeddings = tf.nn.embedding_lookup(pretrainEmbeds, self.input_placeholder)
-        embeddings = tf.reshape(embeddings,[-1, self.config.n_features * self.config.embed_size])
+        embedding_shape = (self.config.batch_size,
+                           self.config.max_sentence,
+                           self.config.embedding_size)
 
-        embeddings = tf.constant(embeddingDictPad, dtype=tf.float32)
-        embedInput = tf.nn.embedding_lookup(embeddings, inputPH)
-        embedInput = tf.reshape(embedInput,
-                                shape=(
-                                batch_size, max_sentence, embedding_size))
+        pretrainEmbeds = tf.Variable(self.pretrained_embeddings)
+        embeddings = tf.nn.embedding_lookup(pretrainEmbeds, self.inputPH)
+        embeddings = tf.reshape(embeddings, shape=embedding_shape)
+
         return embeddings
 
     def add_prediction_op(self):
-        preds = [] # predicted output at each timestep
+        # preds = [] # predicted output at each timestep
 
+        # get relevent embedding data
+        x = self.add_embedding()
+
+        # Extract sizes
+        hidden_size = self.config.hidden_size
+        n_class = self.config.n_class
+        batch_size = self.config.batch_size
+        max_sentence = self.config.max_sentence
+
+        # Define internal RNN Cells
         cell1 = RNNCell(hidden_size, hidden_size, "cell1")
         cell2 = RNNCell(hidden_size, hidden_size, "cell2")
 
-        # Extract sizes
-        nHid = hidden_size
-        nClass = n_class
-
+        # Define our prediciton layer variables
         W = tf.get_variable(name = 'W',
-                            shape = ((2*nHid), nClass),
+                            shape = ((2 * hidden_size), n_class),
                             dtype = tf.float32,
                             initializer = tf.contrib.layers.xavier_initializer())
 
-        b =tf.get_variable(name = 'b',
-                            shape = (nClass,),
+        b = tf.get_variable(name = 'b',
+                            shape = (n_class,),
                             dtype = tf.float32,
                             initializer = tf.constant_initializer(0.0))
 
-        h1_Prev = tf.zeros(shape = (tf.shape(embedInput)[0], nHid), dtype = tf.float32)
-        h2_Prev = tf.zeros(shape = (tf.shape(embedInput)[0], nHid), dtype = tf.float32)
+        # Initialize our hidden state for each RNN layer
+        h1_Prev = tf.zeros(shape = (batch_size, hidden_size),
+                           dtype = tf.float32)
+        h2_Prev = tf.zeros(shape = (batch_size, hidden_size),
+                           dtype = tf.float32)
 
         for time_step in range(max_sentence):
             if time_step > 0:
                 tf.get_variable_scope().reuse_variables()
 
             # First RNN Layer - uses embeddings
-            h1_t = cell1(embedInput[:, time_step, :], h1_Prev)
-            h1_drop_t = tf.nn.dropout(h1_t, keep_prob = dropoutPH)
+            h1_t = cell1(x[:, time_step, :], h1_Prev)
+            h1_drop_t = tf.nn.dropout(h1_t, keep_prob = self.dropoutPH)
 
             # Second RNN Layer - uses First layer hidden states
             h2_t = cell2(h1_drop_t, h2_Prev)
-            h2_drop_t = tf.nn.dropout(h2_t, keep_prob = dropoutPH)
+            h2_drop_t = tf.nn.dropout(h2_t, keep_prob = self.dropoutPH)
 
             h1_Prev = h1_t
             h2_Prev = h2_t
@@ -180,22 +197,23 @@ class RNNModel(Model):
         # Concatenate last states of first and second layer for prediction layer
         h_t = tf.concat(concat_dim = 1, values = [h1_drop_t, h2_drop_t])
         y_t = tf.tanh(tf.matmul(h_t, W) + b)
-        preds.append(y_t)
-        return pred
+        # preds.append(y_t)
+        return y_t
 
     def add_loss_op(self, pred):
         # Compute L2 loss
-        loss = tf.nn.l2_loss(tf.cast(labelsPH, dtype=tf.float32) - preds)
+        loss = tf.nn.l2_loss(self.labelsPH - preds)
         loss = tf.reduce_mean(loss)
 
-        # # Apply L2 regularization
-        regularization = tf.reduce_sum([tf.nn.l2_loss(v) for v in tf.trainable_variables()])
+        # Apply L2 regularization
+        reg_by_var = [tf.nn.l2_loss(v) for v in tf.trainable_variables()]
+        regularization = tf.reduce_sum(reg_by_var)
 
-        totalCost = (10.0 * loss) + (l2RegPH * regularization)
+        totalCost = (10.0 * loss) + (self.l2RegPH * regularization)
         return totalCost
 
     def add_training_op(self, totalCost):
-        opt = tf.train.AdamOptimizer(learning_rate = lr)
+        opt = tf.train.AdamOptimizer(learning_rate = self.config.lr)
         train_op = opt.minimize(totalCost)
         return train_op
 

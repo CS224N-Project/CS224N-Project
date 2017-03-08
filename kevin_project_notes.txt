@@ -236,6 +236,11 @@ Common Crawl (840B tokens, 2.2M vocab, cased, 300d vectors, 2.03 GB download): g
 NOTE: for common crawl .zip use "tar -xvf <filename>" to extract
 
 
+/Users/stanford/Desktop/Winter2017/CS224n/FinalProject/beer
+
+
+
+
 
 
 

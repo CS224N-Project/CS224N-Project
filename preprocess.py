@@ -222,21 +222,32 @@ def myio_create_embedding_layer(path):
         )
     return embedding_layer
 
+def padData(data, embeddingDict):
+    '''
+    Adds padding ids to fill our training data so all reviews are the same size
+    :param data: training data with the tokenized reviews
+    :param embeddingDict: the embedding dictionary with pretrained vectors
+    :return: padded data and embedding with padding word vector
+    '''
+    maskId = embeddingDict.shape[0]
 
+    # Find the max sentence length
+    maxLength = np.max(map(len, data))
 
-# train = "/Users/alysonkane/Desktop/Classes/4 - Winter 2017/cs224n/project/beer/reviews.aspect1.small.train.txt"
-# dev = "/Users/alysonkane/Desktop/Classes/4 - Winter 2017/cs224n/project/beer/reviews.aspect1.small.heldout.txt"
-# embedding = "/Users/alysonkane/Desktop/Classes/4 - Winter 2017/cs224n/project/beer/review+wiki.filtered.200.txt.gz"
-#
-#
-# ## read in data
-# train_x, train_y, max_train = myio_read_annotations(train)
-# dev_x, dev_y, max_dev = myio_read_annotations(dev)
-# embedding_layer = myio_create_embedding_layer(embedding)
-#
-# ## maps words to int id
-# train_x = [ embedding_layer.map_to_ids(x)[:max_train] for x in train_x ]
-# dev_x = [ embedding_layer.map_to_ids(x)[:max_dev] for x in dev_x ]
-#
-# ## dictionary mapping int id to embedding
-# embeddingDict = embedding_layer.embeddings
+    # Get the length of each sentence
+    sentLen = np.array(map(len, data), dtype=np.int32)
+    sentDiff = maxLength - sentLen
+
+    # Fill each sentence to max sentence length
+    paddings = [np.full(shape=x, fill_value=maskId, dtype=np.int32) for x in
+                sentDiff]
+    sentAndPad = zip(data, paddings)
+    dataPad = [np.append(x[0], x[1]) for x in sentAndPad]
+    dataPad = np.array(dataPad)
+
+    # Add extra padding vector to embeddings
+    embedding_size = embeddingDict.shape[1]
+    paddEmbed = np.zeros(shape=(1, embedding_size), dtype=np.float32)
+    embeddingDictPad = np.append(embeddingDict, paddEmbed, axis=0)
+
+    return dataPad, embeddingDictPad

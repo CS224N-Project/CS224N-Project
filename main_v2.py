@@ -301,24 +301,9 @@ embeddingDict = embedding_layer.embeddings
 Mask Data
 '''
 
-maskId = embeddingDict.shape[0]
-sentLen = np.array(map(len, train_x), dtype = np.int32)
-sentDiff = list(max_sentence - sentLen)
-paddings = [np.full(shape = x, fill_value = maskId, dtype=np.int32) for x in sentDiff]
-zipped = zip(train_x, paddings)
-train_x_pad = [np.append(x[0], x[1]) for x in zipped]
-train_x_pad = np.array(train_x_pad)
-# train_x_pad = list(train_x_pad)
-# train_x_pad = map(list, train_x_pad)
-# train_x_pad = [[[x] for x in l] for l in train_x_pad]
-# train_x_pad = [map(int, l) for l in train_x_pad]
-# train_x_pad = [map(list, l) for l in train_x_pad]
-
-# modify embeddings to get zero paddings
-paddEmbed = np.zeros(shape = (1, embedding_size), dtype = np.float32)
-embeddingDictPad = np.append(embeddingDict, paddEmbed, axis = 0)
 
 
+train_x_pad, embeddingDictPad = padData(train_x, embeddingDict)
 
 '''
 Get Embeddings

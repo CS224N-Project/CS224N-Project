@@ -250,4 +250,38 @@ def padData(data, embeddingDict):
     paddEmbed = np.zeros(shape=(1, embedding_size), dtype=np.float32)
     embeddingDictPad = np.append(embeddingDict, paddEmbed, axis=0)
 
-    return dataPad, embeddingDictPad
+    # create mask for data
+    mask = (dataPad != maskId)
+
+    return dataPad, embeddingDictPad, mask
+
+def readOurData(trainPath, devPath, embeddingPath):
+    '''
+    Wrapper function that reads in padded training and development data
+    :param trainPath: path to training data
+    :param devPath: path to development data
+    :param embeddingPath: path to embedding dictionary
+    :return: padded training and development data (reviews and labels).
+    Embedding dictionary with a padding vector. Also returns masks for training
+    and development data
+    '''
+
+    # Read in embeddings
+    embedding_layer = myio_create_embedding_layer(embeddingPath)
+    embeddingDict = embedding_layer.embeddings
+
+    # Read in training data
+    train_x, train_y, max_train = myio_read_annotations(trainPath)
+    train_y = np.array(train_y)
+    train_x = [embedding_layer.map_to_ids(x)[:max_train] for x in train_x]
+
+    # Read in development data
+    dev_x, dev_y, max_dev = myio_read_annotations(devPath)
+    dev_y = np.array(dev_y)
+    dev_x = [embedding_layer.map_to_ids(x)[:max_dev] for x in dev_x]
+
+    # pad trainging and devlopment data
+    train_x_pad, embedding_pad, train_mask = padData(train_x, embeddingDict)
+    dev_x_pad, _, dev_mask = padData(dev_x, embeddingDict)
+
+    return train_x_pad, train_y, train_mask, dev_x_pad, dev_y, dev_mask, embedding_pad

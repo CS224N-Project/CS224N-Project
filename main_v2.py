@@ -1,7 +1,7 @@
 import numpy as np
 import tensorflow as tf
 from tensorflow.contrib import rnn
-from preprocess import myio_create_embedding_layer, myio_read_annotations
+from preprocess import readOurData
 from model import Model
 
 ''' 
@@ -19,23 +19,6 @@ class Config(object):
         self.epochs = 10
         self.lr = 0.001
         self.l2Reg = 1.0e-6
-
-    # def _findMaxSent(self, train_x):
-    #     reviewLen = [len(rev) for rev in train_x]
-    #     max_sentence = np.max(reviewLen)
-    #     return max_sentence
-
-    # define modelling parameters
-    # max_sentence = 915
-    # n_class = self.n_class
-    # embedding_size = embeddingDict.shape[1]
-    # drop_out = 0.5
-    # hidden_size = 200
-    # batch_size = 32
-    # epochs = 10
-    # lr = 0.001
-    # l2Reg = 1.0e-6
-
 
 ###############
 ### RNN Cell ##
@@ -281,29 +264,7 @@ train = '/Users/henryneeb/CS224N-Project/source/rcnn-master/beer/reviews.aspect1
 dev = '/Users/henryneeb/CS224N-Project/source/rcnn-master/beer/reviews.aspect1.small.heldout.txt.gz'
 embedding = '/Users/henryneeb/CS224N-Project/source/rcnn-master/beer/review+wiki.filtered.200.txt.gz'
 
-
-## read in data
-train_x, train_y, max_train = myio_read_annotations(train)
-train_y = np.array(train_y)
-dev_x, dev_y, max_dev = myio_read_annotations(dev)
-embedding_layer = myio_create_embedding_layer(embedding)
-
-## maps words to int id
-train_x = [ embedding_layer.map_to_ids(x)[:max_train] for x in train_x ]
-dev_x = [ embedding_layer.map_to_ids(x)[:max_dev] for x in dev_x ]
-
-## dictionary mapping int id to embedding
-embeddingDict = embedding_layer.embeddings
-
-
-
-'''
-Mask Data
-'''
-
-
-
-train_x_pad, embeddingDictPad = padData(train_x, embeddingDict)
+train_x_pad, train_y, train_mask, dev_x_pad, dev_y, dev_mask,embeddingDictPad = readOurData(train, dev, embedding)
 
 '''
 Get Embeddings

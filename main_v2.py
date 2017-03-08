@@ -55,8 +55,6 @@ class RNNCell(tf.nn.rnn_cell.RNNCell):
         # It's always a good idea to scope variables in functions lest they
         # be defined elsewhere!
         with tf.variable_scope(scope):
-            ### YOUR CODE HERE (~6-10 lines)
-
             ## layer one 
             W_x = tf.get_variable(name = "W_x" + str(self._name_suffix),
                                   shape = (self.input_size, self._state_size),
@@ -72,9 +70,7 @@ class RNNCell(tf.nn.rnn_cell.RNNCell):
                                 dtype = tf.float32,
                                 initializer = tf.constant_initializer(0.0))
 
-
             output = tf.tanh(tf.matmul(inputs, W_x) + tf.matmul(state, W_h) + b)
-            ### END YOUR CODE ###
         return output
 
 #################
@@ -105,7 +101,7 @@ class RNNModel(Model):
                                  shape = (),
                                  name = 'l2Reg')
 
-    def create_feed_dict(self, inputs_batch, labels_batch=None, dropout=1):
+    def create_feed_dict(self, inputs_batch, labels_batch=None, dropout=1, mask_batch, l2_reg):
         '''
         Feed Dictionary
         '''
@@ -113,7 +109,8 @@ class RNNModel(Model):
         feed_dict = {
             self.inputPH: inputs_batch,
             self.maskPH: mask_batch,
-            self.dropoutPH: dropout
+            self.dropoutPH: dropout,
+            self.l2RegPH: l2_reg
         }
 
         # Add labels if not none

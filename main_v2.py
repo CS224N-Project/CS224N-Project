@@ -4,21 +4,25 @@ from tensorflow.contrib import rnn
 from preprocess import readOurData
 from model import Model
 
+from util import print_sentence, write_conll, read_conll
+from data_util import load_and_preprocess_data, load_embeddings, ModelHelper
+from utils.general_utils import Progbar
+from utils.parser_utils import minibatches, load_and_preprocess_data
 ''' 
 Set up classes and functions 
 '''
 class Config(object):
 
-    def __init__(self, train_x, train_y, embeddingDict):
-        self.max_sentence = train_x.shape[1]
-        self.n_class = train_y.shape[1]
-        self.embedding_size = embeddingDict.shape[1]
-        self.drop_out = 0.5
-        self.hidden_size = 200
-        self.batch_size = 32
-        self.epochs = 10
-        self.lr = 0.001
-        self.l2Reg = 1.0e-6
+    drop_out = 0.5
+    hidden_size = 200
+    batch_size = 32
+    epochs = 10
+    lr = 0.001
+    l2Reg = 1.0e-6
+    # built when we construct the model
+    max_sentence = 0
+    n_class = 0
+    embedding_size = 0
 
 ###############
 ### RNN Cell ##
@@ -117,9 +121,6 @@ class RNNModel(Model):
                                  name = 'l2Reg')
 
     def create_feed_dict(self, inputs_batch, mask_batch, labels_batch=None, dropout=1, l2_reg=0):
-        '''
-        Feed Dictionary
-        '''
 
         feed_dict = {
             self.inputPH: inputs_batch,
@@ -261,7 +262,11 @@ class RNNModel(Model):
         self.dev_y = dev_y
         self.dev_mask = dev_mask
         self.pretrained_embeddings = embeddingDictPad
+        # Update our config with data parameters
         self.config = config
+        self.config.max_sentence = train_x_pad.shape[1]
+        self.config.n_class = train_y.shape[1]
+        self.config.embedding_size = embeddingDictPad.shape[1]
         self.build()
 
 

@@ -4,8 +4,8 @@ from tensorflow.contrib import rnn
 from preprocess import readOurData
 from model import Model
 
-from util import print_sentence, write_conll, read_conll
-from data_util import load_and_preprocess_data, load_embeddings, ModelHelper
+# from util import print_sentence, write_conll, read_conll
+from data_util import load_and_preprocess_data
 from utils.general_utils import Progbar
 from utils.parser_utils import minibatches, load_and_preprocess_data
 ''' 
@@ -14,7 +14,7 @@ Set up classes and functions
 class Config(object):
 
     drop_out = 0.5
-    hidden_size = 200
+    hidden_size = 20
     batch_size = 32
     epochs = 10
     lr = 0.001
@@ -103,7 +103,7 @@ class RNNModel(Model):
                                  shape = (self.config.batch_size, self.config.max_sentence),
                                  name = 'input')
         # batchSize X numClasses
-        self.labelsPH = tf.placeholder(dtype = tf.int32,
+        self.labelsPH = tf.placeholder(dtype = tf.float32,
                                   shape = (self.config.batch_size, self.config.n_class),
                                   name = 'labels')
         # mask over sentences not long enough
@@ -140,7 +140,8 @@ class RNNModel(Model):
                            self.config.max_sentence,
                            self.config.embedding_size)
 
-        pretrainEmbeds = tf.Variable(self.pretrained_embeddings)
+        pretrainEmbeds = tf.Variable(self.pretrained_embeddings,
+                                     dtype = tf.float32)
         embeddings = tf.nn.embedding_lookup(pretrainEmbeds, self.inputPH)
         embeddings = tf.reshape(embeddings, shape=embedding_shape)
 
@@ -203,7 +204,7 @@ class RNNModel(Model):
 
     def add_loss_op(self, pred):
         # Compute L2 loss
-        loss = tf.nn.l2_loss(self.labelsPH - preds)
+        loss = tf.nn.l2_loss(self.labelsPH - pred)
         loss = tf.reduce_mean(loss)
 
         # Apply L2 regularization
@@ -269,11 +270,6 @@ class RNNModel(Model):
         self.config.embedding_size = embeddingDictPad.shape[1]
         self.build()
 
-
-
-
-
-
 ''' 
 Creates Batch Data
 '''
@@ -303,7 +299,12 @@ train = '/Users/henryneeb/CS224N-Project/source/rcnn-master/beer/reviews.aspect1
 dev = '/Users/henryneeb/CS224N-Project/source/rcnn-master/beer/reviews.aspect1.small.heldout.txt.gz'
 embedding = '/Users/henryneeb/CS224N-Project/source/rcnn-master/beer/review+wiki.filtered.200.txt.gz'
 
-train_x_pad, train_y, train_mask, dev_x_pad, dev_y, dev_mask,embeddingDictPad = readOurData(train, dev, embedding)
+# train_x_pad, train_y, train_mask, dev_x_pad, dev_y, dev_mask,embeddingDictPad = readOurData(train, dev, embedding)
+
+
+model = RNNModel(Config(), embedding, train, dev)
+
+exit()
 
 '''
 Get Embeddings

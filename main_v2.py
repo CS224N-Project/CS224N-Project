@@ -10,19 +10,31 @@ Set up classes and functions
 class Config(object):
 
     def __init__(self, train_x, train_y, embeddingDict):
+        self.max_sentence = train_x.shape[1]
+        self.n_class = train_y.shape[1]
+        self.embedding_size = embeddingDict.shape[1]
+        self.drop_out = 0.5
+        self.hidden_size = 200
+        self.batch_size = 32
+        self.epochs = 10
+        self.lr = 0.001
+        self.l2Reg = 1.0e-6
 
+    # def _findMaxSent(self, train_x):
+    #     reviewLen = [len(rev) for rev in train_x]
+    #     max_sentence = np.max(reviewLen)
+    #     return max_sentence
 
     # define modelling parameters
-    # 804
-    max_sentence = 915
-    n_class = train_y.shape[1]
-    embedding_size = embeddingDict.shape[1]
-    drop_out = 0.5
-    hidden_size = 200
-    batch_size = 32
-    epochs = 10
-    lr = 0.001
-    l2Reg = 1.0e-6
+    # max_sentence = 915
+    # n_class = self.n_class
+    # embedding_size = embeddingDict.shape[1]
+    # drop_out = 0.5
+    # hidden_size = 200
+    # batch_size = 32
+    # epochs = 10
+    # lr = 0.001
+    # l2Reg = 1.0e-6
 
 
 ###############
@@ -265,9 +277,9 @@ def data_iterator(data, labels, batch_size, sentLen):
 Read in Data
 '''
 
-train = '/Users/stanford/Desktop/Winter2017/CS224n/FinalProject/beer/reviews.aspect1.small.train.txt.gz'
-dev = '/Users/stanford/Desktop/Winter2017/CS224n/FinalProject/beer/reviews.aspect1.small.heldout.txt.gz'
-embedding = '/Users/stanford/Desktop/Winter2017/CS224n/FinalProject/beer/review+wiki.filtered.200.txt.gz'
+train = '/Users/henryneeb/CS224N-Project/source/rcnn-master/beer/reviews.aspect1.small.train.txt.gz'
+dev = '/Users/henryneeb/CS224N-Project/source/rcnn-master/beer/reviews.aspect1.small.heldout.txt.gz'
+embedding = '/Users/henryneeb/CS224N-Project/source/rcnn-master/beer/review+wiki.filtered.200.txt.gz'
 
 
 ## read in data

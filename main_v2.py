@@ -78,6 +78,13 @@ class RNNCell(tf.nn.rnn_cell.RNNCell):
 #################
 
 class RNNModel(Model):
+
+    def _read_data(self, train_path, dev_path, embedding_path):
+        from preprocess import readOurData
+        train_x_pad, train_y, train_mask, dev_x_pad, dev_y, dev_mask, embeddingDictPad = readOurData(
+            train_path, dev_path, embedding_path)
+        return train_x_pad, train_y, train_mask, dev_x_pad, dev_y, dev_mask, embeddingDictPad
+
     def add_placeholders(self):
         # batchSize X sentence X numClasses
         self.inputPH = tf.placeholder(dtype = tf.int32,
@@ -120,15 +127,15 @@ class RNNModel(Model):
         return feed_dict
 
     def add_embedding(self):
-        ''' 
-        NOT YET UPDATED 
-        '''
-
-        ### YOUR CODE HERE
         pretrainEmbeds = tf.Variable(self.pretrained_embeddings)
         embeddings = tf.nn.embedding_lookup(pretrainEmbeds, self.input_placeholder)
         embeddings = tf.reshape(embeddings,[-1, self.config.n_features * self.config.embed_size])
-        ### END YOUR CODE
+
+        embeddings = tf.constant(embeddingDictPad, dtype=tf.float32)
+        embedInput = tf.nn.embedding_lookup(embeddings, inputPH)
+        embedInput = tf.reshape(embedInput,
+                                shape=(
+                                batch_size, max_sentence, embedding_size))
         return embeddings
 
     def add_prediction_op(self):
@@ -226,10 +233,22 @@ class RNNModel(Model):
 
     ## add def eval here
 
-    def __init__(self, config, pretrained_embeddings):
-        self.pretrained_embeddings = pretrained_embeddings
+    def __init__(self, config, embedding_path, train_path, dev_path):
+        train_x_pad, train_y, train_mask, dev_x_pad, dev_y, dev_mask, embeddingDictPad = self._read_data(
+            train_path, dev_path, embedding_path)
+        self.train_x = train_x_pad
+        self.train_y = train_y
+        self.train_mask = train_mask
+        self.dev_x = dev_x_pad
+        self.dev_y = dev_y
+        self.dev_mask = dev_mask
+        self.pretrained_embeddings = embeddingDictPad
         self.config = config
         self.build()
+
+
+
+
 
 
 ''' 

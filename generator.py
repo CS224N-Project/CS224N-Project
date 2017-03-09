@@ -9,11 +9,13 @@ import time
 from data_util import load_and_preprocess_data
 from utils.general_utils import Progbar
 from utils.parser_utils import minibatches, load_and_preprocess_data
-''' 
-Set up classes and functions 
-'''
-class Config(object):
 
+'''
+Set up classes and functions
+'''
+
+
+class Config(object):
     drop_out = 0.5
     hidden_size = 200
     batch_size = 32
@@ -25,6 +27,7 @@ class Config(object):
     n_class = 0
     embedding_size = 0
 
+
 ###############
 ### RNN Cell ##
 ###############
@@ -33,6 +36,7 @@ class RNNCell(tf.nn.rnn_cell.RNNCell):
     """Wrapper around our RNN cell implementation that allows us to play
     nicely with TensorFlow.
     """
+
     def __init__(self, input_size, state_size, name_suffix):
         self.input_size = input_size
         self._state_size = state_size
@@ -60,30 +64,30 @@ class RNNCell(tf.nn.rnn_cell.RNNCell):
         # It's always a good idea to scope variables in functions lest they
         # be defined elsewhere!
         with tf.variable_scope(scope):
-            ## layer one 
-            W_x = tf.get_variable(name = "W_x" + str(self._name_suffix),
-                                  shape = (self.input_size, self._state_size),
-                                  dtype = tf.float32,
-                                  initializer = tf.contrib.layers.xavier_initializer())
+            ## layer one
+            W_x = tf.get_variable(name="W_x" + str(self._name_suffix),
+                                  shape=(self.input_size, self._state_size),
+                                  dtype=tf.float32,
+                                  initializer=tf.contrib.layers.xavier_initializer())
 
-            W_h = tf.get_variable(name = "W_h" + str(self._name_suffix),
-                                  shape = (self._state_size, self._state_size),
-                                  dtype = tf.float32,
-                                  initializer = tf.contrib.layers.xavier_initializer())
-            b = tf.get_variable(name = "b" + str(self._name_suffix),
-                                shape = (self._state_size,),
-                                dtype = tf.float32,
-                                initializer = tf.constant_initializer(0.0))
+            W_h = tf.get_variable(name="W_h" + str(self._name_suffix),
+                                  shape=(self._state_size, self._state_size),
+                                  dtype=tf.float32,
+                                  initializer=tf.contrib.layers.xavier_initializer())
+            b = tf.get_variable(name="b" + str(self._name_suffix),
+                                shape=(self._state_size,),
+                                dtype=tf.float32,
+                                initializer=tf.constant_initializer(0.0))
 
             output = tf.tanh(tf.matmul(inputs, W_x) + tf.matmul(state, W_h) + b)
         return output
+
 
 #################
 ### RNN Model ###
 #################
 
-class RNNModel(Model):
-
+class RNNGenModel(Model):
     def _read_data(self, train_path, dev_path, embedding_path):
         '''
         Helper function to read in our data. Used to construct our RNNModel
@@ -100,28 +104,32 @@ class RNNModel(Model):
 
     def add_placeholders(self):
         # batchSize X sentence X numClasses
-        self.inputPH = tf.placeholder(dtype = tf.int32,
-                                 shape = (self.config.batch_size, self.config.max_sentence),
-                                 name = 'input')
+        self.inputPH = tf.placeholder(dtype=tf.int32,
+                                      shape=(self.config.batch_size,
+                                             self.config.max_sentence),
+                                      name='input')
         # batchSize X numClasses
-        self.labelsPH = tf.placeholder(dtype = tf.float32,
-                                  shape = (self.config.batch_size, self.config.n_class),
-                                  name = 'labels')
+        self.labelsPH = tf.placeholder(dtype=tf.float32,
+                                       shape=(self.config.batch_size,
+                                              self.config.n_class),
+                                       name='labels')
         # mask over sentences not long enough
-        self.maskPH = tf.placeholder(dtype = tf.bool,
-                                shape = (self.config.batch_size, self.config.max_sentence),
-                                name = 'mask')
-        self.dropoutPH = tf.placeholder(dtype = tf.float32,
-                                   shape = (),
-                                   name = 'dropout')
-        self.seqPH = tf.placeholder(dtype = tf.float32,
-                               shape = (self.config.batch_size,),
-                               name = 'sequenceLen')
-        self.l2RegPH = tf.placeholder(dtype = tf.float32,
-                                 shape = (),
-                                 name = 'l2Reg')
+        self.maskPH = tf.placeholder(dtype=tf.bool,
+                                     shape=(self.config.batch_size,
+                                            self.config.max_sentence),
+                                     name='mask')
+        self.dropoutPH = tf.placeholder(dtype=tf.float32,
+                                        shape=(),
+                                        name='dropout')
+        self.seqPH = tf.placeholder(dtype=tf.float32,
+                                    shape=(self.config.batch_size,),
+                                    name='sequenceLen')
+        self.l2RegPH = tf.placeholder(dtype=tf.float32,
+                                      shape=(),
+                                      name='l2Reg')
 
-    def create_feed_dict(self, inputs_batch, mask_batch, labels_batch=None, dropout=1, l2_reg=0):
+    def create_feed_dict(self, inputs_batch, mask_batch, labels_batch=None,
+                         dropout=1, l2_reg=0):
 
         feed_dict = {
             self.inputPH: inputs_batch,
@@ -142,7 +150,7 @@ class RNNModel(Model):
                            self.config.embedding_size)
 
         pretrainEmbeds = tf.Variable(self.pretrained_embeddings,
-                                     dtype = tf.float32)
+                                     dtype=tf.float32)
         embeddings = tf.nn.embedding_lookup(pretrainEmbeds, self.inputPH)
         embeddings = tf.reshape(embeddings, shape=embedding_shape)
 
@@ -153,6 +161,8 @@ class RNNModel(Model):
 
         # get relevent embedding data
         x = self.add_embedding()
+        xDrop = tf.nn.dropout(x, self.dropoutPH)
+        xRev = tf.reverse(xDrop, dims = [False, True, False])
 
         # Extract sizes
         hidden_size = self.config.hidden_size
@@ -162,45 +172,54 @@ class RNNModel(Model):
         embedding_size = self.config.embedding_size
 
         # Define internal RNN Cells
-        cell1 = RNNCell(embedding_size, hidden_size, "cell1")
-        cell2 = RNNCell(hidden_size, hidden_size, "cell2")
+        cell1 = RNNCell(embedding_size, hidden_size, "cell1_gen")
+        cell2 = RNNCell(embedding_size, hidden_size, "cell2_gen")
 
         # Define our prediciton layer variables
-        W = tf.get_variable(name = 'W',
-                            shape = ((2 * hidden_size), n_class),
-                            dtype = tf.float32,
-                            initializer = tf.contrib.layers.xavier_initializer())
+        W = tf.get_variable(name='W_gen',
+                            shape=((2 * hidden_size), n_class),
+                            dtype=tf.float32,
+                            initializer=tf.contrib.layers.xavier_initializer())
 
-        b = tf.get_variable(name = 'b',
-                            shape = (n_class,),
-                            dtype = tf.float32,
-                            initializer = tf.constant_initializer(0.0))
+        b = tf.get_variable(name='b_gen',
+                            shape=(n_class,),
+                            dtype=tf.float32,
+                            initializer=tf.constant_initializer(0.0))
 
         # Initialize our hidden state for each RNN layer
-        h1_Prev = tf.zeros(shape = (batch_size, hidden_size),
-                           dtype = tf.float32)
-        h2_Prev = tf.zeros(shape = (batch_size, hidden_size),
-                           dtype = tf.float32)
+        h1_Prev = tf.zeros(shape=(batch_size, hidden_size),
+                           dtype=tf.float32)
+        h2_Prev = tf.zeros(shape=(batch_size, hidden_size),
+                           dtype=tf.float32)
+
+        h1States = []
+        h2States = []
 
         for time_step in range(max_sentence):
             if time_step > 0:
                 tf.get_variable_scope().reuse_variables()
 
             # First RNN Layer - uses embeddings
-            h1_t = cell1(x[:, time_step, :], h1_Prev)
-            h1_drop_t = tf.nn.dropout(h1_t, keep_prob = self.dropoutPH)
+            h1_t = cell1(xDrop[:, time_step, :], h1_Prev)
+            h1_drop_t = tf.nn.dropout(h1_t, keep_prob=self.dropoutPH)
+            h1States.append(h1_drop_t)
 
             # Second RNN Layer - uses First layer hidden states
-            h2_t = cell2(h1_drop_t, h2_Prev)
-            h2_drop_t = tf.nn.dropout(h2_t, keep_prob = self.dropoutPH)
+            h2_t = cell2(xRev[:, time_step, :], h2_Prev)
+            h2_drop_t = tf.nn.dropout(h2_t, keep_prob=self.dropoutPH)
+            h2States.append(h2_drop_t)
 
             h1_Prev = h1_t
             h2_Prev = h2_t
 
+        # Reverse layer 2
+        h2States = h2States[::-1]
+        allStates = h1States + h2States
 
         # Concatenate last states of first and second layer for prediction layer
-        h_t = tf.concat(concat_dim = 1, values = [h1_drop_t, h2_drop_t])
-        y_t = tf.tanh(tf.matmul(h_t, W) + b)
+        h_t = tf.concat(concat_dim=1, values=allStates)
+        y_t = tf.sigmoid(tf.matmul(h_t, W) + b)
+        # y_t = tf.tanh(tf.matmul(h_t, W) + b)
         # preds.append(y_t)
         return y_t
 
@@ -217,7 +236,7 @@ class RNNModel(Model):
         return loss
 
     def add_training_op(self, loss):
-        opt = tf.train.AdamOptimizer(learning_rate = self.config.lr)
+        opt = tf.train.AdamOptimizer(learning_rate=self.config.lr)
         train_op = opt.minimize(loss)
         return train_op
 
@@ -229,18 +248,18 @@ class RNNModel(Model):
         return se
 
     def evaluate_on_batch(self, sess, inputs_batch, labels_batch, mask_batch):
-        feed = self.create_feed_dict(inputs_batch = inputs_batch,
-                                     mask_batch = mask_batch,
+        feed = self.create_feed_dict(inputs_batch=inputs_batch,
+                                     mask_batch=mask_batch,
                                      labels_batch=labels_batch,
                                      dropout=self.config.drop_out,
                                      l2_reg=self.config.l2Reg)
         se = sess.run(self.eval, feed_dict=feed)
         return se
 
-    ### NO NEED TO UPDATE BELOW 
+    ### NO NEED TO UPDATE BELOW
     def train_on_batch(self, sess, inputs_batch, labels_batch, mask_batch):
-        feed = self.create_feed_dict(inputs_batch = inputs_batch,
-                                     mask_batch = mask_batch,
+        feed = self.create_feed_dict(inputs_batch=inputs_batch,
+                                     mask_batch=mask_batch,
                                      labels_batch=labels_batch,
                                      dropout=self.config.drop_out,
                                      l2_reg=self.config.l2Reg)
@@ -249,8 +268,11 @@ class RNNModel(Model):
 
     def run_epoch(self, sess):
         train_se = 0.0
-        prog = Progbar(target=1 + self.train_x.shape[0] / self.config.batch_size)
-        for i, (train_x, train_y, mask) in enumerate(minibatches(self.train_x, self.train_y, self.train_mask, self.config.batch_size)):
+        prog = Progbar(
+            target=1 + self.train_x.shape[0] / self.config.batch_size)
+        for i, (train_x, train_y, mask) in enumerate(
+                minibatches(self.train_x, self.train_y, self.train_mask,
+                            self.config.batch_size)):
             loss = self.train_on_batch(sess, train_x, train_y, mask)
             train_se += self.evaluate_on_batch(sess, train_x, train_y, mask)
             prog.update(i + 1, [("train loss", loss)])
@@ -264,7 +286,9 @@ class RNNModel(Model):
 
         print "Evaluating on dev set",
         dev_se = 0.0
-        for i, (dev_x, dev_y, dev_mask) in enumerate(minibatches(self.dev_x, self.dev_y, self.dev_mask, self.config.batch_size)):
+        for i, (dev_x, dev_y, dev_mask) in enumerate(
+                minibatches(self.dev_x, self.dev_y, self.dev_mask,
+                            self.config.batch_size)):
             dev_se += self.evaluate_on_batch(sess, dev_x, dev_y, dev_mask)
 
         dev_obs = self.dev_x.shape[0]
@@ -316,6 +340,7 @@ class RNNModel(Model):
         self.config.embedding_size = embeddingDictPad.shape[1]
         self.build()
 
+
 '''
 Evaluate model
 '''
@@ -330,9 +355,10 @@ Evaluate model
 
 
 
-''' 
+'''
 Creates Batch Data
 '''
+
 
 def data_iterator(data, labels, batch_size, sentLen):
     """ A simple data iterator """
@@ -349,7 +375,7 @@ def data_iterator(data, labels, batch_size, sentLen):
             labelsBatch = shuffledLabels[idx:idx + batch_size]
             seqLenBatch = shuffledSentLen[idx:idx + batch_size]
             yield dataBatch, labelsBatch, seqLenBatch
-            
+
 
 '''
 Read in Data
@@ -388,8 +414,10 @@ Batch our Data
 ##################
 
 '''
-TODO: Fill this in. 
+TODO: Fill this in.
 '''
+
+
 # output2Rev = tf.reverse(output2, axis = 1)
 # hFinal = tf.concat(concat_dim = 0, values = [output1, output2Rev])
 
@@ -399,7 +427,7 @@ def main(debug=False):
     print "INITIALIZING"
     print 80 * "="
     config = Config()
-    ## this is where we add our own data 
+    ## this is where we add our own data
     # parser, embeddings, train_examples, dev_set, test_set = load_and_preprocess_data(debug)
     # if not os.path.exists('./data/weights/'):
     #     os.makedirs('./data/weights/')
@@ -407,7 +435,7 @@ def main(debug=False):
     with tf.Graph().as_default():
         print "Building model...",
         start = time.time()
-        ## this is where we add our model class name 
+        ## this is where we add our model class name
         ## config is also a class name
         model = RNNModel(config, embedding, train, dev)
         # rnn.model = model
@@ -452,6 +480,7 @@ def main(debug=False):
             #     with open('q2_test.predicted.pkl', 'w') as f:
             #         cPickle.dump(dependencies, f, -1)
             #     print "Done!"
+
 
 if __name__ == '__main__':
     main()

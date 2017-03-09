@@ -3,7 +3,7 @@ import time
 import numpy as np
 
 
-def get_minibatches(data, minibatch_size, shuffle=True):
+def get_minibatches(dataX, dataY, mask, minibatch_size, shuffle=True):
     """
     Iterates through the provided data one minibatch at at time. You can use this function to
     iterate through data in minibatches as follows:
@@ -30,15 +30,17 @@ def get_minibatches(data, minibatch_size, shuffle=True):
               (e.g., features and labels) at the same time.
 
     """
-    list_data = type(data) is list and (type(data[0]) is list or type(data[0]) is np.ndarray)
-    data_size = len(data[0]) if list_data else len(data)
+    # list_data = type(data) is list and (type(data[0]) is list or type(data[0]) is np.ndarray)
+    # data_size = len(data[0]) if list_data else len(data)
+    data_size = dataX.shape[0]
     indices = np.arange(data_size)
     if shuffle:
         np.random.shuffle(indices)
     for minibatch_start in np.arange(0, data_size, minibatch_size):
         minibatch_indices = indices[minibatch_start:minibatch_start + minibatch_size]
-        yield [minibatch(d, minibatch_indices) for d in data] if list_data \
-            else minibatch(data, minibatch_indices)
+        yield [dataX[minibatch_indices], dataY[minibatch_indices], mask[minibatch_indices]]
+        # yield [minibatch(d, minibatch_indices) for d in data] if list_data \
+        #     else minibatch(data, minibatch_indices)
 
 
 def minibatch(data, minibatch_idx):

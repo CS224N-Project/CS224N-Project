@@ -103,8 +103,12 @@ class Model(object):
         predictions = sess.run(self.pred, feed_dict=feed)
         return predictions
 
+    def evaluate(self, pred):
+        raise NotImplementedError("Each Model must re-implement this method.")
+
     def build(self):
         self.add_placeholders()
         self.pred = self.add_prediction_op()
         self.loss = self.add_loss_op(self.pred)
         self.train_op = self.add_training_op(self.loss)
+        self.eval = self.evaluate(self.pred)

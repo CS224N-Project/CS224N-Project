@@ -325,7 +325,8 @@ class RNNModel(Model):
         self.pretrained_embeddings = embeddingDictPad
         # Update our config with data parameters
         self.config = config
-        self.config.max_sentence = train_x_pad.shape[1]
+        self.config.max_sentence = max(train_x_pad.shape[1], dev_x_pad.shape[1])
+        # self.config.max_sentence = train_x_pad.shape[1]
         self.config.n_class = train_y.shape[1]
         self.config.embedding_size = embeddingDictPad.shape[1]
         self.build()

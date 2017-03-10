@@ -254,6 +254,9 @@ git clean -f -d
 git pull
 
 
+============
+sudo reptyr -T 6674
+
 
 
 

@@ -17,7 +17,7 @@ class Config(object):
     drop_out = 0.5
     hidden_size = 200
     batch_size = 32
-    epochs = 2
+    epochs = 10
     lr = 0.001
     l2Reg = 1.0e-6
     # built when we construct the model
@@ -101,22 +101,34 @@ class RNNModel(Model):
     def add_placeholders(self):
         # batchSize X sentence X numClasses
         self.inputPH = tf.placeholder(dtype = tf.int32,
-                                 shape = (self.config.batch_size, self.config.max_sentence),
+                                 shape = (None, self.config.max_sentence),
                                  name = 'input')
         # batchSize X numClasses
         self.labelsPH = tf.placeholder(dtype = tf.float32,
-                                  shape = (self.config.batch_size, self.config.n_class),
+                                  shape = (None, self.config.n_class),
                                   name = 'labels')
         # mask over sentences not long enough
         self.maskPH = tf.placeholder(dtype = tf.bool,
-                                shape = (self.config.batch_size, self.config.max_sentence),
+                                shape = (None, self.config.max_sentence),
                                 name = 'mask')
+        # # batchSize X sentence X numClasses
+        # self.inputPH = tf.placeholder(dtype = tf.int32,
+        #                          shape = (self.config.batch_size, self.config.max_sentence),
+        #                          name = 'input')
+        # # batchSize X numClasses
+        # self.labelsPH = tf.placeholder(dtype = tf.float32,
+        #                           shape = (self.config.batch_size, self.config.n_class),
+        #                           name = 'labels')
+        # # mask over sentences not long enough
+        # self.maskPH = tf.placeholder(dtype = tf.bool,
+        #                         shape = (self.config.batch_size, self.config.max_sentence),
+        #                         name = 'mask')
         self.dropoutPH = tf.placeholder(dtype = tf.float32,
                                    shape = (),
                                    name = 'dropout')
-        self.seqPH = tf.placeholder(dtype = tf.float32,
-                               shape = (self.config.batch_size,),
-                               name = 'sequenceLen')
+        # self.seqPH = tf.placeholder(dtype = tf.float32,
+        #                        shape = (self.config.batch_size,),
+        #                        name = 'sequenceLen')
         self.l2RegPH = tf.placeholder(dtype = tf.float32,
                                  shape = (),
                                  name = 'l2Reg')
@@ -137,9 +149,12 @@ class RNNModel(Model):
         return feed_dict
 
     def add_embedding(self):
-        embedding_shape = (self.config.batch_size,
+        embedding_shape = (-1,
                            self.config.max_sentence,
                            self.config.embedding_size)
+        # embedding_shape = (self.config.batch_size,
+        #                    self.config.max_sentence,
+        #                    self.config.embedding_size)
 
         pretrainEmbeds = tf.Variable(self.pretrained_embeddings,
                                      dtype = tf.float32)
@@ -153,6 +168,7 @@ class RNNModel(Model):
 
         # get relevent embedding data
         x = self.add_embedding()
+        currBatch = tf.shape(x)[0]
 
         # Extract sizes
         hidden_size = self.config.hidden_size
@@ -177,9 +193,9 @@ class RNNModel(Model):
                             initializer = tf.constant_initializer(0.0))
 
         # Initialize our hidden state for each RNN layer
-        h1_Prev = tf.zeros(shape = (batch_size, hidden_size),
+        h1_Prev = tf.zeros(shape = (currBatch, hidden_size),
                            dtype = tf.float32)
-        h2_Prev = tf.zeros(shape = (batch_size, hidden_size),
+        h2_Prev = tf.zeros(shape = (currBatch, hidden_size),
                            dtype = tf.float32)
 
         for time_step in range(max_sentence):
@@ -259,8 +275,6 @@ class RNNModel(Model):
         train_mse = train_se / train_obs
 
         print 'Training MSE is {0}'.format(train_mse)
-
-        exit()
 
         print "Evaluating on dev set",
         dev_se = 0.0

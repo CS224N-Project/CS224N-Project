@@ -221,11 +221,8 @@ wget http://people.csail.mit.edu/taolei/beer/reviews.aspect3.train.txt.gz
 wget http://people.csail.mit.edu/taolei/beer/select.py
 
 
-scp main.py neuron@157.55.175.52:
-scp preprocess.py neuron@157.55.175.52:
-
-scp reviews.aspect1.small.heldout.txt.gz neuron@157.55.175.52:~/beer/
-scp reviews.aspect1.small.train.txt.gz neuron@157.55.175.52:~/beer/
+scp reviews.aspect1.small.heldout.txt.gz neuron@23.96.231.108:~/beer/
+scp reviews.aspect1.small.train.txt.gz neuron@23.96.231.108:~/beer/
 
 
 http://nlp.stanford.edu/projects/glove/
@@ -239,8 +236,22 @@ NOTE: for common crawl .zip use "tar -xvf <filename>" to extract
 /Users/stanford/Desktop/Winter2017/CS224n/FinalProject/beer
 
 
+git@github.com:CS224N-Project/CS224N-Project.git
+
+git clone https://username@github.com/username/repository.git
+
+git clone https://kshaw1@github.com/CS224N-Project/CS224N-Project.git
 
 
+============
+TO RESET to latest from github (deletes all local changes!)
+
+git reset --hard HEAD
+git pull
+
+git reset --hard HEAD
+git clean -f -d
+git pull
 
 
 

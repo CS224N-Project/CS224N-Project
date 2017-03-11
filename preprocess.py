@@ -233,7 +233,7 @@ def padData(data, embeddingDict):
 
     # Find the max sentence length
     # maxLength = np.max(map(len, data))
-    maxLength = 915
+    maxLength = 1145
 
     # Get the length of each sentence
     sentLen = np.array(map(len, data), dtype=np.int32)

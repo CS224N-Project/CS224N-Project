@@ -304,7 +304,7 @@ class RNNModel(Model):
     #     return dev_UAS
 
     def fit(self, sess, saver):
-        best_dev_mse = 0
+        best_dev_mse = np.inf
         for epoch in range(self.config.epochs):
             print "Epoch {:} out of {:}".format(epoch + 1, self.config.epochs)
             dev_mse = self.run_epoch(sess)

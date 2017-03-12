@@ -9,83 +9,12 @@ import time
 from data_util import load_and_preprocess_data
 from utils.general_utils import Progbar
 from utils.parser_utils import minibatches, load_and_preprocess_data
+from rnncell import RNNCell
+from config import Config
 
 '''
 Set up classes and functions
 '''
-
-
-class Config(object):
-    drop_out = 0.5
-    hidden_size = 200
-    batch_size = 32
-    epochs = 2
-    lr = 0.001
-    l2Reg = 1.0e-6
-    # built when we construct the model
-    max_sentence = 0
-    n_class = 0
-    embedding_size = 0
-
-
-###############
-### RNN Cell ##
-###############
-
-class RNNCell(tf.nn.rnn_cell.RNNCell):
-    """Wrapper around our RNN cell implementation that allows us to play
-    nicely with TensorFlow.
-    """
-
-    def __init__(self, input_size, state_size, name_suffix):
-        self.input_size = input_size
-        self._state_size = state_size
-        self._name_suffix = name_suffix
-
-    @property
-    def state_size(self):
-        return self._state_size
-
-    @property
-    def output_size(self):
-        return self._state_size
-
-    def __call__(self, inputs, state, scope=None):
-        """Updates the state using the previous @state and @inputs.
-        Args:
-            inputs: is the input vector of size [None, self.input_size]
-            state: is the previous state vector of size [None, self.state_size]
-            scope: is the name of the scope to be used when defining the variables inside.
-        Returns:
-            a pair of the output vector and the new state vector.
-        """
-        scope = scope or type(self).__name__
-
-        # It's always a good idea to scope variables in functions lest they
-        # be defined elsewhere!
-        with tf.variable_scope(scope):
-            ## layer one
-            W_x = tf.get_variable(name="W_x" + str(self._name_suffix),
-                                  shape=(self.input_size, self._state_size),
-                                  dtype=tf.float32,
-                                  initializer=tf.contrib.layers.xavier_initializer())
-
-            W_h = tf.get_variable(name="W_h" + str(self._name_suffix),
-                                  shape=(self._state_size, self._state_size),
-                                  dtype=tf.float32,
-                                  initializer=tf.contrib.layers.xavier_initializer())
-            b = tf.get_variable(name="b" + str(self._name_suffix),
-                                shape=(self._state_size,),
-                                dtype=tf.float32,
-                                initializer=tf.constant_initializer(0.0))
-
-            output = tf.tanh(tf.matmul(inputs, W_x) + tf.matmul(state, W_h) + b)
-        return output
-
-
-#################
-### RNN Model ###
-#################
 
 class RNNGenModel(Model):
     def _read_data(self, train_path, dev_path, embedding_path):
@@ -105,25 +34,25 @@ class RNNGenModel(Model):
     def add_placeholders(self):
         # batchSize X sentence X numClasses
         self.inputPH = tf.placeholder(dtype=tf.int32,
-                                      shape=(self.config.batch_size,
+                                      shape=(None,
                                              self.config.max_sentence),
                                       name='input')
         # batchSize X numClasses
         self.labelsPH = tf.placeholder(dtype=tf.float32,
-                                       shape=(self.config.batch_size,
+                                       shape=(None,
                                               self.config.n_class),
                                        name='labels')
         # mask over sentences not long enough
         self.maskPH = tf.placeholder(dtype=tf.bool,
-                                     shape=(self.config.batch_size,
+                                     shape=(None,
                                             self.config.max_sentence),
                                      name='mask')
         self.dropoutPH = tf.placeholder(dtype=tf.float32,
                                         shape=(),
                                         name='dropout')
-        self.seqPH = tf.placeholder(dtype=tf.float32,
-                                    shape=(self.config.batch_size,),
-                                    name='sequenceLen')
+        # self.seqPH = tf.placeholder(dtype=tf.float32,
+        #                             shape=(self.config.batch_size,),
+        #                             name='sequenceLen')
         self.l2RegPH = tf.placeholder(dtype=tf.float32,
                                       shape=(),
                                       name='l2Reg')
@@ -145,7 +74,7 @@ class RNNGenModel(Model):
         return feed_dict
 
     def add_embedding(self):
-        embedding_shape = (self.config.batch_size,
+        embedding_shape = (-1,
                            self.config.max_sentence,
                            self.config.embedding_size)
 
@@ -157,12 +86,13 @@ class RNNGenModel(Model):
         return embeddings
 
     def add_prediction_op(self):
-        # preds = [] # predicted output at each timestep
 
         # get relevent embedding data
         x = self.add_embedding()
+        currBatch = tf.shape(x)[0]
         xDrop = tf.nn.dropout(x, self.dropoutPH)
         xRev = tf.reverse(xDrop, dims = [False, True, False])
+        # embeds = tf.concat(concat_dim=1, values = [xDrop, xRev])
 
         # Extract sizes
         hidden_size = self.config.hidden_size
@@ -172,24 +102,40 @@ class RNNGenModel(Model):
         embedding_size = self.config.embedding_size
 
         # Define internal RNN Cells
-        cell1 = RNNCell(embedding_size, hidden_size, "cell1_gen")
-        cell2 = RNNCell(embedding_size, hidden_size, "cell2_gen")
+        genCell1 = tf.nn.rnn_cell.BasicRNNCell(num_units = hidden_size,
+                                               input_size = embedding_size,
+                                               activation = tf.tanh)
+        genCell2 = tf.nn.rnn_cell.BasicRNNCell(num_units = hidden_size,
+                                               input_size = embedding_size,
+                                               activation = tf.tanh)
+        genCell1Drop = tf.nn.rnn_cell.DropoutWrapper(genCell1,
+                                                     output_keep_prob=self.dropoutPH)
+        genCell2Drop = tf.nn.rnn_cell.DropoutWrapper(genCell2,
+                                                     output_keep_prob=self.dropoutPH)
+        tf.nn.bidirectional_dynamic_rnn(cell_fw = genCell1Drop,
+                                        cell_bw = genCell2Drop,
+                                        inputs = self.inputPH,
+                                        initial_state_fw=)
+
+
+        # cell1 = RNNCell(embedding_size * 2, hidden_size, "cell1_gen")
+        # cell2 = RNNCell(hidden_size, hidden_size, "cell2_gen")
 
         # Define our prediciton layer variables
         W = tf.get_variable(name='W_gen',
-                            shape=((2 * hidden_size), n_class),
+                            shape=((2 * hidden_size), tf.shape(x)[1]),
                             dtype=tf.float32,
                             initializer=tf.contrib.layers.xavier_initializer())
 
         b = tf.get_variable(name='b_gen',
-                            shape=(n_class,),
+                            shape=(tf.shape(x)[1],),
                             dtype=tf.float32,
                             initializer=tf.constant_initializer(0.0))
 
         # Initialize our hidden state for each RNN layer
-        h1_Prev = tf.zeros(shape=(batch_size, hidden_size),
+        h1_Prev = tf.zeros(shape=(currBatch, hidden_size),
                            dtype=tf.float32)
-        h2_Prev = tf.zeros(shape=(batch_size, hidden_size),
+        h2_Prev = tf.zeros(shape=(currBatch, hidden_size),
                            dtype=tf.float32)
 
         h1States = []
@@ -233,7 +179,15 @@ class RNNGenModel(Model):
         regularization = tf.reduce_sum(reg_by_var)
 
         loss = (10.0 * L2loss) + (self.l2RegPH * regularization)
-        return loss
+
+        gen_reg_by_var = [tf.nn.l2_loss(v) for v in tf.trainable_varaibles()]
+        gen_regularization = tf.reduce_sum(reg_by_var)
+
+        encoderLoss = self.encoder.loss
+
+        totalLoss = encoderLoss
+
+        return totalLoss
 
     def add_training_op(self, loss):
         opt = tf.train.AdamOptimizer(learning_rate=self.config.lr)
@@ -323,22 +277,40 @@ class RNNGenModel(Model):
 
     ## add def eval here
 
-    def __init__(self, config, embedding_path, train_path, dev_path):
-        train_x_pad, train_y, train_mask, dev_x_pad, dev_y, dev_mask, embeddingDictPad = self._read_data(
-            train_path, dev_path, embedding_path)
-        self.train_x = train_x_pad
-        self.train_y = train_y
-        self.train_mask = train_mask
-        self.dev_x = dev_x_pad
-        self.dev_y = dev_y
-        self.dev_mask = dev_mask
-        self.pretrained_embeddings = embeddingDictPad
+    def __init__(self, encoder):
+        self.train_x = encoder.train_x
+        self.train_y = encoder.train_y
+        self.train_mask = encoder.train_mask
+        self.dev_x = encoder.dev_x
+        self.dev_y = encoder.dev_y
+        self.dev_mask = encoder.dev_mask
+        self.pretrained_embeddings = encoder.pretrained_embeddings
         # Update our config with data parameters
-        self.config = config
-        self.config.max_sentence = train_x_pad.shape[1]
-        self.config.n_class = train_y.shape[1]
-        self.config.embedding_size = embeddingDictPad.shape[1]
+        self.config = encoder.config
+        self.config.max_sentence = encoder.config.max_sentence
+        self.config.n_class = encoder.config.n_class
+        self.config.embedding_size = encoder.config.embedding_size
+        self.encoder = encoder
         self.build()
+
+
+
+    # def __init__(self, config, embedding_path, train_path, dev_path):
+    #     train_x_pad, train_y, train_mask, dev_x_pad, dev_y, dev_mask, embeddingDictPad = self._read_data(
+    #         train_path, dev_path, embedding_path)
+    #     self.train_x = train_x_pad
+    #     self.train_y = train_y
+    #     self.train_mask = train_mask
+    #     self.dev_x = dev_x_pad
+    #     self.dev_y = dev_y
+    #     self.dev_mask = dev_mask
+    #     self.pretrained_embeddings = embeddingDictPad
+    #     # Update our config with data parameters
+    #     self.config = config
+    #     self.config.max_sentence = train_x_pad.shape[1]
+    #     self.config.n_class = train_y.shape[1]
+    #     self.config.embedding_size = embeddingDictPad.shape[1]
+    #     self.build()
 
 
 '''
@@ -359,22 +331,22 @@ Evaluate model
 Creates Batch Data
 '''
 
-
-def data_iterator(data, labels, batch_size, sentLen):
-    """ A simple data iterator """
-    numObs = data.shape[0]
-    while True:
-        # shuffle labels and features
-        idxs = np.arange(0, numObs)
-        np.random.shuffle(idxs)
-        shuffledData = data[idxs]
-        shuffledLabels = labels[idxs]
-        shuffledSentLen = sentLen[idxs]
-        for idx in range(0, numObs, batch_size):
-            dataBatch = shuffledData[idx:idx + batch_size]
-            labelsBatch = shuffledLabels[idx:idx + batch_size]
-            seqLenBatch = shuffledSentLen[idx:idx + batch_size]
-            yield dataBatch, labelsBatch, seqLenBatch
+#
+# def data_iterator(data, labels, batch_size, sentLen):
+#     """ A simple data iterator """
+#     numObs = data.shape[0]
+#     while True:
+#         # shuffle labels and features
+#         idxs = np.arange(0, numObs)
+#         np.random.shuffle(idxs)
+#         shuffledData = data[idxs]
+#         shuffledLabels = labels[idxs]
+#         shuffledSentLen = sentLen[idxs]
+#         for idx in range(0, numObs, batch_size):
+#             dataBatch = shuffledData[idx:idx + batch_size]
+#             labelsBatch = shuffledLabels[idx:idx + batch_size]
+#             seqLenBatch = shuffledSentLen[idx:idx + batch_size]
+#             yield dataBatch, labelsBatch, seqLenBatch
 
 
 '''
@@ -484,4 +456,3 @@ def main(debug=False):
 
 if __name__ == '__main__':
     main()
-

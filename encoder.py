@@ -111,12 +111,13 @@ class RNNModel(Model):
         cell2 = tf.nn.rnn_cell.BasicRNNCell(hidden_size, activation = tf.tanh)
 
         cell1_drop = tf.nn.rnn_cell.DropoutWrapper(cell1, output_keep_prob=self.dropoutPH)
-        cell_multi = tf.nn.rnn_cell.MultiRNNCell([cell1_drop, cell2])
+        cell2_drop = tf.nn.rnn_cell.DropoutWrapper(cell2, output_keep_prob=self.dropoutPh)
+        cell_multi = tf.nn.rnn_cell.MultiRNNCell([cell1_drop, cell2_drop])
         result = tf.nn.dynamic_rnn(cell_multi, x, dtype = tf.float32, sequence_length = self.seqPH)
         h_t = tf.concat(concat_dim = 1, values = [result[1][0], result[1][1]])
 
         y_t = tf.tanh(tf.matmul(h_t, W) + b)
-        # preds.append(y_t)
+
         return y_t
 
     def add_loss_op(self, pred):

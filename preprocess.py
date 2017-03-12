@@ -254,7 +254,7 @@ def padData(data, embeddingDict):
     # create mask for data
     mask = (dataPad != maskId)
 
-    return dataPad, embeddingDictPad, mask
+    return dataPad, embeddingDictPad, mask, sentLen
 
 def readOurData(trainPath, devPath, embeddingPath):
     '''
@@ -282,7 +282,7 @@ def readOurData(trainPath, devPath, embeddingPath):
     dev_x = [embedding_layer.map_to_ids(x)[:max_dev] for x in dev_x]
 
     # pad trainging and devlopment data
-    train_x_pad, embedding_pad, train_mask = padData(train_x, embeddingDict)
-    dev_x_pad, _, dev_mask = padData(dev_x, embeddingDict)
+    train_x_pad, embedding_pad, train_mask, train_sentLen = padData(train_x, embeddingDict)
+    dev_x_pad, _, dev_mask, dev_sentLen = padData(dev_x, embeddingDict)
 
-    return train_x_pad, train_y, train_mask, dev_x_pad, dev_y, dev_mask, embedding_pad
+    return train_x_pad, train_y, train_mask, train_sentLen, dev_x_pad, dev_y, dev_mask, dev_sentLen, embedding_pad

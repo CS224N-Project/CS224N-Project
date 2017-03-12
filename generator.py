@@ -129,7 +129,7 @@ class RNNGenModel(Model):
         multiFwd = tf.nn.rnn_cell.MultiRNNCell([genC1L1Drop, genC1L2Drop])
         multiBwd = tf.nn.rnn_cell.MultiRNNCell([genC2L1Drop, genC2L2Drop])
 
-        # Set initla states
+        # Set inital states
         fwdInitState = multiFwd.zero_state(batch_size = currBatch,
                                            dtype = tf.float32)
         bwdInitState = multiBwd.zero_state(batch_size = currBatch,
@@ -156,9 +156,23 @@ class RNNGenModel(Model):
                             dtype=tf.float32,
                             initializer=tf.constant_initializer(0.0))
 
+        # zLayer probabilities - each prob is prob of keeping word in review
         zProbs = tf.sigmoid(tf.matmul(finalStates, W) + b)
 
-        return zProbs
+        # zPreds
+        ones = tf.ones(shape = zProbs.get_shape(), dtype = tf.float32)
+        zeros = tf.zeros(shape = zProbs.get_shape(), dtype = tf.float32)
+        uniform = tf.random_uniform([0, 1]) < zProbs
+        zPreds = tf.select(uniform, ones, zeros)
+
+        
+
+        return zPreds
+
+    def add_zPreds(self, zProbs):
+
+
+
 
     def add_loss_op(self, pred):
         # Compute L2 loss

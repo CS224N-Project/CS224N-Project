@@ -16,7 +16,7 @@ from config import Config
 ### RNN Model ###
 #################
 
-class RNNModel(Model):
+class encoderGen(Model):
 
     def _read_data(self, train_path, dev_path, embedding_path):
         '''
@@ -82,11 +82,9 @@ class RNNModel(Model):
 
         return embeddings
 
-    def add_prediction_op(self):
+    def add_prediction_op(self, data):
 
-        # get relevent embedding data
-        x = self.add_embedding()
-        currBatch = tf.shape(x)[0]
+        currBatch = tf.shape(data)[0]
 
         # Extract sizes
         hidden_size = self.config.hidden_size
@@ -96,9 +94,15 @@ class RNNModel(Model):
         embedding_size = self.config.embedding_size
 
         # Define internal RNN Cells
+        cell1 = tf.nn.rnn_cell.BasicRNNCell(num_units = hidden_size,
+                                             input_size = embedding_size,
+                                             activation = tf.tanh)
+        cell2 = tf.nn.rnn_cell.BasicRNNCell(num_units = hidden_size,
+                                            input_size = hidden_size,
+                                            activation = tf.tanh)
 
-        cell1 = RNNCell(embedding_size, hidden_size, "cell1")
-        cell2 = RNNCell(hidden_size, hidden_size, "cell2")
+        # cell1 = RNNCell(embedding_size, hidden_size, "cell1")
+        # cell2 = RNNCell(hidden_size, hidden_size, "cell2")
 
         # Define our prediciton layer variables
         W = tf.get_variable(name = 'W',
@@ -111,37 +115,14 @@ class RNNModel(Model):
                             dtype = tf.float32,
                             initializer = tf.constant_initializer(0.0))
 
-        # # Initialize our hidden state for each RNN layer
-        # h1_Prev = tf.zeros(shape = (currBatch, hidden_size),
-        #                    dtype = tf.float32)
-        # h2_Prev = tf.zeros(shape = (currBatch, hidden_size),
-        #                    dtype = tf.float32)
-
         cell1_drop = tf.nn.rnn_cell.DropoutWrapper(cell1, output_keep_prob=self.dropoutPH)
-        cell_multi = tf.nn.rnn_cell.MultiRNNCell([cell1_drop, cell2])
-        result = tf.nn.dynamic_rnn(cell_multi, x, dtype = tf.float32)
+        cell2_drop = tf.nn.rnn_cell.DropoutWrapper(cell2, output_keep_prob=self.dropoutPH)
+        cell_multi = tf.nn.rnn_cell.MultiRNNCell([cell1_drop, cell2_drop])
+        result = tf.nn.dynamic_rnn(cell_multi, data, dtype = tf.float32)
         h_t = tf.concat(concat_dim = 1, values = [result[1][0], result[1][1]])
 
-        # for time_step in range(max_sentence):
-        #     if time_step > 0:
-        #         tf.get_variable_scope().reuse_variables()
-
-        #     # First RNN Layer - uses embeddings
-        #     h1_t = cell1(x[:, time_step, :], h1_Prev)
-        #     h1_drop_t = tf.nn.dropout(h1_t, keep_prob = self.dropoutPH)
-
-        #     # Second RNN Layer - uses First layer hidden states
-        #     h2_t = cell2(h1_drop_t, h2_Prev)
-        #     h2_drop_t = tf.nn.dropout(h2_t, keep_prob = self.dropoutPH)
-
-        #     h1_Prev = h1_t
-        #     h2_Prev = h2_t
-
-
-        # # Concatenate last states of first and second layer for prediction layer
-        # h_t = tf.concat(concat_dim = 1, values = [h1_drop_t, h2_drop_t])
         y_t = tf.tanh(tf.matmul(h_t, W) + b)
-        # preds.append(y_t)
+
         return y_t
 
     def add_loss_op(self, pred):

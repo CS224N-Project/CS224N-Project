@@ -102,35 +102,47 @@ class RNNGenModel(Model):
         embedding_size = self.config.embedding_size
 
         # Define internal RNN Cells
-        genCell1 = tf.nn.rnn_cell.BasicRNNCell(num_units = hidden_size,
-                                               input_size = embedding_size,
-                                               activation = tf.tanh)
-        genCell2 = tf.nn.rnn_cell.BasicRNNCell(num_units = hidden_size,
-                                               input_size = embedding_size,
-                                               activation = tf.tanh)
+        genCell1Layer1 = tf.nn.rnn_cell.BasicRNNCell(num_units = hidden_size,
+                                                     input_size = embedding_size,
+                                                     activation = tf.tanh)
+        genCell2Layer1 = tf.nn.rnn_cell.BasicRNNCell(num_units = hidden_size,
+                                                     input_size = embedding_size,
+                                                     activation = tf.tanh)
+        genCell1Layer2 = tf.nn.rnn_cell.BasicRNNCell(num_units = hidden_size,
+                                                     input_size = hidden_size,
+                                                     activation = tf.tanh)
+        genCell2Layer2 = tf.nn.rnn_cell.BasicRNNCell(num_units = hidden_size,
+                                                     input_size = hidden_size,
+                                                     activation = tf.tanh)
 
         # Apply dropout to each cell
-        genCell1Drop = tf.nn.rnn_cell.DropoutWrapper(genCell1,
-                                                     output_keep_prob=self.dropoutPH)
-        genCell2Drop = tf.nn.rnn_cell.DropoutWrapper(genCell2,
-                                                     output_keep_prob=self.dropoutPH)
+        genC1L1Drop = tf.nn.rnn_cell.DropoutWrapper(genCell1Layer1,
+                                                    output_keep_prob=self.dropoutPH)
+        genC2L1Drop = tf.nn.rnn_cell.DropoutWrapper(genCell2Layer1,
+                                                    output_keep_prob=self.dropoutPH)
+        genC1L2Drop = tf.nn.rnn_cell.DropoutWrapper(genCell1Layer2,
+                                                    output_keep_prob=self.dropoutPH)
+        genC2L2Drop = tf.nn.rnn_cell.DropoutWrapper(genCell2Layer2,
+                                                    output_keep_prob=self.dropoutPH)
+
+        # Stack each for multi Cell
+        multiFwd = tf.nn.rnn_cell.MultiRNNCell([genC1L1Drop, genC1L2Drop])
+        multiBwd = tf.nn.rnn_cell.MultiRNNCell([genC2L1Drop, genC2L2Drop])
 
         # Set initla states
-        genInit1Drop = genCell1Drop.zero_state(batch_size = currBatch,
-                                               dtype = tf.float32)
-        genInit2Drop = genCell2Drop.zero_state(batch_size = currBatch,
-                                               dtype = tf.float32)
+        fwdInitState = multiFwd.zero_state(batch_size = currBatch,
+                                           dtype = tf.float32)
+        bwdInitState = multiBwd.zero_state(batch_size = currBatch,
+                                           dtype = tf.float32)
 
-        _, states = tf.nn.bidirectional_dynamic_rnn(cell_fw = genCell1Drop,
-                                                    cell_bw = genCell2Drop,
+        _, states = tf.nn.bidirectional_dynamic_rnn(cell_fw = multiFwd,
+                                                    cell_bw = multiBwd,
                                                     inputs = self.inputPH,
-                                                    initial_state_fw = genInit1Drop,
-                                                    initial_state_bw = genInit2Drop,
+                                                    initial_state_fw = fwdInitState,
+                                                    initial_state_bw = bwdInitState,
                                                     dtype = tf.float32)
 
-
-        # cell1 = RNNCell(embedding_size * 2, hidden_size, "cell1_gen")
-        # cell2 = RNNCell(hidden_size, hidden_size, "cell2_gen")
+        finalStates = tf.concat(states)
 
         # Define our prediciton layer variables
         W = tf.get_variable(name='W_gen',

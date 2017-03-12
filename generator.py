@@ -35,9 +35,9 @@ class RNNGeneratorModel(object):
         embedding dictionaries
         '''
         from preprocess import readOurData
-        train_x_pad, train_y, train_mask, dev_x_pad, dev_y, dev_mask, embeddingDictPad = readOurData(
+        train_x_pad, train_y, train_mask, train_sentLen, dev_x_pad, dev_y, dev_mask, dev_sentLen, embeddingDictPad = readOurData(
             train_path, dev_path, embedding_path)
-        return train_x_pad, train_y, train_mask, dev_x_pad, dev_y, dev_mask, embeddingDictPad
+        return train_x_pad, train_y, train_mask, train_sentLen, dev_x_pad, dev_y, dev_mask, dev_sentLen, embeddingDictPad
 
     def add_placeholders(self):
         # batchSize X sentence X numClasses
@@ -135,22 +135,22 @@ class RNNGeneratorModel(object):
                                                     output_keep_prob=self.dropoutPH)
 
         # Stack each for multi Cell
-        # multiFwd = tf.nn.rnn_cell.MultiRNNCell([genC1L1Drop, genC1L2Drop])
-        # multiBwd = tf.nn.rnn_cell.MultiRNNCell([genC2L1Drop, genC2L2Drop])
+        multiFwd = tf.nn.rnn_cell.MultiRNNCell([genC1L1Drop, genC1L2Drop])
+        multiBwd = tf.nn.rnn_cell.MultiRNNCell([genC2L1Drop, genC2L2Drop])
 
         # Set inital states
-        fwdInitState = genC1L1Drop.zero_state(batch_size = currBatch,
-                                           dtype = tf.float32)
-        bwdInitState = genC2L1Drop.zero_state(batch_size = currBatch,
-                                           dtype = tf.float32)
-
-        # fwdInitState = multiFwd.zero_state(batch_size = currBatch,
+        # fwdInitState = genC1L1Drop.zero_state(batch_size = currBatch,
         #                                    dtype = tf.float32)
-        # bwdInitState = multiBwd.zero_state(batch_size = currBatch,
+        # bwdInitState = genC2L1Drop.zero_state(batch_size = currBatch,
         #                                    dtype = tf.float32)
 
-        _, states = tf.nn.bidirectional_dynamic_rnn(cell_fw = genC1L1Drop,
-                                                    cell_bw = genC2L1Drop,
+        fwdInitState = multiFwd.zero_state(batch_size = currBatch,
+                                           dtype = tf.float32)
+        bwdInitState = multiBwd.zero_state(batch_size = currBatch,
+                                           dtype = tf.float32)
+
+        _, states = tf.nn.bidirectional_dynamic_rnn(cell_fw = multiFwd,
+                                                    cell_bw = multiBwd,
                                                     inputs = x,
                                                     initial_state_fw = fwdInitState,
                                                     initial_state_bw = bwdInitState,
@@ -158,12 +158,19 @@ class RNNGeneratorModel(object):
                                                     sequence_length = self.seqPH
                                                     )
 
+        # states returns tuple (fwdState, bwdState) where each is a 3-d tensor
+        # of (depth, batchsize, hiddendim). unpack axis 0 to get each final state
+        unpackedStates1 = tf.unpack(states[0], axis = 0)
+        unpackedStates2 = tf.unpack(states[1], axis = 0)
+        states = unpackedStates1 + unpackedStates2
+
         finalStates = tf.concat(concat_dim = 1, values = states)
+        # finalStates = states
         # finalStatesIn = tf.shape(finalStates)[1]
 
         # Define our prediciton layer variables
         U = tf.get_variable(name='W_gen',
-                            shape=((2 * hidden_size), self.config.max_sentence),
+                            shape=((4 * hidden_size), self.config.max_sentence),
                             dtype=tf.float32,
                             initializer=tf.contrib.layers.xavier_initializer())
 
@@ -176,7 +183,7 @@ class RNNGeneratorModel(object):
         zProbs = tf.sigmoid(tf.matmul(finalStates, U) + c)
 
         # sample zprobs to pick which review words to keep. mask unselected words
-        uniform = tf.random_uniform([0, 1]) < zProbs
+        uniform = tf.random_uniform(shape = tf.shape(zProbs), minval=0, maxval=1) < zProbs
         self.zPreds = tf.select(uniform,
                                 tf.ones(shape = tf.shape(uniform), dtype = tf.float32),
                                 tf.zeros(shape = tf.shape(uniform), dtype = tf.float32))
@@ -194,9 +201,37 @@ class RNNGeneratorModel(object):
         maskedEmbeddings = tf.reshape(maskedEmbeddings, shape=embedding_shape)
 
         # Use encoder to make predictions
-        encoderPreds = self.encoder.add_prediction_op2(maskedEmbeddings)
+        # encoderPreds = self.encoder.add_prediction_op2(maskedEmbeddings)
 
-        return encoderPreds
+        # Define our prediciton layer variables
+        W = tf.get_variable(name='W',
+                            shape=((2 * hidden_size), n_class),
+                            dtype=tf.float32,
+                            initializer=tf.contrib.layers.xavier_initializer())
+
+        b = tf.get_variable(name='b',
+                            shape=(n_class,),
+                            dtype=tf.float32,
+                            initializer=tf.constant_initializer(0.0))
+
+        cell1 = tf.nn.rnn_cell.BasicRNNCell(embedding_size, activation=tf.tanh)
+        cell2 = tf.nn.rnn_cell.BasicRNNCell(hidden_size, activation=tf.tanh)
+
+        cell1_drop = tf.nn.rnn_cell.DropoutWrapper(cell1,
+                                                   output_keep_prob=self.dropoutPH)
+        cell2_drop = tf.nn.rnn_cell.DropoutWrapper(cell2,
+                                                   output_keep_prob=self.dropoutPH)
+        cell_multi = tf.nn.rnn_cell.MultiRNNCell([cell1_drop, cell2_drop])
+        result = tf.nn.dynamic_rnn(cell_multi,
+                                   maskedEmbeddings,
+                                   dtype=tf.float32,
+                                   sequence_length=self.seqPH)
+        h_t = tf.concat(concat_dim=1,
+                        values=[result[1][0], result[1][1]])
+
+        y_t = tf.tanh(tf.matmul(h_t, W) + b)
+
+        return y_t
 
     def add_loss_op(self, pred):
         # Compute L2 loss
@@ -208,11 +243,18 @@ class RNNGeneratorModel(object):
         regularization = tf.reduce_sum(reg_by_var)
 
         # apply L2 regularization to number of predictions
-        regPreds = tf.reduce_sum(tf.nn.l2_loss(self.zPreds))
+        # regPreds = tf.reduce_sum(tf.nn.l2_loss(self.zPreds))
 
         # apply reg to sequence
+        sparsity_factor = 0.0003
+        coherent_ratio = 2.0
+        coherent_factor = sparsity_factor * coherent_ratio
+        Zsum = tf.reduce_sum(self.zPreds, axis=0)
+        Zdiff = tf.reduce_sum(tf.abs(self.zPreds[1:] - self.zPreds[:-1]), axis=0)
+        sparsity_cost = tf.reduce_mean(Zsum) * sparsity_factor + tf.reduce_mean(
+            Zdiff) * coherent_factor
 
-        loss = (10.0 * L2loss) + (self.l2RegPH * regularization) + regPreds
+        loss = (10.0 * L2loss) + (self.l2RegPH * regularization) + sparsity_cost
 
         return loss
 
@@ -286,24 +328,45 @@ class RNNGeneratorModel(object):
                     saver.save(sess, './encoder.weights')
             print
 
-    def __init__(self, encoder):
-        self.train_x = encoder.train_x
-        self.train_y = encoder.train_y
-        self.train_mask = encoder.train_mask
-        self.dev_x = encoder.dev_x
-        self.dev_y = encoder.dev_y
-        self.dev_mask = encoder.dev_mask
-        self.pretrained_embeddings = encoder.pretrained_embeddings
-        self.train_sentLen = encoder.train_sentLen
-        self.dev_sentLen = encoder.dev_sentLen
+    def __init__(self, config, embedding_path, train_path, dev_path):
+        train_x_pad, train_y, train_mask, train_sentLen, dev_x_pad, dev_y, dev_mask, dev_sentLen, embeddingDictPad = self._read_data(
+            train_path, dev_path, embedding_path)
+        self.train_x = train_x_pad
+        self.train_y = train_y
+        self.train_mask = train_mask
+        self.train_sentLen = train_sentLen
+        self.dev_x = dev_x_pad
+        self.dev_y = dev_y
+        self.dev_mask = dev_mask
+        self.dev_sentLen = dev_sentLen
+        self.pretrained_embeddings = embeddingDictPad
+        self.maskId = len(embeddingDictPad) - 1
         # Update our config with data parameters
-        self.config = encoder.config
-        self.config.max_sentence = encoder.config.max_sentence
-        self.config.n_class = encoder.config.n_class
-        self.config.embedding_size = encoder.config.embedding_size
-        self.encoder = encoder
-        self.maskId = encoder.maskId
+        self.config = config
+        self.config.max_sentence = max(train_x_pad.shape[1], dev_x_pad.shape[1])
+        # self.config.max_sentence = train_x_pad.shape[1]
+        self.config.n_class = train_y.shape[1]
+        self.config.embedding_size = embeddingDictPad.shape[1]
         self.build()
+
+    # def __init__(self, encoder):
+    #     self.train_x = encoder.train_x
+    #     self.train_y = encoder.train_y
+    #     self.train_mask = encoder.train_mask
+    #     self.dev_x = encoder.dev_x
+    #     self.dev_y = encoder.dev_y
+    #     self.dev_mask = encoder.dev_mask
+    #     self.pretrained_embeddings = encoder.pretrained_embeddings
+    #     self.train_sentLen = encoder.train_sentLen
+    #     self.dev_sentLen = encoder.dev_sentLen
+    #     # Update our config with data parameters
+    #     self.config = encoder.config
+    #     self.config.max_sentence = encoder.config.max_sentence
+    #     self.config.n_class = encoder.config.n_class
+    #     self.config.embedding_size = encoder.config.embedding_size
+    #     self.encoder = encoder
+    #     self.maskId = encoder.maskId
+    #     self.build()
 
 '''
 Read in Data
@@ -328,8 +391,8 @@ def main(debug=False):
         start = time.time()
         ## this is where we add our model class name
         ## config is also a class name
-        encoderModel = RNNEncoderModel(config, embedding, train, dev)
-        generatorModel = RNNGeneratorModel(encoderModel)
+        generatorModel = RNNGeneratorModel(config, embedding, train, dev)
+        # generatorModel = RNNGeneratorModel(encoderModel)
         print "took {:.2f} seconds\n".format(time.time() - start)
 
         init = tf.global_variables_initializer()

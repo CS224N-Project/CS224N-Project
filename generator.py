@@ -142,7 +142,8 @@ class RNNGenModel(Model):
                                                     initial_state_bw = bwdInitState,
                                                     dtype = tf.float32)
 
-        finalStates = tf.concat(states)
+        finalStates = tf.concat(concat_dim = 1, values = states)
+        # finalStatesIn = tf.shape(finalStates)[1]
 
         # Define our prediciton layer variables
         W = tf.get_variable(name='W_gen',
@@ -155,42 +156,9 @@ class RNNGenModel(Model):
                             dtype=tf.float32,
                             initializer=tf.constant_initializer(0.0))
 
-        # Initialize our hidden state for each RNN layer
-        h1_Prev = tf.zeros(shape=(currBatch, hidden_size),
-                           dtype=tf.float32)
-        h2_Prev = tf.zeros(shape=(currBatch, hidden_size),
-                           dtype=tf.float32)
+        zProbs = tf.sigmoid(tf.matmul(finalStates, W) + b)
 
-        h1States = []
-        h2States = []
-
-        for time_step in range(max_sentence):
-            if time_step > 0:
-                tf.get_variable_scope().reuse_variables()
-
-            # First RNN Layer - uses embeddings
-            h1_t = cell1(xDrop[:, time_step, :], h1_Prev)
-            h1_drop_t = tf.nn.dropout(h1_t, keep_prob=self.dropoutPH)
-            h1States.append(h1_drop_t)
-
-            # Second RNN Layer - uses First layer hidden states
-            h2_t = cell2(xRev[:, time_step, :], h2_Prev)
-            h2_drop_t = tf.nn.dropout(h2_t, keep_prob=self.dropoutPH)
-            h2States.append(h2_drop_t)
-
-            h1_Prev = h1_t
-            h2_Prev = h2_t
-
-        # Reverse layer 2
-        h2States = h2States[::-1]
-        allStates = h1States + h2States
-
-        # Concatenate last states of first and second layer for prediction layer
-        h_t = tf.concat(concat_dim=1, values=allStates)
-        y_t = tf.sigmoid(tf.matmul(h_t, W) + b)
-        # y_t = tf.tanh(tf.matmul(h_t, W) + b)
-        # preds.append(y_t)
-        return y_t
+        return zProbs
 
     def add_loss_op(self, pred):
         # Compute L2 loss

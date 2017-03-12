@@ -108,14 +108,25 @@ class RNNGenModel(Model):
         genCell2 = tf.nn.rnn_cell.BasicRNNCell(num_units = hidden_size,
                                                input_size = embedding_size,
                                                activation = tf.tanh)
+
+        # Apply dropout to each cell
         genCell1Drop = tf.nn.rnn_cell.DropoutWrapper(genCell1,
                                                      output_keep_prob=self.dropoutPH)
         genCell2Drop = tf.nn.rnn_cell.DropoutWrapper(genCell2,
                                                      output_keep_prob=self.dropoutPH)
-        tf.nn.bidirectional_dynamic_rnn(cell_fw = genCell1Drop,
-                                        cell_bw = genCell2Drop,
-                                        inputs = self.inputPH,
-                                        initial_state_fw=)
+
+        # Set initla states
+        genInit1Drop = genCell1Drop.zero_state(batch_size = currBatch,
+                                               dtype = tf.float32)
+        genInit2Drop = genCell2Drop.zero_state(batch_size = currBatch,
+                                               dtype = tf.float32)
+
+        _, states = tf.nn.bidirectional_dynamic_rnn(cell_fw = genCell1Drop,
+                                                    cell_bw = genCell2Drop,
+                                                    inputs = self.inputPH,
+                                                    initial_state_fw = genInit1Drop,
+                                                    initial_state_bw = genInit2Drop,
+                                                    dtype = tf.float32)
 
 
         # cell1 = RNNCell(embedding_size * 2, hidden_size, "cell1_gen")

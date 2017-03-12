@@ -159,13 +159,21 @@ class RNNGenModel(Model):
         # zLayer probabilities - each prob is prob of keeping word in review
         zProbs = tf.sigmoid(tf.matmul(finalStates, W) + b)
 
-        # zPreds
-        ones = tf.ones(shape = zProbs.get_shape(), dtype = tf.float32)
-        zeros = tf.zeros(shape = zProbs.get_shape(), dtype = tf.float32)
+        # sample zprobs to pick which review words to keep. mask unselected words
         uniform = tf.random_uniform([0, 1]) < zProbs
-        zPreds = tf.select(uniform, ones, zeros)
+        masks = tf.constant(self.maskId,
+                            shape = zProbs.get_shape(),
+                            dtype = tf.int32)
+        maskedInputs = tf.select(uniform, self.inputPH, masks)
 
-        
+        # Return masked embeddings to pass to encoder
+        embedding_shape = (-1,
+                           self.config.max_sentence,
+                           self.config.embedding_size)
+
+        maskedEmbeddings = tf.nn.embedding_lookup(self.pretrainEmbeds,
+                                                  maskedInputs)
+        maskedEmbeddings = tf.reshape(maskedEmbeddings, shape=embedding_shape)
 
         return zPreds
 
@@ -296,6 +304,7 @@ class RNNGenModel(Model):
         self.config.n_class = encoder.config.n_class
         self.config.embedding_size = encoder.config.embedding_size
         self.encoder = encoder
+        self.maskID = len(encoder.pretrained_embeddings) - 1
         self.build()
 
 

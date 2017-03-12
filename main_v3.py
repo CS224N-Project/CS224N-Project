@@ -207,8 +207,8 @@ class RNNModel(Model):
 
             for i in range(batch_size):
                 if mask[i,time_step] == False:
-                    h1_last[i:] = h1_drop_t[i,:]
-                    h2_last[i:] = h2_drop_t[i,:]
+                    h1_last[i, :] = h1_drop_t[i, :]
+                    h2_last[i, :] = h2_drop_t[i, :]
                 ## update h1_last, h2_last
 
 

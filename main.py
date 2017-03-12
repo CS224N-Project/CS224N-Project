@@ -3,7 +3,6 @@ import tensorflow as tf
 from tensorflow.contrib import rnn
 from preprocess import myio_create_embedding_layer, myio_read_annotations
 
-
 ### RNN Cell
 class RNNCell(tf.nn.rnn_cell.RNNCell):
     """Wrapper around our RNN cell implementation that allows us to play
@@ -59,7 +58,7 @@ class RNNCell(tf.nn.rnn_cell.RNNCell):
         return output
 
 
-def data_iterator(data, labels, batch_size, sentLen):
+def data_iterator(data, labels, mask, batch_size):
     """ A simple data iterator """
     numObs = data.shape[0]
     while True:
@@ -68,12 +67,12 @@ def data_iterator(data, labels, batch_size, sentLen):
         np.random.shuffle(idxs)
         shuffledData = data[idxs]
         shuffledLabels = labels[idxs]
-        shuffledSentLen = sentLen[idxs]
+        shuffledMask = mask[idxs]
         for idx in range(0, numObs, batch_size):
             dataBatch = shuffledData[idx:idx + batch_size]
             labelsBatch = shuffledLabels[idx:idx + batch_size]
-            seqLenBatch = shuffledSentLen[idx:idx + batch_size]
-            yield dataBatch, labelsBatch, seqLenBatch
+            maskLenBatch = shuffledMask[idx:idx + batch_size]
+            yield dataBatch, labelsBatch, maskLenBatch
 
 '''
 Read in Data
@@ -88,6 +87,7 @@ embedding = '/Users/stanford/Desktop/Winter2017/CS224n/FinalProject/beer/review+
 train_x, train_y, max_train = myio_read_annotations(train)
 train_y = np.array(train_y)
 dev_x, dev_y, max_dev = myio_read_annotations(dev)
+dev_y = np.array(dev_y)
 embedding_layer = myio_create_embedding_layer(embedding)
 
 ## maps words to int id
@@ -109,21 +109,46 @@ embedding_size = embeddingDict.shape[1]
 drop_out = 0.5
 hidden_size = 200
 batch_size = 32
-epochs = 10
+epochs = 100
 lr = 0.001
 l2Reg = 1.0e-6
 
 '''
-Mask Data
+Pad and Mask Data
 '''
 
-maskId = embeddingDict.shape[0]
-sentLen = np.array(map(len, train_x), dtype = np.int32)
-sentDiff = list(max_sentence - sentLen)
-paddings = [np.full(shape = x, fill_value = maskId, dtype=np.int32) for x in sentDiff]
-zipped = zip(train_x, paddings)
-train_x_pad = [np.append(x[0], x[1]) for x in zipped]
-train_x_pad = np.array(train_x_pad)
+def padData(embeddingDict, xData):
+    # get the id to use as our mask id
+    maskId = embeddingDict.shape[0]
+
+    # Get the number of words we need to fill for each observation
+    sentLen = np.array(map(len, xData), dtype = np.int32)
+    sentDiff = list(max_sentence - sentLen)
+
+    # Pad the data
+    paddings = [np.full(shape=x, fill_value=maskId, dtype=np.int32) for x in
+                sentDiff]
+    dataWithPads = zip(xData, paddings)
+    xDataPad = [np.append(x[0], x[1]) for x in zipped]
+    xDataPad = np.array(xDataPad)
+
+    # Compute the mask
+    mask = ((xDataPad != maskId) + 0.0)
+
+    return xDataPad, mask
+
+train_x_pad, train_x_mask = padData(embeddingDict, train_x)
+dev_x_pad, dev_x_mask = padData(embeddingDict, dev_x)
+
+# maskId = embeddingDict.shape[0]
+# sentLen = np.array(map(len, train_x), dtype = np.int32)
+# sentDiff = list(max_sentence - sentLen)
+# paddings = [np.full(shape = x, fill_value = maskId, dtype=np.int32) for x in sentDiff]
+# zipped = zip(train_x, paddings)
+# train_x_pad = [np.append(x[0], x[1]) for x in zipped]
+# train_x_pad = np.array(train_x_pad)
+
+
 # train_x_pad = list(train_x_pad)
 # train_x_pad = map(list, train_x_pad)
 # train_x_pad = [[[x] for x in l] for l in train_x_pad]
@@ -169,12 +194,12 @@ embedInput = tf.reshape(embedInput,
                         shape = (batch_size, max_sentence, embedding_size))
 # revEmbedInput = tf.reverse(embedInput, dims = [False, True, False])
 # embedInput = tf.unstack(embedInput, axis = 1)
-revEmbedInput = embedInput[::-1]
+# revEmbedInput = embedInput[::-1]
 
 '''
 Batch our Data
 '''
-iter = data_iterator(train_x_pad, train_y, batch_size, sentLen)
+iter_train = data_iterator(train_x_pad, train_y, train_x_mask ,batch_size)
 
 '''
 Model Declaration
@@ -184,62 +209,106 @@ Model Declaration
 # ENCODER #
 ###########
 
+def encoderPred(hidden_size, n_class, max_sentence, dropoutPH):
+    # Initialize our RNN Cells
+    cell1 = RNNCell(hidden_size, hidden_size, "cell1")
+    cell2 = RNNCell(hidden_size, hidden_size, "cell2")
 
-preds = [] # predicted output at each timestep
+    # Initialize starting states
+    h1_Prev = tf.zeros(shape=(tf.shape(embedInput)[0], nHid), dtype=tf.float32)
+    h2_Prev = tf.zeros(shape=(tf.shape(embedInput)[0], nHid), dtype=tf.float32)
 
-cell1 = RNNCell(hidden_size, hidden_size, "cell1")
-cell2 = RNNCell(hidden_size, hidden_size, "cell2")
+    # Initialzie Prediction layer vars
+    W = tf.get_variable(name='W',
+                        shape=((2 * hidden_size), n_class),
+                        dtype=tf.float32,
+                        initializer=tf.contrib.layers.xavier_initializer())
 
-# Extract sizes
-nHid = hidden_size
-nClass = n_class
+    b = tf.get_variable(name='b',
+                        shape=(n_class,),
+                        dtype=tf.float32,
+                        initializer=tf.constant_initializer(0.0))
 
-W = tf.get_variable(name = 'W',
-                    shape = ((2*nHid), nClass),
-                    dtype = tf.float32,
-                    initializer = tf.contrib.layers.xavier_initializer())
+    # run all hidden states for RNN
+    for time_step in range(max_sentence):
+        if time_step > 0:
+            tf.get_variable_scope().reuse_variables()
 
-b =tf.get_variable(name = 'b',
-                    shape = (nClass,),
-                    dtype = tf.float32,
-                    initializer = tf.constant_initializer(0.0))
+        # First RNN Layer - uses embeddings
+        h1_t = cell1(embedInput[:, time_step, :], h1_Prev)
+        h1_drop_t = tf.nn.dropout(h1_t, keep_prob = dropoutPH)
 
-h1_Prev = tf.zeros(shape = (tf.shape(embedInput)[0], nHid), dtype = tf.float32)
-h2_Prev = tf.zeros(shape = (tf.shape(embedInput)[0], nHid), dtype = tf.float32)
+        # Second RNN Layer - uses First layer hidden states
+        h2_t = cell2(h1_drop_t, h2_Prev)
+        h2_drop_t = tf.nn.dropout(h2_t, keep_prob = dropoutPH)
 
-for time_step in range(max_sentence):
-    if time_step > 0:
-        tf.get_variable_scope().reuse_variables()
+        h1_Prev = h1_t
+        h2_Prev = h2_t
 
-    # First RNN Layer - uses embeddings
-    h1_t = cell1(embedInput[:, time_step, :], h1_Prev)
-    h1_drop_t = tf.nn.dropout(h1_t, keep_prob = dropoutPH)
+    # Concatenate last states of first and second layer for prediction layer
+    h_t = tf.concat(concat_dim=1, values=[h1_drop_t, h2_drop_t])
+    y_t = tf.tanh(tf.matmul(h_t, W) + b)
+    # preds.append(y_t)
+    return y_t
 
-    # Second RNN Layer - uses First layer hidden states
-    h2_t = cell2(h1_drop_t, h2_Prev)
-    h2_drop_t = tf.nn.dropout(h2_t, keep_prob = dropoutPH)
+preds = encoderPred(hidden_size, n_class, max_sentence, dropoutPH)
 
-    h1_Prev = h1_t
-    h2_Prev = h2_t
-
-
-# Concatenate last states of first and second layer for prediction layer
-h_t = tf.concat(concat_dim = 1, values = [h1_drop_t, h2_drop_t])
-y_t = tf.tanh(tf.matmul(h_t, W) + b)
-preds.append(y_t)
+# preds = [] # predicted output at each timestep
+#
+# cell1 = RNNCell(hidden_size, hidden_size, "cell1")
+# cell2 = RNNCell(hidden_size, hidden_size, "cell2")
+#
+# # Extract sizes
+# nHid = hidden_size
+# nClass = n_class
+#
+# W = tf.get_variable(name = 'W',
+#                     shape = ((2*nHid), nClass),
+#                     dtype = tf.float32,
+#                     initializer = tf.contrib.layers.xavier_initializer())
+#
+# b =tf.get_variable(name = 'b',
+#                     shape = (nClass,),
+#                     dtype = tf.float32,
+#                     initializer = tf.constant_initializer(0.0))
+#
+# h1_Prev = tf.zeros(shape = (tf.shape(embedInput)[0], nHid), dtype = tf.float32)
+# h2_Prev = tf.zeros(shape = (tf.shape(embedInput)[0], nHid), dtype = tf.float32)
+#
+# for time_step in range(max_sentence):
+#     if time_step > 0:
+#         tf.get_variable_scope().reuse_variables()
+#
+#     # First RNN Layer - uses embeddings
+#     h1_t = cell1(embedInput[:, time_step, :], h1_Prev)
+#     h1_drop_t = tf.nn.dropout(h1_t, keep_prob = dropoutPH)
+#
+#     # Second RNN Layer - uses First layer hidden states
+#     h2_t = cell2(h1_drop_t, h2_Prev)
+#     h2_drop_t = tf.nn.dropout(h2_t, keep_prob = dropoutPH)
+#
+#     h1_Prev = h1_t
+#     h2_Prev = h2_t
+#
+#
+# # Concatenate last states of first and second layer for prediction layer
+# h_t = tf.concat(concat_dim = 1, values = [h1_drop_t, h2_drop_t])
+# y_t = tf.tanh(tf.matmul(h_t, W) + b)
+# preds.append(y_t)
 
 # Compute L2 loss
 loss = tf.nn.l2_loss(tf.cast(labelsPH, dtype=tf.float32) - preds)
 loss = tf.reduce_mean(loss)
 
 # # Apply L2 regularization
-# regularization = tf.reduce_sum([tf.nn.l2_loss(v) for v in tf.trainable_variables()])
+regularization = tf.reduce_sum([tf.nn.l2_loss(v) for v in tf.trainable_variables()])
 
-# totalCost = (10.0 * loss) + (l2RegPH * regularization)
+totalCost = (10.0 * loss) + (l2RegPH * regularization)
 
-# opt = tf.train.AdamOptimizer(learning_rate = lr)
-# train_op = opt.minimize(totalCost)
+opt = tf.train.AdamOptimizer(learning_rate = lr)
+train_op = opt.minimize(totalCost)
 
+def evalDev(devX, devY):
 
 
 ##################
@@ -259,6 +328,28 @@ Debug
 init_op = tf.global_variables_initializer()
 with tf.Session() as sess:
     sess.run(init_op)
+    for i in xrange(epochs):
+        print 'Running Epoch {0}'.format(i)
+        for x, y, mask in iter_train:
+            # mask = ((x != maskId) + 0.0)
+            feed_dict = {
+                inputPH: x,
+                labelsPH: y,
+                maskPH: mask,
+                dropoutPH: drop_out,
+                seqPH: seqLen,
+                l2RegPH: l2Reg
+            }
+            opt = sess.run([train_op, , feed_dict = feed_dict)
+
+
+
+
+
+
+
+
+    sess.run(init_op)
     for _ in range(1):
         x, y, seqLen = iter.next()
         mask = ((x != maskId) + 0.0)
@@ -270,6 +361,7 @@ with tf.Session() as sess:
             seqPH: seqLen,
             l2RegPH: l2Reg
         })
+
         # print output1
         # print state1
         # print type(state1)

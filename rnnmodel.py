@@ -4,7 +4,7 @@ class RNNModel():
         devXShape = trainY.shape
 
         # Make sure data matches
-        assert trainXShape[1] == devXShape[1]
+        assert(trainXShape[1] == devXShape[1], )
 
         self.nTrain = trainX.shape[0]
         self.nFeats = trainX.shape[1]

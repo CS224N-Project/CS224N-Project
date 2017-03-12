@@ -9,74 +9,77 @@ import time
 from data_util import load_and_preprocess_data
 from utils.general_utils import Progbar
 from utils.parser_utils import minibatches, load_and_preprocess_data
+from rnncell import RNNCell
+from config import Config
+
 ''' 
 Set up classes and functions 
 '''
-class Config(object):
-
-    drop_out = 0.5
-    hidden_size = 200
-    batch_size = 32
-    epochs = 10
-    lr = 0.001
-    l2Reg = 1.0e-6
-    # built when we construct the model
-    max_sentence = 0
-    n_class = 0
-    embedding_size = 0
+# class Config(object):
+#
+#     drop_out = 0.5
+#     hidden_size = 200
+#     batch_size = 32
+#     epochs = 10
+#     lr = 0.001
+#     l2Reg = 1.0e-6
+#     # built when we construct the model
+#     max_sentence = 0
+#     n_class = 0
+#     embedding_size = 0
 
 ###############
 ### RNN Cell ##
 ###############
 
-class RNNCell(tf.nn.rnn_cell.RNNCell):
-    """Wrapper around our RNN cell implementation that allows us to play
-    nicely with TensorFlow.
-    """
-    def __init__(self, input_size, state_size, name_suffix):
-        self.input_size = input_size
-        self._state_size = state_size
-        self._name_suffix = name_suffix
-
-    @property
-    def state_size(self):
-        return self._state_size
-
-    @property
-    def output_size(self):
-        return self._state_size
-
-    def __call__(self, inputs, state, scope=None):
-        """Updates the state using the previous @state and @inputs.
-        Args:
-            inputs: is the input vector of size [None, self.input_size]
-            state: is the previous state vector of size [None, self.state_size]
-            scope: is the name of the scope to be used when defining the variables inside.
-        Returns:
-            a pair of the output vector and the new state vector.
-        """
-        scope = scope or type(self).__name__
-
-        # It's always a good idea to scope variables in functions lest they
-        # be defined elsewhere!
-        with tf.variable_scope(scope):
-            ## layer one 
-            W_x = tf.get_variable(name = "W_x" + str(self._name_suffix),
-                                  shape = (self.input_size, self._state_size),
-                                  dtype = tf.float32,
-                                  initializer = tf.contrib.layers.xavier_initializer())
-
-            W_h = tf.get_variable(name = "W_h" + str(self._name_suffix),
-                                  shape = (self._state_size, self._state_size),
-                                  dtype = tf.float32,
-                                  initializer = tf.contrib.layers.xavier_initializer())
-            b = tf.get_variable(name = "b" + str(self._name_suffix),
-                                shape = (self._state_size,),
-                                dtype = tf.float32,
-                                initializer = tf.constant_initializer(0.0))
-
-            output = tf.tanh(tf.matmul(inputs, W_x) + tf.matmul(state, W_h) + b)
-        return output
+# class RNNCell(tf.nn.rnn_cell.RNNCell):
+#     """Wrapper around our RNN cell implementation that allows us to play
+#     nicely with TensorFlow.
+#     """
+#     def __init__(self, input_size, state_size, name_suffix):
+#         self.input_size = input_size
+#         self._state_size = state_size
+#         self._name_suffix = name_suffix
+#
+#     @property
+#     def state_size(self):
+#         return self._state_size
+#
+#     @property
+#     def output_size(self):
+#         return self._state_size
+#
+#     def __call__(self, inputs, state, scope=None):
+#         """Updates the state using the previous @state and @inputs.
+#         Args:
+#             inputs: is the input vector of size [None, self.input_size]
+#             state: is the previous state vector of size [None, self.state_size]
+#             scope: is the name of the scope to be used when defining the variables inside.
+#         Returns:
+#             a pair of the output vector and the new state vector.
+#         """
+#         scope = scope or type(self).__name__
+#
+#         # It's always a good idea to scope variables in functions lest they
+#         # be defined elsewhere!
+#         with tf.variable_scope(scope):
+#             ## layer one
+#             W_x = tf.get_variable(name = "W_x" + str(self._name_suffix),
+#                                   shape = (self.input_size, self._state_size),
+#                                   dtype = tf.float32,
+#                                   initializer = tf.contrib.layers.xavier_initializer())
+#
+#             W_h = tf.get_variable(name = "W_h" + str(self._name_suffix),
+#                                   shape = (self._state_size, self._state_size),
+#                                   dtype = tf.float32,
+#                                   initializer = tf.contrib.layers.xavier_initializer())
+#             b = tf.get_variable(name = "b" + str(self._name_suffix),
+#                                 shape = (self._state_size,),
+#                                 dtype = tf.float32,
+#                                 initializer = tf.constant_initializer(0.0))
+#
+#             output = tf.tanh(tf.matmul(inputs, W_x) + tf.matmul(state, W_h) + b)
+#         return output
 
 #################
 ### RNN Model ###
@@ -168,6 +171,7 @@ class RNNModel(Model):
 
         # get relevent embedding data
         x = self.add_embedding()
+        mask = self.train_mask
         currBatch = tf.shape(x)[0]
 
         # Extract sizes
@@ -198,13 +202,48 @@ class RNNModel(Model):
         h2_Prev = tf.zeros(shape = (currBatch, hidden_size),
                            dtype = tf.float32)
 
+        # # Store last hidden state before mask for each sentence in embedding
+        # h1_last = tf.zeros(shape = (currBatch, hidden_size),
+        #                    dtype = tf.float32)
+        # h2_last = tf.zeros(shape = (currBatch, hidden_size),
+        #                    dtype = tf.float32)
+
         for time_step in range(max_sentence):
             if time_step > 0:
                 tf.get_variable_scope().reuse_variables()
 
+            # check if complete
+            # complete = True
+            # i = tf.constant(0)
+            # while_condition = lambda i: tf.less(i, currBatch)
+            # def body(i):
+            #     complete = complete and mask[i, time_step]
+            #     return complete
+            # for i in range(currBatch):
+            #     complete = complete and mask[i, time_step]
+            # if complete:
+            #     break
+            # complete = tf.constant(True)
+            # for i in range(self.config.batch_size):
+            #     complete = tf.logical_and(complete, mask[i, time_step])
+            #         # complete and mask[i, time_step]
+            #     if tf.less(tf.constant(i), currBatch):
+            #         break
+            # tf.cond(tf.equal(complete, tf.constant(True)), lambda: break, lambda: pass)
+            # tf.control_flow_ops.cond(complete, lambda: break, lambda: pass)
+            # tf.case(tf.equal(complete, tf.constant(True)), break)
+            # if tf.equal(complete, tf.constants(True)):
+            #     break
+
+
             # First RNN Layer - uses embeddings
             h1_t = cell1(x[:, time_step, :], h1_Prev)
             h1_drop_t = tf.nn.dropout(h1_t, keep_prob = self.dropoutPH)
+
+            # over-write with prior states
+            # for i in range(currBatch):
+            #     if mask[i, time_step] == False:
+            #         h1_t[i, :] = h1_Prev[i, :]
 
             # Second RNN Layer - uses First layer hidden states
             h2_t = cell2(h1_drop_t, h2_Prev)
@@ -213,6 +252,10 @@ class RNNModel(Model):
             h1_Prev = h1_t
             h2_Prev = h2_t
 
+            # for i in range(currBatch):
+            #     if mask[i, time_step] == False:
+            #         h1_last[i, :] = h1_drop_t[i, :]
+            #         h2_last[i, :] = h2_drop_t[i, :]
 
         # Concatenate last states of first and second layer for prediction layer
         h_t = tf.concat(concat_dim = 1, values = [h1_drop_t, h2_drop_t])
@@ -299,7 +342,7 @@ class RNNModel(Model):
     #     return dev_UAS
 
     def fit(self, sess, saver):
-        best_dev_mse = 0
+        best_dev_mse = np.inf
         for epoch in range(self.config.epochs):
             print "Epoch {:} out of {:}".format(epoch + 1, self.config.epochs)
             dev_mse = self.run_epoch(sess)
@@ -348,22 +391,22 @@ Evaluate model
 ''' 
 Creates Batch Data
 '''
-
-def data_iterator(data, labels, batch_size, sentLen):
-    """ A simple data iterator """
-    numObs = data.shape[0]
-    while True:
-        # shuffle labels and features
-        idxs = np.arange(0, numObs)
-        np.random.shuffle(idxs)
-        shuffledData = data[idxs]
-        shuffledLabels = labels[idxs]
-        shuffledSentLen = sentLen[idxs]
-        for idx in range(0, numObs, batch_size):
-            dataBatch = shuffledData[idx:idx + batch_size]
-            labelsBatch = shuffledLabels[idx:idx + batch_size]
-            seqLenBatch = shuffledSentLen[idx:idx + batch_size]
-            yield dataBatch, labelsBatch, seqLenBatch
+#
+# def data_iterator(data, labels, batch_size, sentLen):
+#     """ A simple data iterator """
+#     numObs = data.shape[0]
+#     while True:
+#         # shuffle labels and features
+#         idxs = np.arange(0, numObs)
+#         np.random.shuffle(idxs)
+#         shuffledData = data[idxs]
+#         shuffledLabels = labels[idxs]
+#         shuffledSentLen = sentLen[idxs]
+#         for idx in range(0, numObs, batch_size):
+#             dataBatch = shuffledData[idx:idx + batch_size]
+#             labelsBatch = shuffledLabels[idx:idx + batch_size]
+#             seqLenBatch = shuffledSentLen[idx:idx + batch_size]
+#             yield dataBatch, labelsBatch, seqLenBatch
             
 
 '''

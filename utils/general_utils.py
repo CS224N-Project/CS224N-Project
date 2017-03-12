@@ -3,7 +3,7 @@ import time
 import numpy as np
 
 
-def get_minibatches(dataX, dataY, mask, minibatch_size, shuffle=True):
+def get_minibatches(dataX, dataY, sentLen, mask, minibatch_size, shuffle=True):
     """
     Iterates through the provided data one minibatch at at time. You can use this function to
     iterate through data in minibatches as follows:
@@ -38,7 +38,7 @@ def get_minibatches(dataX, dataY, mask, minibatch_size, shuffle=True):
         np.random.shuffle(indices)
     for minibatch_start in np.arange(0, data_size, minibatch_size):
         minibatch_indices = indices[minibatch_start:minibatch_start + minibatch_size]
-        yield [dataX[minibatch_indices], dataY[minibatch_indices], mask[minibatch_indices]]
+        yield [dataX[minibatch_indices], dataY[minibatch_indices], sentLen[minibatch_indices], mask[minibatch_indices]]
         # yield [minibatch(d, minibatch_indices) for d in data] if list_data \
         #     else minibatch(data, minibatch_indices)
 

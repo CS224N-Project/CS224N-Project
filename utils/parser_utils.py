@@ -329,12 +329,12 @@ def punct(language, pos):
         raise ValueError('language: %s is not supported.' % language)
 
 
-def minibatches(dataX, dataY, mask, batch_size):
+def minibatches(dataX, dataY, sentLen, mask, batch_size):
     # x = np.array([d[0] for d in data])
     # y = np.array([d[2] for d in data])
     # one_hot = np.zeros((y.size, 3))
     # one_hot[np.arange(y.size), y] = 1
-    return get_minibatches(dataX, dataY, mask, batch_size)
+    return get_minibatches(dataX, dataY, sentLen, mask, batch_size)
 
 
 def load_and_preprocess_data(reduced=True):

@@ -16,7 +16,14 @@ from config import Config
 ### RNN Model ###
 #################
 
-class RNNEncoderModel(Model):
+class RNNEncoderModel(object):
+    def build(self):
+        self.add_placeholders()
+        self.pred = self.add_prediction_op()
+        self.loss = self.add_loss_op(self.pred)
+        self.train_op = self.add_training_op(self.loss)
+        self.eval = self.evaluate(self.pred)
+
     def _read_data(self, train_path, dev_path, embedding_path):
         '''
         Helper function to read in our data. Used to construct our RNNModel
@@ -35,27 +42,27 @@ class RNNEncoderModel(Model):
         # batchSize X sentence X numClasses
         self.inputPH = tf.placeholder(dtype=tf.int32,
                                       shape=(None, self.config.max_sentence),
-                                      name='input')
+                                      name='input2')
         # batchSize X numClasses
         self.labelsPH = tf.placeholder(dtype=tf.float32,
                                        shape=(None, self.config.n_class),
-                                       name='labels')
+                                       name='labels2')
         # mask over sentences not long enough
         self.maskPH = tf.placeholder(dtype=tf.bool,
                                      shape=(None, self.config.max_sentence),
-                                     name='mask')
+                                     name='mask2')
         self.dropoutPH = tf.placeholder(dtype=tf.float32,
                                         shape=(),
-                                        name='dropout')
+                                        name='dropout2')
         self.seqPH = tf.placeholder(dtype=tf.float32,
                                     shape=(None,),
-                                    name='sequenceLen')
+                                    name='sequenceLen2')
         self.l2RegPH = tf.placeholder(dtype=tf.float32,
                                       shape=(),
-                                      name='l2Reg')
+                                      name='l2Reg2')
 
     def create_feed_dict(self, inputs_batch, mask_batch, sentLen,
-                         labels_batch=None, dropout=1, l2_reg=0):
+                         labels_batch=None, dropout=1.0, l2_reg=0.0):
 
         feed_dict = {
             self.inputPH: inputs_batch,

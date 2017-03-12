@@ -111,7 +111,7 @@ class RNNModel(Model):
         cell2 = tf.nn.rnn_cell.BasicRNNCell(hidden_size, activation = tf.tanh)
 
         cell1_drop = tf.nn.rnn_cell.DropoutWrapper(cell1, output_keep_prob=self.dropoutPH)
-        cell2_drop = tf.nn.rnn_cell.DropoutWrapper(cell2, output_keep_prob=self.dropoutPh)
+        cell2_drop = tf.nn.rnn_cell.DropoutWrapper(cell2, output_keep_prob=self.dropoutPH)
         cell_multi = tf.nn.rnn_cell.MultiRNNCell([cell1_drop, cell2_drop])
         result = tf.nn.dynamic_rnn(cell_multi, x, dtype = tf.float32, sequence_length = self.seqPH)
         h_t = tf.concat(concat_dim = 1, values = [result[1][0], result[1][1]])
@@ -227,6 +227,7 @@ class RNNModel(Model):
         self.dev_mask = dev_mask
         self.dev_sentLen = dev_sentLen
         self.pretrained_embeddings = embeddingDictPad
+        self.maskId = len(embeddingDictPad) - 1
         # Update our config with data parameters
         self.config = config
         self.config.max_sentence = max(train_x_pad.shape[1], dev_x_pad.shape[1])

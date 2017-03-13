@@ -294,6 +294,13 @@ class RNNGeneratorModel(object):
         zPreds = sess.run(self.zPreds, feed_dict = feed)
         return zPreds
 
+    def run_precision_on_batch(self, sess, inputs_batch, labels_batch, mask_batch, sentLen, rationals):
+        predRational = self.run_rationals(sess, inputs_batch, labels_batch, mask_batch, sentLen, rationals)
+        overlap = predRational * rationals
+        predCorrect = tf.reduce_sum(overlap)
+        predTotal = tf.reduce_sum(predRational)
+        return predCorrect, predTotal
+
     ### NO NEED TO UPDATE BELOW
     def train_on_batch(self, sess, inputs_batch, labels_batch, mask_batch, sentLen):
         feed = self.create_feed_dict(inputs_batch = inputs_batch,

@@ -208,12 +208,12 @@ class RNNGeneratorModel(object):
         # encoderPreds = self.encoder.add_prediction_op2(maskedEmbeddings)
 
         # Define our prediciton layer variables
-        W = tf.get_variable(name='W',
+        W = tf.get_variable(name='W_enc',
                             shape=(hidden_size, n_class),
                             dtype=tf.float32,
                             initializer=tf.contrib.layers.xavier_initializer())
 
-        b = tf.get_variable(name='b',
+        b = tf.get_variable(name='b_enc',
                             shape=(n_class,),
                             dtype=tf.float32,
                             initializer=tf.constant_initializer(0.0))
@@ -242,8 +242,12 @@ class RNNGeneratorModel(object):
         L2loss = tf.nn.l2_loss(self.labelsPH - pred)
         L2loss = tf.reduce_mean(L2loss)
 
-        # Apply L2 regularization - all vars
-        reg_by_var = [tf.nn.l2_loss(v) for v in tf.trainable_variables()]
+        # Apply L2 regularization - all vars except bias
+        train_vars = tf.trainable_variables()
+        train_vars = [v for v in train_vars if 'Bias' not in v.name]
+        train_vars = [v for v in train_vars if 'b_enc' not in v.name]
+        train_vars = [v for v in train_vars if 'b_gen' not in v.name]
+        reg_by_var = [tf.nn.l2_loss(v) for v in train_vars]
         regularization = tf.reduce_sum(reg_by_var)
 
         # apply L2 regularization to number of predictions
@@ -251,14 +255,14 @@ class RNNGeneratorModel(object):
 
         # apply reg to sequence
         sparsity_factor = 0.0003
-        coherent_ratio = 2.0
+        coherent_ratio = 2.0 * sparsity_factor
         coherent_factor = sparsity_factor * coherent_ratio
         Zsum = tf.reduce_sum(self.zPreds, axis=0)
         Zdiff = tf.reduce_sum(tf.abs(self.zPreds[1:] - self.zPreds[:-1]), axis=0)
         sparsity_cost = tf.reduce_mean(Zsum) * sparsity_factor + tf.reduce_mean(
             Zdiff) * coherent_factor
 
-        loss = (10.0 * L2loss) + (self.l2RegPH * regularization) + sparsity_cost
+        loss = (L2loss) + (self.l2RegPH * regularization) + sparsity_cost
 
         return loss
 
@@ -332,9 +336,13 @@ class RNNGeneratorModel(object):
                     saver.save(sess, './encoder.weights')
             print
 
-    def __init__(self, config, embedding_path, train_path, dev_path):
+    def __init__(self, config, embedding_path, train_path, dev_path, aspect = 0):
         train_x_pad, train_y, train_mask, train_sentLen, dev_x_pad, dev_y, dev_mask, dev_sentLen, embeddingDictPad = self._read_data(
             train_path, dev_path, embedding_path)
+        train_y = train_y[:, aspect]
+        train_y = train_y.reshape(train_y.shape[0], 1)
+        dev_y = dev_y[:, aspect]
+        dev_y = dev_y.reshape(dev_y.shape[0], 1)
         self.train_x = train_x_pad
         self.train_y = train_y
         self.train_mask = train_mask
@@ -409,9 +417,16 @@ def main(debug=False):
         with tf.Session() as session:
             session.run(init)
 
-            # tvar = tf.trainable_variables()
+            tvar = tf.trainable_variables()
+            names = [v.name for v in tvar]
+            names = [v for v in names if 'Bias' not in v]
+            names = [v for v in names if 'b_enc' not in v]
+            names = [v for v in names if 'b_gen' not in v]
+            for v in names:
+                print v
             # for v in tvar:
-            #     print v
+            #     if 'Bias' not in v.name or 'b/' not in v.name or 'b_gen' not in v.name:
+            #         print v
 
             print 80 * "="
             print "TRAINING"

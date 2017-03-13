@@ -301,6 +301,21 @@ class RNNGeneratorModel(object):
         predTotal = tf.reduce_sum(predRational)
         return predCorrect, predTotal
 
+    def run_test_batch(self, sess, inputs_batch, labels_batch, mask_batch, sentLen, rationals):
+        predCorrect, predTotal = self.run_precision_on_batch(sess,
+                                                             inputs_batch,
+                                                             labels_batch,
+                                                             mask_batch,
+                                                             sentLen,
+                                                             rationals)
+        se = self.evaluate_on_batch(sess,
+                                    inputs_batch,
+                                    labels_batch,
+                                    mask_batch,
+                                    sentLen)
+
+        return se, predCorrect, predTotal
+
     ### NO NEED TO UPDATE BELOW
     def train_on_batch(self, sess, inputs_batch, labels_batch, mask_batch, sentLen):
         feed = self.create_feed_dict(inputs_batch = inputs_batch,

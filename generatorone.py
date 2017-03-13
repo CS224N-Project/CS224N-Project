@@ -117,26 +117,26 @@ class RNNGeneratorModel(object):
         genCell2Layer1 = tf.nn.rnn_cell.BasicRNNCell(num_units = hidden_size,
                                                      # input_size = embedding_size,
                                                      activation = tf.tanh)
-        genCell1Layer2 = tf.nn.rnn_cell.BasicRNNCell(num_units = hidden_size,
-                                                     # input_size = hidden_size,
-                                                     activation = tf.tanh)
-        genCell2Layer2 = tf.nn.rnn_cell.BasicRNNCell(num_units = hidden_size,
-                                                     # input_size = hidden_size,
-                                                     activation = tf.tanh)
+        # genCell1Layer2 = tf.nn.rnn_cell.BasicRNNCell(num_units = hidden_size,
+        #                                              # input_size = hidden_size,
+        #                                              activation = tf.tanh)
+        # genCell2Layer2 = tf.nn.rnn_cell.BasicRNNCell(num_units = hidden_size,
+        #                                              # input_size = hidden_size,
+        #                                              activation = tf.tanh)
 
         # Apply dropout to each cell
         genC1L1Drop = tf.nn.rnn_cell.DropoutWrapper(genCell1Layer1,
                                                     output_keep_prob=self.dropoutPH)
         genC2L1Drop = tf.nn.rnn_cell.DropoutWrapper(genCell2Layer1,
                                                     output_keep_prob=self.dropoutPH)
-        genC1L2Drop = tf.nn.rnn_cell.DropoutWrapper(genCell1Layer2,
-                                                    output_keep_prob=self.dropoutPH)
-        genC2L2Drop = tf.nn.rnn_cell.DropoutWrapper(genCell2Layer2,
-                                                    output_keep_prob=self.dropoutPH)
+        # genC1L2Drop = tf.nn.rnn_cell.DropoutWrapper(genCell1Layer2,
+        #                                             output_keep_prob=self.dropoutPH)
+        # genC2L2Drop = tf.nn.rnn_cell.DropoutWrapper(genCell2Layer2,
+        #                                             output_keep_prob=self.dropoutPH)
 
         # Stack each for multi Cell
-        multiFwd = tf.nn.rnn_cell.MultiRNNCell([genC1L1Drop, genC1L2Drop])
-        multiBwd = tf.nn.rnn_cell.MultiRNNCell([genC2L1Drop, genC2L2Drop])
+        # multiFwd = tf.nn.rnn_cell.MultiRNNCell([genC1L1Drop, genC1L2Drop])
+        # multiBwd = tf.nn.rnn_cell.MultiRNNCell([genC2L1Drop, genC2L2Drop])
 
         # Set inital states
         # fwdInitState = genC1L1Drop.zero_state(batch_size = currBatch,
@@ -144,13 +144,13 @@ class RNNGeneratorModel(object):
         # bwdInitState = genC2L1Drop.zero_state(batch_size = currBatch,
         #                                    dtype = tf.float32)
 
-        fwdInitState = multiFwd.zero_state(batch_size = currBatch,
-                                           dtype = tf.float32)
-        bwdInitState = multiBwd.zero_state(batch_size = currBatch,
-                                           dtype = tf.float32)
+        fwdInitState = genCell1Layer1.zero_state(batch_size = currBatch,
+                                                 dtype = tf.float32)
+        bwdInitState = genCell2Layer1.zero_state(batch_size = currBatch,
+                                                 dtype = tf.float32)
 
-        _, states = tf.nn.bidirectional_dynamic_rnn(cell_fw = multiFwd,
-                                                    cell_bw = multiBwd,
+        _, states = tf.nn.bidirectional_dynamic_rnn(cell_fw = genC1L1Drop,
+                                                    cell_bw = genC2L1Drop,
                                                     inputs = x,
                                                     initial_state_fw = fwdInitState,
                                                     initial_state_bw = bwdInitState,
@@ -160,9 +160,9 @@ class RNNGeneratorModel(object):
 
         # states returns tuple (fwdState, bwdState) where each is a 3-d tensor
         # of (depth, batchsize, hiddendim). unpack axis 0 to get each final state
-        unpackedStates1 = tf.unpack(states[0], axis = 0)
-        unpackedStates2 = tf.unpack(states[1], axis = 0)
-        states = unpackedStates1 + unpackedStates2
+        # unpackedStates1 = tf.unpack(states[0], axis = 0)
+        # unpackedStates2 = tf.unpack(states[1], axis = 0)
+        # states = unpackedStates1 + unpackedStates2
 
         finalStates = tf.concat(concat_dim = 1, values = states)
         # finalStates = states
@@ -170,7 +170,7 @@ class RNNGeneratorModel(object):
 
         # Define our prediciton layer variables
         U = tf.get_variable(name='W_gen',
-                            shape=((4 * hidden_size), self.config.max_sentence),
+                            shape=((2 * hidden_size), self.config.max_sentence),
                             dtype=tf.float32,
                             initializer=tf.contrib.layers.xavier_initializer())
 
@@ -209,7 +209,7 @@ class RNNGeneratorModel(object):
 
         # Define our prediciton layer variables
         W = tf.get_variable(name='W',
-                            shape=((2 * hidden_size), n_class),
+                            shape=(hidden_size, n_class),
                             dtype=tf.float32,
                             initializer=tf.contrib.layers.xavier_initializer())
 
@@ -219,21 +219,21 @@ class RNNGeneratorModel(object):
                             initializer=tf.constant_initializer(0.0))
 
         cell1 = tf.nn.rnn_cell.BasicRNNCell(embedding_size, activation=tf.tanh)
-        cell2 = tf.nn.rnn_cell.BasicRNNCell(hidden_size, activation=tf.tanh)
+        # cell2 = tf.nn.rnn_cell.BasicRNNCell(hidden_size, activation=tf.tanh)
 
         cell1_drop = tf.nn.rnn_cell.DropoutWrapper(cell1,
                                                    output_keep_prob=self.dropoutPH)
-        cell2_drop = tf.nn.rnn_cell.DropoutWrapper(cell2,
-                                                   output_keep_prob=self.dropoutPH)
-        cell_multi = tf.nn.rnn_cell.MultiRNNCell([cell1_drop, cell2_drop])
-        result = tf.nn.dynamic_rnn(cell_multi,
+        # cell2_drop = tf.nn.rnn_cell.DropoutWrapper(cell2,
+        #                                            output_keep_prob=self.dropoutPH)
+        # cell_multi = tf.nn.rnn_cell.MultiRNNCell([cell1_drop, cell2_drop])
+        result = tf.nn.dynamic_rnn(cell1,
                                    maskedEmbeddings,
                                    dtype=tf.float32,
                                    sequence_length=self.seqPH)
-        h_t = tf.concat(concat_dim=1,
-                        values=[result[1][0], result[1][1]])
+        # h_t = tf.concat(concat_dim=1,
+        #                 values=[result[1][0], result[1][1]])
 
-        y_t = tf.tanh(tf.matmul(h_t, W) + b)
+        y_t = tf.tanh(tf.matmul(result[1], W) + b)
 
         return y_t
 
@@ -284,38 +284,6 @@ class RNNGeneratorModel(object):
         se = sess.run(self.eval, feed_dict=feed)
         return se
 
-    def run_rationals(self, sess, inputs_batch, labels_batch, mask_batch, sentLen):
-        feed = self.create_feed_dict(inputs_batch = inputs_batch,
-                                     mask_batch = mask_batch,
-                                     seqLen=sentLen,
-                                     labels_batch=labels_batch,
-                                     dropout=self.config.drop_out,
-                                     l2_reg=self.config.l2Reg)
-        zPreds = sess.run(self.zPreds, feed_dict = feed)
-        return zPreds
-
-    def run_precision_on_batch(self, sess, inputs_batch, labels_batch, mask_batch, sentLen, rationals):
-        predRational = self.run_rationals(sess, inputs_batch, labels_batch, mask_batch, sentLen, rationals)
-        overlap = predRational * rationals
-        predCorrect = tf.reduce_sum(overlap)
-        predTotal = tf.reduce_sum(predRational)
-        return predCorrect, predTotal
-
-    def run_test_batch(self, sess, inputs_batch, labels_batch, mask_batch, sentLen, rationals):
-        predCorrect, predTotal = self.run_precision_on_batch(sess,
-                                                             inputs_batch,
-                                                             labels_batch,
-                                                             mask_batch,
-                                                             sentLen,
-                                                             rationals)
-        se = self.evaluate_on_batch(sess,
-                                    inputs_batch,
-                                    labels_batch,
-                                    mask_batch,
-                                    sentLen)
-
-        return se, predCorrect, predTotal
-
     ### NO NEED TO UPDATE BELOW
     def train_on_batch(self, sess, inputs_batch, labels_batch, mask_batch, sentLen):
         feed = self.create_feed_dict(inputs_batch = inputs_batch,
@@ -364,11 +332,9 @@ class RNNGeneratorModel(object):
                     saver.save(sess, './encoder.weights')
             print
 
-    def __init__(self, config, embedding_path, train_path, dev_path, aspect = 0):
+    def __init__(self, config, embedding_path, train_path, dev_path):
         train_x_pad, train_y, train_mask, train_sentLen, dev_x_pad, dev_y, dev_mask, dev_sentLen, embeddingDictPad = self._read_data(
             train_path, dev_path, embedding_path)
-        train_y = train_y[:, aspect]
-        dev_y = dev_y[:, aspect]
         self.train_x = train_x_pad
         self.train_y = train_y
         self.train_mask = train_mask

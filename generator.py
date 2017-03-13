@@ -87,7 +87,7 @@ class RNNGeneratorModel(object):
                            self.config.max_sentence,
                            self.config.embedding_size)
 
-        pretrainEmbeds = tf.Variable(self.pretrained_embeddings,
+        pretrainEmbeds = tf.constant(self.pretrained_embeddings,
                                      dtype=tf.float32)
         embeddings = tf.nn.embedding_lookup(pretrainEmbeds, self.inputPH)
         embeddings = tf.reshape(embeddings, shape=embedding_shape)
@@ -181,9 +181,13 @@ class RNNGeneratorModel(object):
 
         # zLayer probabilities - each prob is prob of keeping word in review
         zProbs = tf.sigmoid(tf.matmul(finalStates, U) + c)
+        # zProbs = tf.stop_gradient(zProbs)
 
         # sample zprobs to pick which review words to keep. mask unselected words
         uniform = tf.random_uniform(shape = tf.shape(zProbs), minval=0, maxval=1) < zProbs
+        # uniform = tf.stop_gradient(
+        #     tf.random_uniform(shape=tf.shape(zProbs), minval=0,
+        #                       maxval=1) < zProbs, 'uniform')
         self.zPreds = tf.select(uniform,
                                 tf.ones(shape = tf.shape(uniform), dtype = tf.float32),
                                 tf.zeros(shape = tf.shape(uniform), dtype = tf.float32))
@@ -280,6 +284,16 @@ class RNNGeneratorModel(object):
         se = sess.run(self.eval, feed_dict=feed)
         return se
 
+    def run_rationals(self, sess, inputs_batch, labels_batch, mask_batch, sentLen):
+        feed = self.create_feed_dict(inputs_batch = inputs_batch,
+                                     mask_batch = mask_batch,
+                                     seqLen=sentLen,
+                                     labels_batch=labels_batch,
+                                     dropout=self.config.drop_out,
+                                     l2_reg=self.config.l2Reg)
+        zPreds = sess.run(self.zPreds, feed_dict = feed)
+        return zPreds
+
     ### NO NEED TO UPDATE BELOW
     def train_on_batch(self, sess, inputs_batch, labels_batch, mask_batch, sentLen):
         feed = self.create_feed_dict(inputs_batch = inputs_batch,
@@ -328,9 +342,11 @@ class RNNGeneratorModel(object):
                     saver.save(sess, './encoder.weights')
             print
 
-    def __init__(self, config, embedding_path, train_path, dev_path):
+    def __init__(self, config, embedding_path, train_path, dev_path, aspect = 0):
         train_x_pad, train_y, train_mask, train_sentLen, dev_x_pad, dev_y, dev_mask, dev_sentLen, embeddingDictPad = self._read_data(
             train_path, dev_path, embedding_path)
+        train_y = train_y[:, aspect]
+        dev_y = dev_y[:, aspect]
         self.train_x = train_x_pad
         self.train_y = train_y
         self.train_mask = train_mask
@@ -392,6 +408,7 @@ def main(debug=False):
         ## this is where we add our model class name
         ## config is also a class name
         generatorModel = RNNGeneratorModel(config, embedding, train, dev)
+
         # generatorModel = RNNGeneratorModel(encoderModel)
         print "took {:.2f} seconds\n".format(time.time() - start)
 
@@ -403,6 +420,10 @@ def main(debug=False):
 
         with tf.Session() as session:
             session.run(init)
+
+            # tvar = tf.trainable_variables()
+            # for v in tvar:
+            #     print v
 
             print 80 * "="
             print "TRAINING"

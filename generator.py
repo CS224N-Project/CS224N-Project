@@ -12,6 +12,7 @@ from utils.parser_utils import minibatches, load_and_preprocess_data
 from rnncell import RNNCell
 from config import Config
 from encoderGen import RNNEncoderModel
+from utils.general_utils import get_minibatches_test
 
 '''
 Set up classes and functions
@@ -24,6 +25,7 @@ class RNNGeneratorModel(object):
         self.loss = self.add_loss_op(self.pred)
         self.train_op = self.add_training_op(self.loss)
         self.eval = self.evaluate(self.pred)
+        self.predCorrect, self.predTotal = self.get_batch_precision()
 
     def _read_data(self, train_path, dev_path, testPath, embedding_path):
         '''
@@ -69,7 +71,7 @@ class RNNGeneratorModel(object):
         self.l2RegPH = tf.placeholder(dtype=tf.float32,
                                       shape=(),
                                       name='l2Reg')
-        self.rationalsPH = tf.placeholder(dtype = tf.int32,
+        self.rationalsPH = tf.placeholder(dtype = tf.float32,
                                         shape = (None, self.config.max_sentence),
                                         name = 'rationals')
 
@@ -274,8 +276,14 @@ class RNNGeneratorModel(object):
         return loss
 
     def add_training_op(self, loss):
-        opt = tf.train.AdamOptimizer(learning_rate = self.config.lr)
-        train_op = opt.minimize(loss)
+        # opt = tf.train.AdamOptimizer(learning_rate = self.config.lr)
+        # train_op = opt.minimize(loss)
+
+        opt = tf.train.AdamOptimizer(learning_rate=self.config.lr)
+        grads = opt.compute_gradients(loss)
+        capped_grads = [(tf.clip_by_value(grad, -1., 1.), var) for grad, var in
+                        grads]
+        train_op = opt.apply_gradients(capped_grads)
         return train_op
 
     ## TODO: Add def evaluate(test_set)
@@ -310,23 +318,23 @@ class RNNGeneratorModel(object):
                                      dropout=self.config.drop_out,
                                      l2_reg=self.config.l2Reg,
                                      rationals=rationals)
-        zPreds = sess.run(self.zPreds, feed_dict = feed)
-        return zPreds
-
-    def run_precision_on_batch(self, sess, inputs_batch, labels_batch, mask_batch, sentLen, rationals):
-        predRational = self.run_rationals(sess, inputs_batch, labels_batch, mask_batch, sentLen, rationals)
-        overlap = predRational * rationals
-        predCorrect = tf.reduce_sum(overlap)
-        predTotal = tf.reduce_sum(predRational)
+        predCorrect, predTotal = sess.run(self.predCorrect, self.predTotal, feed_dict = feed)
         return predCorrect, predTotal
 
+    # def run_precision_on_batch(self, sess, inputs_batch, labels_batch, mask_batch, sentLen, rationals):
+    #     predRational = self.run_rationals(sess, inputs_batch, labels_batch, mask_batch, sentLen, rationals)
+    #     overlap = predRational * rationals
+    #     predCorrect = tf.reduce_sum(overlap)
+    #     predTotal = tf.reduce_sum(predRational)
+    #     return predCorrect, predTotal
+
     def run_test_batch(self, sess, inputs_batch, labels_batch, mask_batch, sentLen, rationals):
-        predCorrect, predTotal = self.run_precision_on_batch(sess,
-                                                             inputs_batch,
-                                                             labels_batch,
-                                                             mask_batch,
-                                                             sentLen,
-                                                             rationals)
+        predCorrect, predTotal = self.run_rationals(sess,
+                                                    inputs_batch,
+                                                    labels_batch,
+                                                    mask_batch,
+                                                    sentLen,
+                                                    rationals)
         se = self.evaluate_on_batch(sess,
                                     inputs_batch,
                                     labels_batch,
@@ -335,7 +343,7 @@ class RNNGeneratorModel(object):
 
         return se, predCorrect, predTotal
 
-    def run_test(self):
+    # def run_test(self):
 
     ### NO NEED TO UPDATE BELOW
     def train_on_batch(self, sess, inputs_batch, labels_batch, mask_batch, sentLen):
@@ -369,7 +377,25 @@ class RNNGeneratorModel(object):
         dev_obs = self.dev_x.shape[0]
         dev_mse = dev_se / dev_obs
 
-        print "- dev MSE: {:.2f}".format(dev_mse)
+        print "- dev MSE: {0}".format(dev_mse)
+
+        print 'Evaluating on test set'
+        test_se = 0.0
+        test_correct = 0
+        test_totalPred = 0
+        for i, (test_x, test_y, test_sentLen, test_mask, test_rat) in enumerate(get_minibatches_test(self.test_x, self.test_y, self.test_sentLen, self.test_mask, self.rationals, self.config.batch_size)):
+            se, predCorrect, predTotal = self.run_test_batch(sess, test_x, test_y, test_mask, test_sentLen, test_rat)
+            test_se += se
+            test_correct += predCorrect
+            test_totalPred += predTotal
+        precision = float(predCorrect) / float(predTotal)
+
+        test_obs = self.test_x.shape[0]
+        test_mse = test_se / test_obs
+
+        print '- test MSE: {0}'.format(test_mse)
+        print '- test precision: {0}'.format(precision)
+
         return dev_mse
 
     def fit(self, sess, saver):
@@ -390,6 +416,10 @@ class RNNGeneratorModel(object):
             train_path, dev_path, test_path, embedding_path)
         train_y = train_y[:, aspect]
         dev_y = dev_y[:, aspect]
+        test_y = test_y[:, aspect]
+        train_y = train_y.reshape(train_y.shape[0], 1)
+        dev_y = dev_y.reshape(dev_y.shape[0], 1)
+        test_y = test_y.reshape(test_y.shape[0], 1)
         self.train_x = train_x_pad
         self.train_y = train_y
         self.train_mask = train_mask
@@ -413,12 +443,15 @@ class RNNGeneratorModel(object):
         rationalPad = np.zeros(shape = (ration.shape[0], rationalDiff),
                                dtype = np.int32)
         paddedRational = np.append(ration, rationalPad, axis = 1)
-        assert(paddedRational.shape[1] == train_x_pad.shape[1], 'rationals not padded correctly')
-        assert(ration.shape[0] == rationalPad.shape[0], 'rationals have different number after padding')
-        self.rationals = rationalPad
+        # assert(paddedRational.shape[1] == train_x_pad.shape[1], 'rationals not padded correctly')
+        # assert(ration.shape[0] == rationalPad.shape[0], 'rationals have different number after padding')
+        quickFix = np.zeros(shape = (6, paddedRational.shape[1]), dtype = np.int32)
+        paddedRational = np.append(paddedRational, quickFix, axis = 0)
+        self.rationals = paddedRational
         self.test_x = test_x_pad
         self.test_y = test_y
         self.test_mask = test_mask
+        self.test_sentLen = test_sentLen
         self.build()
 
     # def __init__(self, encoder):
@@ -447,6 +480,8 @@ Read in Data
 train = '/Users/henryneeb/CS224N-Project/source/rcnn-master/beer/reviews.aspect1.small.train.txt.gz'
 dev = '/Users/henryneeb/CS224N-Project/source/rcnn-master/beer/reviews.aspect1.small.heldout.txt.gz'
 embedding = '/Users/henryneeb/CS224N-Project/source/rcnn-master/beer/review+wiki.filtered.200.txt.gz'
+test = '/Users/henryneeb/CS224N-Project/annotations.txt.gz'
+annotations = '/Users/henryneeb/CS224N-Project/source/rcnn-master/beer/annotations.json'
 
 def main(debug=False):
     print 80 * "="
@@ -463,7 +498,7 @@ def main(debug=False):
         start = time.time()
         ## this is where we add our model class name
         ## config is also a class name
-        generatorModel = RNNGeneratorModel(config, embedding, train, dev)
+        generatorModel = RNNGeneratorModel(config, embedding, train, dev, test, annotations)
 
         # generatorModel = RNNGeneratorModel(encoderModel)
         print "took {:.2f} seconds\n".format(time.time() - start)

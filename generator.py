@@ -91,7 +91,7 @@ class RNNGeneratorModel(object):
             feed_dict[self.labelsPH] = labels_batch
 
         if rationals is not None:
-            feed_dict[self.rationals] = rationals
+            feed_dict[self.rationalsPH] = rationals
 
         return feed_dict
 

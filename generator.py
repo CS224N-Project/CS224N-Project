@@ -194,6 +194,10 @@ class RNNGeneratorModel(object):
 
         # zLayer probabilities - each prob is prob of keeping word in review
         zProbs = tf.sigmoid(tf.matmul(finalStates, U) + c)
+        zProbs = tf.select(self.maskPH,
+                           zProbs,
+                           tf.zeros(dtype = tf.shape(zProbs)),
+                           dtype = tf.float32)
         # zProbs = tf.stop_gradient(zProbs)
 
         # sample zprobs to pick which review words to keep. mask unselected words

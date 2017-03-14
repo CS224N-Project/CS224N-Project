@@ -282,13 +282,13 @@ def readOurData(trainPath, devPath, testPath, embeddingPath):
     dev_x = [embedding_layer.map_to_ids(x)[:max_dev] for x in dev_x]
 
     # Read in test data
-    test_x, test_y, max_test = myio_read_annotations(devPath)
+    test_x, test_y, max_test = myio_read_annotations(testPath)
     test_y = np.array(test_y)
     test_x = [embedding_layer.map_to_ids(x)[:max_test] for x in test_x]
 
     # pad trainging and devlopment data
     train_x_pad, embedding_pad, train_mask, train_sentLen = padData(train_x, embeddingDict)
     dev_x_pad, _, dev_mask, dev_sentLen = padData(dev_x, embeddingDict)
-    test_x_pad, _, test_mask, test_sentLen = padData(dev_x, embeddingDict)
+    test_x_pad, _, test_mask, test_sentLen = padData(test_x, embeddingDict)
 
     return train_x_pad, train_y, train_mask, train_sentLen, dev_x_pad, dev_y, dev_mask, dev_sentLen, embedding_pad, test_x_pad, test_y, test_mask, test_sentLen

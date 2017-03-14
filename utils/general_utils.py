@@ -42,6 +42,14 @@ def get_minibatches(dataX, dataY, sentLen, mask, minibatch_size, shuffle=True):
         # yield [minibatch(d, minibatch_indices) for d in data] if list_data \
         #     else minibatch(data, minibatch_indices)
 
+def get_minibatches_test(dataX, dataY, sentLen, mask, rationals, minibatch_size, shuffle=True):
+    data_size = dataX.shape[0]
+    indices = np.arange(data_size)
+    if shuffle:
+        np.random.shuffle(indices)
+    for minibatch_start in np.arange(0, data_size, minibatch_size):
+        minibatch_indices = indices[minibatch_start:minibatch_start + minibatch_size]
+        yield [dataX[minibatch_indices], dataY[minibatch_indices], sentLen[minibatch_indices], mask[minibatch_indices], rationals[minibatch_indices]]
 
 def minibatch(data, minibatch_idx):
     return data[minibatch_idx] if type(data) is np.ndarray else [data[i] for i in minibatch_idx]

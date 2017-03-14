@@ -25,7 +25,7 @@ class RNNGeneratorModel(object):
         self.train_op = self.add_training_op(self.loss)
         self.eval = self.evaluate(self.pred)
 
-    def _read_data(self, train_path, dev_path, embedding_path):
+    def _read_data(self, train_path, dev_path, testPath, embedding_path):
         '''
         Helper function to read in our data. Used to construct our RNNModel
         :param train_path: path to training data
@@ -35,9 +35,14 @@ class RNNGeneratorModel(object):
         embedding dictionaries
         '''
         from preprocess import readOurData
-        train_x_pad, train_y, train_mask, train_sentLen, dev_x_pad, dev_y, dev_mask, dev_sentLen, embeddingDictPad = readOurData(
-            train_path, dev_path, embedding_path)
-        return train_x_pad, train_y, train_mask, train_sentLen, dev_x_pad, dev_y, dev_mask, dev_sentLen, embeddingDictPad
+        train_x_pad, train_y, train_mask, train_sentLen, dev_x_pad, dev_y, dev_mask, dev_sentLen, embedding_pad, test_x_pad, test_y, test_mask, test_sentLen = readOurData(
+            train_path, dev_path, testPath,embedding_path)
+        return train_x_pad, train_y, train_mask, train_sentLen, dev_x_pad, dev_y, dev_mask, dev_sentLen, embedding_pad, test_x_pad, test_y, test_mask, test_sentLen
+
+    def _get_rationals(self, rationals):
+        from rationales_tensor import read_rationales_as_array
+        rational = read_rationales_as_array(rationals)
+        return rational
 
     def add_placeholders(self):
         # batchSize X sentence X numClasses
@@ -64,8 +69,11 @@ class RNNGeneratorModel(object):
         self.l2RegPH = tf.placeholder(dtype=tf.float32,
                                       shape=(),
                                       name='l2Reg')
+        self.rationalsPH = tf.placeholder(dtype = tf.int32,
+                                        shape = (None, self.config.max_sentence),
+                                        name = 'rationals')
 
-    def create_feed_dict(self, inputs_batch, mask_batch, seqLen, labels_batch=None,
+    def create_feed_dict(self, inputs_batch, mask_batch, seqLen, labels_batch=None, rationals=None,
                          dropout=1.0, l2_reg=0.0):
 
         feed_dict = {
@@ -79,6 +87,9 @@ class RNNGeneratorModel(object):
         # Add labels if not none
         if labels_batch is not None:
             feed_dict[self.labelsPH] = labels_batch
+
+        if rationals is not None:
+            feed_dict[self.rationals] = rationals
 
         return feed_dict
 
@@ -284,13 +295,21 @@ class RNNGeneratorModel(object):
         se = sess.run(self.eval, feed_dict=feed)
         return se
 
-    def run_rationals(self, sess, inputs_batch, labels_batch, mask_batch, sentLen):
+    def get_batch_precision(self):
+        zPreds = self.zPreds
+        overlap = zPreds * self.rationalsPH
+        predCorrect = tf.reduce_sum(overlap)
+        predTotal = tf.reduce_sum(zPreds)
+        return predCorrect, predTotal
+
+    def run_rationals(self, sess, inputs_batch, labels_batch, mask_batch, sentLen, rationals):
         feed = self.create_feed_dict(inputs_batch = inputs_batch,
                                      mask_batch = mask_batch,
                                      seqLen=sentLen,
                                      labels_batch=labels_batch,
                                      dropout=self.config.drop_out,
-                                     l2_reg=self.config.l2Reg)
+                                     l2_reg=self.config.l2Reg,
+                                     rationals=rationals)
         zPreds = sess.run(self.zPreds, feed_dict = feed)
         return zPreds
 
@@ -315,6 +334,8 @@ class RNNGeneratorModel(object):
                                     sentLen)
 
         return se, predCorrect, predTotal
+
+    def run_test(self):
 
     ### NO NEED TO UPDATE BELOW
     def train_on_batch(self, sess, inputs_batch, labels_batch, mask_batch, sentLen):
@@ -364,9 +385,9 @@ class RNNGeneratorModel(object):
                     saver.save(sess, './encoder.weights')
             print
 
-    def __init__(self, config, embedding_path, train_path, dev_path, aspect = 0):
-        train_x_pad, train_y, train_mask, train_sentLen, dev_x_pad, dev_y, dev_mask, dev_sentLen, embeddingDictPad = self._read_data(
-            train_path, dev_path, embedding_path)
+    def __init__(self, config, embedding_path, train_path, dev_path, test_path, rationals, aspect = 0):
+        train_x_pad, train_y, train_mask, train_sentLen, dev_x_pad, dev_y, dev_mask, dev_sentLen, embedding_pad, test_x_pad, test_y, test_mask, test_sentLen= self._read_data(
+            train_path, dev_path, test_path, embedding_path)
         train_y = train_y[:, aspect]
         dev_y = dev_y[:, aspect]
         self.train_x = train_x_pad
@@ -377,14 +398,27 @@ class RNNGeneratorModel(object):
         self.dev_y = dev_y
         self.dev_mask = dev_mask
         self.dev_sentLen = dev_sentLen
-        self.pretrained_embeddings = embeddingDictPad
-        self.maskId = len(embeddingDictPad) - 1
+        self.pretrained_embeddings = embedding_pad
+        self.maskId = len(embedding_pad) - 1
         # Update our config with data parameters
         self.config = config
         self.config.max_sentence = max(train_x_pad.shape[1], dev_x_pad.shape[1])
         # self.config.max_sentence = train_x_pad.shape[1]
         self.config.n_class = train_y.shape[1]
-        self.config.embedding_size = embeddingDictPad.shape[1]
+        self.config.embedding_size = embedding_pad.shape[1]
+        # get rationals
+        ration = self._get_rationals(rationals)
+        maxPadding = train_x_pad.shape[1]
+        rationalDiff = maxPadding - ration.shape[1]
+        rationalPad = np.zeros(shape = (ration.shape[0], rationalDiff),
+                               dtype = np.int32)
+        paddedRational = np.append(ration, rationalPad, axis = 1)
+        assert(paddedRational.shape[1] == train_x_pad.shape[1], 'rationals not padded correctly')
+        assert(ration.shape[0] == rationalPad.shape[0], 'rationals have different number after padding')
+        self.rationals = rationalPad
+        self.test_x = test_x_pad
+        self.test_y = test_y
+        self.test_mask = test_mask
         self.build()
 
     # def __init__(self, encoder):

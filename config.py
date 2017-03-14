@@ -1,8 +1,8 @@
 class Config(object):
     drop_out = 0.5
     hidden_size = 200
-    batch_size = 32
-    epochs = 2
+    batch_size = 128
+    epochs = 100
     lr = 0.001
     l2Reg = 1.0e-6
     # built when we construct the model

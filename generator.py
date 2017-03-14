@@ -318,7 +318,7 @@ class RNNGeneratorModel(object):
                                      dropout=self.config.drop_out,
                                      l2_reg=self.config.l2Reg,
                                      rationals=rationals)
-        predCorrect, predTotal = sess.run(self.predCorrect, self.predTotal, feed_dict = feed)
+        predCorrect, predTotal = sess.run([self.predCorrect, self.predTotal], feed_dict = feed)
         return predCorrect, predTotal
 
     # def run_precision_on_batch(self, sess, inputs_batch, labels_batch, mask_batch, sentLen, rationals):
@@ -445,8 +445,8 @@ class RNNGeneratorModel(object):
         paddedRational = np.append(ration, rationalPad, axis = 1)
         # assert(paddedRational.shape[1] == train_x_pad.shape[1], 'rationals not padded correctly')
         # assert(ration.shape[0] == rationalPad.shape[0], 'rationals have different number after padding')
-        quickFix = np.zeros(shape = (6, paddedRational.shape[1]), dtype = np.int32)
-        paddedRational = np.append(paddedRational, quickFix, axis = 0)
+        #quickFix = np.zeros(shape = (6, paddedRational.shape[1]), dtype = np.int32)
+        #paddedRational = np.append(paddedRational, quickFix, axis = 0)
         self.rationals = paddedRational
         self.test_x = test_x_pad
         self.test_y = test_y
@@ -477,11 +477,12 @@ class RNNGeneratorModel(object):
 Read in Data
 '''
 
-train = '/Users/henryneeb/CS224N-Project/source/rcnn-master/beer/reviews.aspect1.small.train.txt.gz'
-dev = '/Users/henryneeb/CS224N-Project/source/rcnn-master/beer/reviews.aspect1.small.heldout.txt.gz'
-embedding = '/Users/henryneeb/CS224N-Project/source/rcnn-master/beer/review+wiki.filtered.200.txt.gz'
-test = '/Users/henryneeb/CS224N-Project/annotations.txt.gz'
-annotations = '/Users/henryneeb/CS224N-Project/source/rcnn-master/beer/annotations.json'
+train = '/home/neuron/beer/reviews.aspect1.small.train.txt.gz'
+dev = '/home/neuron/beer/reviews.aspect1.small.heldout.txt.gz'
+embedding = '/home/neuron/beer/review+wiki.filtered.200.txt.gz'
+test = '/home/neuron/beer/annotations.txt.gz'
+annotations = '/home/neuron/beer/annotations.json'
+
 
 def main(debug=False):
     print 80 * "="

@@ -266,7 +266,7 @@ class LSTMGeneratorModel(object):
         # regPreds = tf.reduce_sum(tf.nn.l2_loss(self.zPreds))
 
         # apply reg to sequence
-        sparsity_factor = 0.0003
+        sparsity_factor = 300.0
         coherent_ratio = 2.0
         coherent_factor = sparsity_factor * coherent_ratio
         Zsum = tf.reduce_sum(self.zPreds, axis=0)
@@ -417,6 +417,7 @@ class LSTMGeneratorModel(object):
 
         print '- test MSE: {0}'.format(test_mse)
         print '- test precision: {0}'.format(precision)
+        print '- test predictions: {0}'.format(test_totalPred)
 
         return dev_mse
 
@@ -499,11 +500,11 @@ class LSTMGeneratorModel(object):
 Read in Data
 '''
 
-train = '/Users/henryneeb/CS224N-Project/source/rcnn-master/beer/reviews.aspect1.small.train.txt.gz'
-dev = '/Users/henryneeb/CS224N-Project/source/rcnn-master/beer/reviews.aspect1.small.heldout.txt.gz'
-embedding = '/Users/henryneeb/CS224N-Project/source/rcnn-master/beer/review+wiki.filtered.200.txt.gz'
-test = '/Users/henryneeb/CS224N-Project/source/rcnn-master/beer/annotations.txt.gz'
-annotations = '/Users/henryneeb/CS224N-Project/source/rcnn-master/beer/annotations.json'
+train = '/home/neuron/beer/reviews.aspect1.train.txt.gz'
+dev = '/home/neuron/beer/reviews.aspect1.heldout.txt.gz'
+embedding = '/home/neuron/beer/review+wiki.filtered.200.txt.gz'
+test = '/home/neuron/beer/annotations.txt.gz'
+annotations = '/home/neuron/beer/annotations.json'
 
 
 def main(debug=False):

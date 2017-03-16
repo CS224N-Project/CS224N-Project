@@ -404,13 +404,13 @@ class RNNGeneratorModel(object):
                                      dropout=self.config.drop_out,
                                      l2_reg=self.config.l2Reg)
         _, loss, grad_print = sess.run([self.train_op, self.loss, self.grad_print], feed_dict=feed)
-        #for grad in grad_print:
-        #     print ''
-        #     print 'grad, var (shape, norm):'
-        #     print grad[0].shape
-        #     print grad[1].shape
-        #     print np.linalg.norm(grad[0])
-        #     print np.linalg.norm(grad[1])
+        for grad in grad_print:
+             print ''
+             print 'grad, var (shape, norm):'
+             print grad[0].shape
+             print grad[1].shape
+             print np.linalg.norm(grad[0])
+             print np.linalg.norm(grad[1])
         return loss
 
     def save_preds(self, outFile, metaFile):

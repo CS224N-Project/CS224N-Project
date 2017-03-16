@@ -289,6 +289,7 @@ class RNNGeneratorModel(object):
 
         opt = tf.train.AdamOptimizer(learning_rate=self.config.lr)
         grads = opt.compute_gradients(loss)
+        self.grad_print = [(grad, var) for grad, var in grads]
         capped_grads = [(tf.clip_by_value(grad, -1., 1.), var) for grad, var in
                         grads]
         train_op = opt.apply_gradients(capped_grads)
@@ -361,7 +362,14 @@ class RNNGeneratorModel(object):
                                      labels_batch=labels_batch,
                                      dropout=self.config.drop_out,
                                      l2_reg=self.config.l2Reg)
-        _, loss = sess.run([self.train_op, self.loss], feed_dict=feed)
+        _, loss, grad_print = sess.run([self.train_op, self.loss, self.grad_print], feed_dict=feed)
+        for grad in grad_print:
+             print ''
+             print 'grad, var (shape, norm):'
+             print grad[0].shape
+             print grad[1].shape
+             print np.linalg.norm(grad[0])
+             print np.linalg.norm(grad[1])
         return loss
 
     def save_preds(self, outFile, metaFile):
@@ -422,7 +430,7 @@ class RNNGeneratorModel(object):
 
         print '- test MSE: {0}'.format(test_mse)
         print '- test precision: {0}'.format(precision)
-
+        print '- test predictions count: {0}'.format(test_totalPred)
         return dev_mse
 
     def fit(self, sess, saver):
@@ -447,6 +455,14 @@ class RNNGeneratorModel(object):
         train_y = train_y.reshape(train_y.shape[0], 1)
         dev_y = dev_y.reshape(dev_y.shape[0], 1)
         test_y = test_y.reshape(test_y.shape[0], 1)
+
+        #train_x_pad = train_x_pad[:,0:20]
+        #train_mask = train_mask[:,0:20]
+        #dev_x_pad = dev_x_pad[:,0:20]
+        #dev_mask = dev_mask[:,0:20]
+        #test_x_pad = test_x_pad[:,0:20]
+        #test_mask = test_mask[:,0:20]
+
         self.train_x = train_x_pad
         self.train_y = train_y
         self.train_mask = train_mask
@@ -465,6 +481,10 @@ class RNNGeneratorModel(object):
         self.config.embedding_size = embedding_pad.shape[1]
         # get rationals
         ration = self._get_rationals(rationals)
+
+        #ration = ration[:,0:20]
+        #ration = ration[:,0:20]
+
         maxPadding = train_x_pad.shape[1]
         rationalDiff = maxPadding - ration.shape[1]
         rationalPad = np.zeros(shape = (ration.shape[0], rationalDiff),

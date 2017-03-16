@@ -1,0 +1,9462 @@
+I tensorflow/stream_executor/dso_loader.cc:128] successfully opened CUDA library libcublas.so locally
+I tensorflow/stream_executor/dso_loader.cc:128] successfully opened CUDA library libcudnn.so locally
+I tensorflow/stream_executor/dso_loader.cc:128] successfully opened CUDA library libcufft.so locally
+I tensorflow/stream_executor/dso_loader.cc:128] successfully opened CUDA library libcuda.so.1 locally
+I tensorflow/stream_executor/dso_loader.cc:128] successfully opened CUDA library libcurand.so locally
+================================================================================
+INITIALIZING
+================================================================================
+Building model...147759 pre-trained embeddings loaded.
+70000 examples loaded from /home/neuron/beer/reviews.aspect1.train.txt.gz
+max text length: 1145
+10000 examples loaded from /home/neuron/beer/reviews.aspect1.heldout.txt.gz
+max text length: 915
+994 examples loaded from /home/neuron/beer/annotations.txt.gz
+max text length: 413
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:885] Found device 0 with properties: 
+name: Tesla M60
+major: 5 minor: 2 memoryClockRate (GHz) 1.1775
+pciBusID 9e06:00:00.0
+Total memory: 7.93GiB
+Free memory: 7.86GiB
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:906] DMA: 0 
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:916] 0:   Y 
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla M60, pci bus id: 9e06:00:00.0)
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 15699 get requests, put_count=10757 evicted_count=1000 eviction_rate=0.0929627 and unsatisfied allocation rate=0.384865
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:259] Raising pool_size_limit_ from 100 to 110
+took 20.44 seconds
+
+================================================================================
+TRAINING
+================================================================================
+Epoch 1 out of 100
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+441.321
+14.1506
+
+grad, var (shape, norm):
+(200,)
+(200,)
+578.091
+0.0
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+257.57
+14.1537
+
+grad, var (shape, norm):
+(200,)
+(200,)
+327.277
+0.0
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+313.084
+14.1413
+
+grad, var (shape, norm):
+(200,)
+(200,)
+374.212
+0.0
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+163.175
+14.1363
+
+grad, var (shape, norm):
+(200,)
+(200,)
+176.334
+0.0
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+257.926
+20.9025
+
+grad, var (shape, norm):
+(300,)
+(300,)
+199.004
+0.0
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+668.785
+1.4358
+
+grad, var (shape, norm):
+(1,)
+(1,)
+1496.68
+0.0
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+1315.81
+14.1224
+
+grad, var (shape, norm):
+(200,)
+(200,)
+3468.66
+0.0
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+706.32
+14.1533
+
+grad, var (shape, norm):
+(200,)
+(200,)
+1921.36
+0.0
+  1/274 [..............................] - ETA: 899s - train loss: 5211.5708I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 12939 get requests, put_count=16951 evicted_count=4000 eviction_rate=0.235974 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+1042.37
+14.1414
+
+grad, var (shape, norm):
+(200,)
+(200,)
+901.42
+0.141421
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+485.551
+14.1229
+
+grad, var (shape, norm):
+(200,)
+(200,)
+328.317
+0.141421
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+956.78
+14.082
+
+grad, var (shape, norm):
+(200,)
+(200,)
+897.279
+0.141421
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+463.645
+14.0008
+
+grad, var (shape, norm):
+(200,)
+(200,)
+344.759
+0.141421
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+653.762
+20.9517
+
+grad, var (shape, norm):
+(300,)
+(300,)
+309.337
+0.173205
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+16.6192
+1.44974
+
+grad, var (shape, norm):
+(1,)
+(1,)
+3.12244
+0.01
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+118.0
+14.4102
+
+grad, var (shape, norm):
+(200,)
+(200,)
+32.41
+0.141421
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+46.1888
+14.4279
+
+grad, var (shape, norm):
+(200,)
+(200,)
+8.0828
+0.141421
+  2/274 [..............................] - ETA: 583s - train loss: 5196.3313
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+1108.66
+14.2487
+
+grad, var (shape, norm):
+(200,)
+(200,)
+431.229
+0.214042
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+388.301
+14.1916
+
+grad, var (shape, norm):
+(200,)
+(200,)
+282.695
+0.222462
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+677.118
+14.166
+
+grad, var (shape, norm):
+(200,)
+(200,)
+545.412
+0.206117
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+382.423
+14.0116
+
+grad, var (shape, norm):
+(200,)
+(200,)
+272.629
+0.218189
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+523.418
+21.1777
+
+grad, var (shape, norm):
+(300,)
+(300,)
+247.454
+0.286269
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+204.89
+1.44605
+
+grad, var (shape, norm):
+(1,)
+(1,)
+82.8746
+0.00947368
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+1031.69
+14.8658
+
+grad, var (shape, norm):
+(200,)
+(200,)
+831.493
+0.215595
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+324.665
+14.8874
+
+grad, var (shape, norm):
+(200,)
+(200,)
+79.6235
+0.215196
+  3/274 [..............................] - ETA: 467s - train loss: 5412.4451I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 10407 get requests, put_count=13423 evicted_count=3000 eviction_rate=0.223497 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+3219.55
+14.3569
+
+grad, var (shape, norm):
+(200,)
+(200,)
+1206.99
+0.260669
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+1416.62
+14.3068
+
+grad, var (shape, norm):
+(200,)
+(200,)
+757.585
+0.282418
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+1443.63
+14.2812
+
+grad, var (shape, norm):
+(200,)
+(200,)
+1203.57
+0.246096
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+1252.31
+14.1033
+
+grad, var (shape, norm):
+(200,)
+(200,)
+676.677
+0.27562
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+1015.69
+21.474
+
+grad, var (shape, norm):
+(300,)
+(300,)
+357.601
+0.374557
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+457.416
+1.44222
+
+grad, var (shape, norm):
+(1,)
+(1,)
+78.1716
+0.0128316
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+1485.7
+15.2963
+
+grad, var (shape, norm):
+(200,)
+(200,)
+465.206
+0.297063
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+463.84
+15.2943
+
+grad, var (shape, norm):
+(200,)
+(200,)
+42.0369
+0.279753
+  4/274 [..............................] - ETA: 417s - train loss: 5891.5299
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+4340.38
+14.4685
+
+grad, var (shape, norm):
+(200,)
+(200,)
+137.251
+0.293656
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+1475.59
+14.4547
+
+grad, var (shape, norm):
+(200,)
+(200,)
+80.6375
+0.332318
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+624.634
+14.4226
+
+grad, var (shape, norm):
+(200,)
+(200,)
+360.834
+0.276267
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+455.174
+14.2464
+
+grad, var (shape, norm):
+(200,)
+(200,)
+214.23
+0.32381
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+3630.06
+21.7708
+
+grad, var (shape, norm):
+(300,)
+(300,)
+155.298
+0.438868
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+502.395
+1.4383
+
+grad, var (shape, norm):
+(1,)
+(1,)
+86.5242
+0.0181209
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+86237.6
+15.7147
+
+grad, var (shape, norm):
+(200,)
+(200,)
+2293.13
+0.337476
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+375.645
+15.6612
+
+grad, var (shape, norm):
+(200,)
+(200,)
+47.2947
+0.343194
+  5/274 [..............................] - ETA: 395s - train loss: 6168.3920I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 3551 get requests, put_count=4570 evicted_count=1000 eviction_rate=0.218818 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+14146.2
+14.6016
+
+grad, var (shape, norm):
+(200,)
+(200,)
+250.341
+0.325322
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+5254.21
+14.6477
+
+grad, var (shape, norm):
+(200,)
+(200,)
+69.4248
+0.370561
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+539.85
+14.5644
+
+grad, var (shape, norm):
+(200,)
+(200,)
+215.795
+0.296989
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+368.332
+14.4264
+
+grad, var (shape, norm):
+(200,)
+(200,)
+91.9437
+0.364588
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+3351.96
+22.1043
+
+grad, var (shape, norm):
+(300,)
+(300,)
+110.565
+0.497586
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+1818.19
+1.43528
+
+grad, var (shape, norm):
+(1,)
+(1,)
+382.633
+0.0245605
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+7684.23
+16.088
+
+grad, var (shape, norm):
+(200,)
+(200,)
+884.49
+0.380185
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+945.501
+16.0119
+
+grad, var (shape, norm):
+(200,)
+(200,)
+145.18
+0.411797
+  6/274 [..............................] - ETA: 369s - train loss: 6443.0509I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 14715 get requests, put_count=19736 evicted_count=5000 eviction_rate=0.253344 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+44027.1
+14.7816
+
+grad, var (shape, norm):
+(200,)
+(200,)
+773.737
+0.356053
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+1519.96
+14.8461
+
+grad, var (shape, norm):
+(200,)
+(200,)
+51.8203
+0.411942
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+1494.25
+14.7177
+
+grad, var (shape, norm):
+(200,)
+(200,)
+57.0786
+0.317003
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+1392.67
+14.6221
+
+grad, var (shape, norm):
+(200,)
+(200,)
+28.5791
+0.404726
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+3333.57
+22.4726
+
+grad, var (shape, norm):
+(300,)
+(300,)
+84.1163
+0.540406
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+3201.06
+1.43361
+
+grad, var (shape, norm):
+(1,)
+(1,)
+461.672
+0.03176
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+20229.8
+16.4527
+
+grad, var (shape, norm):
+(200,)
+(200,)
+866.477
+0.413707
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+1350.68
+16.3447
+
+grad, var (shape, norm):
+(200,)
+(200,)
+151.509
+0.485665
+  7/274 [..............................] - ETA: 354s - train loss: 6710.7394
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+3566.6
+14.993
+
+grad, var (shape, norm):
+(200,)
+(200,)
+271.515
+0.388059
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+1366.01
+15.0398
+
+grad, var (shape, norm):
+(200,)
+(200,)
+33.6266
+0.451009
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+1369.1
+14.8921
+
+grad, var (shape, norm):
+(200,)
+(200,)
+63.4598
+0.340491
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+1362.83
+14.8212
+
+grad, var (shape, norm):
+(200,)
+(200,)
+36.1116
+0.44325
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+2771.61
+22.8167
+
+grad, var (shape, norm):
+(300,)
+(300,)
+82.5815
+0.57291
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+1806.32
+1.43399
+
+grad, var (shape, norm):
+(1,)
+(1,)
+374.634
+0.0394963
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+3312.95
+16.8055
+
+grad, var (shape, norm):
+(200,)
+(200,)
+294.605
+0.438002
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+611.224
+16.6514
+
+grad, var (shape, norm):
+(200,)
+(200,)
+108.421
+0.566489
+  8/274 [..............................] - ETA: 339s - train loss: 6819.5591I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 10454 get requests, put_count=13479 evicted_count=3000 eviction_rate=0.222568 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+31901.4
+15.2277
+
+grad, var (shape, norm):
+(200,)
+(200,)
+315.223
+0.414057
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+803.404
+15.24
+
+grad, var (shape, norm):
+(200,)
+(200,)
+31.4562
+0.484642
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+14823.2
+15.0674
+
+grad, var (shape, norm):
+(200,)
+(200,)
+256.673
+0.363099
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+1145.54
+15.0339
+
+grad, var (shape, norm):
+(200,)
+(200,)
+30.8762
+0.477912
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+2093.5
+23.15
+
+grad, var (shape, norm):
+(300,)
+(300,)
+76.3118
+0.602604
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+1429.62
+1.43595
+
+grad, var (shape, norm):
+(1,)
+(1,)
+384.32
+0.0476301
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+1481.78
+17.1467
+
+grad, var (shape, norm):
+(200,)
+(200,)
+1173.19
+0.449068
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+766.237
+16.9519
+
+grad, var (shape, norm):
+(200,)
+(200,)
+86.6571
+0.65337
+  9/274 [..............................] - ETA: 334s - train loss: 6874.5916
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+3221.26
+15.487
+
+grad, var (shape, norm):
+(200,)
+(200,)
+304.097
+0.438035
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+922.255
+15.4515
+
+grad, var (shape, norm):
+(200,)
+(200,)
+34.6564
+0.515076
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+2742.23
+15.2506
+
+grad, var (shape, norm):
+(200,)
+(200,)
+293.663
+0.38453
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+841.043
+15.2379
+
+grad, var (shape, norm):
+(200,)
+(200,)
+37.5771
+0.506695
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+2292.86
+23.4679
+
+grad, var (shape, norm):
+(300,)
+(300,)
+75.0714
+0.630438
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+3580.1
+1.43596
+
+grad, var (shape, norm):
+(1,)
+(1,)
+339.75
+0.0560685
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+13098.4
+17.4775
+
+grad, var (shape, norm):
+(200,)
+(200,)
+758.929
+0.45217
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+843.361
+17.2395
+
+grad, var (shape, norm):
+(200,)
+(200,)
+62.4481
+0.744978
+ 10/274 [>.............................] - ETA: 325s - train loss: 6877.7170I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 7013 get requests, put_count=9043 evicted_count=2000 eviction_rate=0.221166 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+569.834
+15.7712
+
+grad, var (shape, norm):
+(200,)
+(200,)
+34.061
+0.462245
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+820.173
+15.6737
+
+grad, var (shape, norm):
+(200,)
+(200,)
+29.7881
+0.539089
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+1405.46
+15.4422
+
+grad, var (shape, norm):
+(200,)
+(200,)
+101.684
+0.404795
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+1190.85
+15.4463
+
+grad, var (shape, norm):
+(200,)
+(200,)
+31.552
+0.532506
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+2426.17
+23.7794
+
+grad, var (shape, norm):
+(300,)
+(300,)
+75.8503
+0.658556
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+1529.25
+1.43785
+
+grad, var (shape, norm):
+(1,)
+(1,)
+403.486
+0.0647466
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+1007.29
+17.79
+
+grad, var (shape, norm):
+(200,)
+(200,)
+379.725
+0.461963
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+516.444
+17.5172
+
+grad, var (shape, norm):
+(200,)
+(200,)
+65.7161
+0.839788
+ 11/274 [>.............................] - ETA: 315s - train loss: 6903.8426
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+121439.0
+16.0746
+
+grad, var (shape, norm):
+(200,)
+(200,)
+1081.37
+0.487693
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+635.642
+15.9015
+
+grad, var (shape, norm):
+(200,)
+(200,)
+23.3251
+0.560635
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+27317.6
+15.6416
+
+grad, var (shape, norm):
+(200,)
+(200,)
+589.34
+0.42198
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+767.324
+15.6568
+
+grad, var (shape, norm):
+(200,)
+(200,)
+31.6267
+0.555088
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+2586.87
+24.0833
+
+grad, var (shape, norm):
+(300,)
+(300,)
+74.2183
+0.689622
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+3355.87
+1.43848
+
+grad, var (shape, norm):
+(1,)
+(1,)
+423.994
+0.0736174
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+4057.06
+18.0986
+
+grad, var (shape, norm):
+(200,)
+(200,)
+626.5
+0.480916
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+731.025
+17.7897
+
+grad, var (shape, norm):
+(200,)
+(200,)
+59.8585
+0.938061
+ 12/274 [>.............................] - ETA: 307s - train loss: 6899.3759I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 35632 get requests, put_count=35985 evicted_count=6000 eviction_rate=0.166736 and unsatisfied allocation rate=0.159407
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:259] Raising pool_size_limit_ from 372 to 409
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+31194.6
+16.3799
+
+grad, var (shape, norm):
+(200,)
+(200,)
+259.462
+0.508812
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+632.461
+16.1315
+
+grad, var (shape, norm):
+(200,)
+(200,)
+20.6234
+0.582686
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+4067.22
+15.8515
+
+grad, var (shape, norm):
+(200,)
+(200,)
+171.034
+0.434892
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+647.593
+15.8687
+
+grad, var (shape, norm):
+(200,)
+(200,)
+23.2476
+0.572937
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+2617.75
+24.3856
+
+grad, var (shape, norm):
+(300,)
+(300,)
+71.3295
+0.722964
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+3631.45
+1.43944
+
+grad, var (shape, norm):
+(1,)
+(1,)
+356.998
+0.0826456
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+16989.6
+18.412
+
+grad, var (shape, norm):
+(200,)
+(200,)
+376.57
+0.499321
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+653.163
+18.0517
+
+grad, var (shape, norm):
+(200,)
+(200,)
+47.3269
+1.03871
+ 13/274 [>.............................] - ETA: 300s - train loss: 6898.7901I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 14354 get requests, put_count=19394 evicted_count=5000 eviction_rate=0.257812 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+5172.29
+16.6882
+
+grad, var (shape, norm):
+(200,)
+(200,)
+92.0883
+0.529061
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+579.293
+16.3637
+
+grad, var (shape, norm):
+(200,)
+(200,)
+18.4235
+0.606008
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+9366.09
+16.0802
+
+grad, var (shape, norm):
+(200,)
+(200,)
+174.35
+0.447124
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+646.56
+16.0785
+
+grad, var (shape, norm):
+(200,)
+(200,)
+22.3534
+0.590759
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+2575.07
+24.6827
+
+grad, var (shape, norm):
+(300,)
+(300,)
+65.0733
+0.755918
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+3058.29
+1.44117
+
+grad, var (shape, norm):
+(1,)
+(1,)
+329.946
+0.0918041
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+4532.84
+18.7308
+
+grad, var (shape, norm):
+(200,)
+(200,)
+1620.49
+0.517669
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+537.461
+18.3043
+
+grad, var (shape, norm):
+(200,)
+(200,)
+42.5805
+1.14141
+ 14/274 [>.............................] - ETA: 294s - train loss: 6884.5101
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+16259.1
+16.9855
+
+grad, var (shape, norm):
+(200,)
+(200,)
+267.032
+0.544622
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+547.51
+16.5963
+
+grad, var (shape, norm):
+(200,)
+(200,)
+17.2498
+0.629901
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+711.732
+16.3291
+
+grad, var (shape, norm):
+(200,)
+(200,)
+32.9637
+0.461443
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+632.328
+16.2885
+
+grad, var (shape, norm):
+(200,)
+(200,)
+20.6933
+0.609436
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+3314.21
+24.9749
+
+grad, var (shape, norm):
+(300,)
+(300,)
+70.7335
+0.785711
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+2364.57
+1.44271
+
+grad, var (shape, norm):
+(1,)
+(1,)
+341.629
+0.101072
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+4816.76
+19.0501
+
+grad, var (shape, norm):
+(200,)
+(200,)
+468.238
+0.535826
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+441.894
+18.5469
+
+grad, var (shape, norm):
+(200,)
+(200,)
+43.6873
+1.24505
+ 15/274 [>.............................] - ETA: 291s - train loss: 6881.6969I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 13971 get requests, put_count=18020 evicted_count=4000 eviction_rate=0.221976 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+7035.85
+17.2614
+
+grad, var (shape, norm):
+(200,)
+(200,)
+85.1298
+0.564511
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+498.396
+16.8284
+
+grad, var (shape, norm):
+(200,)
+(200,)
+17.1709
+0.652853
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+596.28
+16.5911
+
+grad, var (shape, norm):
+(200,)
+(200,)
+32.7172
+0.477238
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+713.351
+16.5008
+
+grad, var (shape, norm):
+(200,)
+(200,)
+20.441
+0.628672
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+3282.23
+25.2627
+
+grad, var (shape, norm):
+(300,)
+(300,)
+72.9425
+0.814449
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+2420.57
+1.44448
+
+grad, var (shape, norm):
+(1,)
+(1,)
+391.157
+0.110431
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+7141.95
+19.3587
+
+grad, var (shape, norm):
+(200,)
+(200,)
+274.026
+0.555696
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+555.07
+18.7841
+
+grad, var (shape, norm):
+(200,)
+(200,)
+47.1043
+1.3489
+ 16/274 [>.............................] - ETA: 286s - train loss: 6880.1380
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+5786.3
+17.5235
+
+grad, var (shape, norm):
+(200,)
+(200,)
+112.513
+0.587115
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+461.339
+17.0584
+
+grad, var (shape, norm):
+(200,)
+(200,)
+15.8279
+0.674467
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+678.475
+16.8566
+
+grad, var (shape, norm):
+(200,)
+(200,)
+20.2395
+0.494522
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+502.724
+16.7143
+
+grad, var (shape, norm):
+(200,)
+(200,)
+16.1484
+0.646744
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+3085.22
+25.5442
+
+grad, var (shape, norm):
+(300,)
+(300,)
+66.8627
+0.840901
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+3193.86
+1.44641
+
+grad, var (shape, norm):
+(1,)
+(1,)
+363.791
+0.11987
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+2881.73
+19.6566
+
+grad, var (shape, norm):
+(200,)
+(200,)
+853.684
+0.579562
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+621.097
+19.0129
+
+grad, var (shape, norm):
+(200,)
+(200,)
+42.6083
+1.45174
+ 17/274 [>.............................] - ETA: 281s - train loss: 6844.4816I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 10574 get requests, put_count=13633 evicted_count=3000 eviction_rate=0.220054 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+8911.56
+17.7745
+
+grad, var (shape, norm):
+(200,)
+(200,)
+133.843
+0.605637
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+450.48
+17.2865
+
+grad, var (shape, norm):
+(200,)
+(200,)
+19.2838
+0.694111
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+11900.8
+17.1197
+
+grad, var (shape, norm):
+(200,)
+(200,)
+140.214
+0.513822
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+637.345
+16.9255
+
+grad, var (shape, norm):
+(200,)
+(200,)
+21.9215
+0.664494
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+2879.74
+25.8252
+
+grad, var (shape, norm):
+(300,)
+(300,)
+66.0352
+0.863553
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+2715.66
+1.44772
+
+grad, var (shape, norm):
+(1,)
+(1,)
+315.228
+0.129376
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+17449.0
+19.948
+
+grad, var (shape, norm):
+(200,)
+(200,)
+748.843
+0.610659
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+471.582
+19.2326
+
+grad, var (shape, norm):
+(200,)
+(200,)
+36.4243
+1.55432
+ 18/274 [>.............................] - ETA: 277s - train loss: 6824.1532
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+995.824
+18.0113
+
+grad, var (shape, norm):
+(200,)
+(200,)
+160.635
+0.622165
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+385.058
+17.5128
+
+grad, var (shape, norm):
+(200,)
+(200,)
+16.4628
+0.712095
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+3011.68
+17.3681
+
+grad, var (shape, norm):
+(200,)
+(200,)
+39.2765
+0.532085
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+650.912
+17.1312
+
+grad, var (shape, norm):
+(200,)
+(200,)
+17.5194
+0.680135
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+2999.3
+26.0985
+
+grad, var (shape, norm):
+(300,)
+(300,)
+63.2692
+0.885009
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+3355.74
+1.44961
+
+grad, var (shape, norm):
+(1,)
+(1,)
+294.605
+0.13894
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+1099.42
+20.2285
+
+grad, var (shape, norm):
+(200,)
+(200,)
+131.809
+0.643155
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+419.046
+19.447
+
+grad, var (shape, norm):
+(200,)
+(200,)
+28.0445
+1.65595
+ 19/274 [=>............................] - ETA: 275s - train loss: 6798.7543I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 7187 get requests, put_count=9259 evicted_count=2000 eviction_rate=0.216006 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+1487.87
+18.2303
+
+grad, var (shape, norm):
+(200,)
+(200,)
+54.3196
+0.638914
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+416.238
+17.7373
+
+grad, var (shape, norm):
+(200,)
+(200,)
+14.0598
+0.728018
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+15184.6
+17.6093
+
+grad, var (shape, norm):
+(200,)
+(200,)
+161.607
+0.549807
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+419.82
+17.3344
+
+grad, var (shape, norm):
+(200,)
+(200,)
+17.0934
+0.693292
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+2938.73
+26.3652
+
+grad, var (shape, norm):
+(300,)
+(300,)
+63.5587
+0.903798
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+2398.89
+1.45111
+
+grad, var (shape, norm):
+(1,)
+(1,)
+322.685
+0.148554
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+11817.8
+20.498
+
+grad, var (shape, norm):
+(200,)
+(200,)
+495.408
+0.678035
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+316.072
+19.6547
+
+grad, var (shape, norm):
+(200,)
+(200,)
+26.5554
+1.75555
+ 20/274 [=>............................] - ETA: 274s - train loss: 6746.9489
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+29709.1
+18.4437
+
+grad, var (shape, norm):
+(200,)
+(200,)
+828.098
+0.655403
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+340.493
+17.9594
+
+grad, var (shape, norm):
+(200,)
+(200,)
+13.6208
+0.743801
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+1302.07
+17.8405
+
+grad, var (shape, norm):
+(200,)
+(200,)
+23.6846
+0.567692
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+672.333
+17.5352
+
+grad, var (shape, norm):
+(200,)
+(200,)
+11.0588
+0.707152
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+3097.47
+26.6247
+
+grad, var (shape, norm):
+(300,)
+(300,)
+60.6317
+0.920879
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+2828.03
+1.45328
+
+grad, var (shape, norm):
+(1,)
+(1,)
+297.989
+0.158212
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+7971.74
+20.7536
+
+grad, var (shape, norm):
+(200,)
+(200,)
+412.98
+0.71282
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+325.127
+19.8526
+
+grad, var (shape, norm):
+(200,)
+(200,)
+22.6848
+1.85526
+ 21/274 [=>............................] - ETA: 272s - train loss: 6696.8826I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 7196 get requests, put_count=9283 evicted_count=2000 eviction_rate=0.215448 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+4642.76
+18.6528
+
+grad, var (shape, norm):
+(200,)
+(200,)
+133.138
+0.67103
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+401.35
+18.1794
+
+grad, var (shape, norm):
+(200,)
+(200,)
+11.4004
+0.758131
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+768.372
+18.0642
+
+grad, var (shape, norm):
+(200,)
+(200,)
+17.8586
+0.583556
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+519.863
+17.7324
+
+grad, var (shape, norm):
+(200,)
+(200,)
+11.3775
+0.721135
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+3199.98
+26.8771
+
+grad, var (shape, norm):
+(300,)
+(300,)
+64.1327
+0.93736
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+2489.26
+1.45579
+
+grad, var (shape, norm):
+(1,)
+(1,)
+319.128
+0.167909
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+818.154
+20.9968
+
+grad, var (shape, norm):
+(200,)
+(200,)
+131.524
+0.748182
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+403.672
+20.0419
+
+grad, var (shape, norm):
+(200,)
+(200,)
+27.7401
+1.95457
+ 22/274 [=>............................] - ETA: 270s - train loss: 6664.4840
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+333.458
+18.8674
+
+grad, var (shape, norm):
+(200,)
+(200,)
+11.9879
+0.684736
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+401.024
+18.3958
+
+grad, var (shape, norm):
+(200,)
+(200,)
+13.4531
+0.772564
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+610.246
+18.2759
+
+grad, var (shape, norm):
+(200,)
+(200,)
+26.9128
+0.598845
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+461.72
+17.9249
+
+grad, var (shape, norm):
+(200,)
+(200,)
+12.5709
+0.733749
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+3141.97
+27.1219
+
+grad, var (shape, norm):
+(300,)
+(300,)
+61.5447
+0.952313
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+3525.33
+1.45917
+
+grad, var (shape, norm):
+(1,)
+(1,)
+287.605
+0.177639
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+3054.43
+21.2305
+
+grad, var (shape, norm):
+(200,)
+(200,)
+316.601
+0.787308
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+381.58
+20.2217
+
+grad, var (shape, norm):
+(200,)
+(200,)
+23.2302
+2.0518
+ 23/274 [=>............................] - ETA: 268s - train loss: 6631.0942I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 7262 get requests, put_count=9367 evicted_count=2000 eviction_rate=0.213516 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+19.0858
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+0.698633
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+18.6097
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+0.785385
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+18.4778
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+0.614277
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+18.1131
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+0.745896
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+27.3616
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+0.964707
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+1.46287
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.187399
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+21.4436
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+0.832546
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+20.3922
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+2.14924
+ 24/274 [=>............................] - ETA: 265s - train loss: nan      
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+19.3004
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+0.711966
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+18.8217
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+0.796811
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+18.6687
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+0.629567
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+18.2949
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+0.75714
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+27.608
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+0.978941
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+1.4667
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.195012
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+21.6407
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+0.873764
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+20.5531
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+2.23639
+ 25/274 [=>............................] - ETA: 264s - train loss: nanI tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 6158 get requests, put_count=8285 evicted_count=2000 eviction_rate=0.2414 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+19.5273
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+0.72552
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+19.048
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+0.807698
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+18.8755
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+0.645875
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+18.4951
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+0.768911
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+27.8926
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+0.995675
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+1.47139
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.200727
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+21.8421
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+0.911949
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+20.7285
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+2.31464
+ 26/274 [=>............................] - ETA: 262s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+19.795
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+0.740711
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+19.3177
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+0.819699
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+19.1385
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+0.6651
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+18.7524
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+0.783348
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+28.2704
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+1.01629
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+1.47831
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.204762
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+22.0783
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+0.948469
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+20.9541
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+2.38552
+ 27/274 [=>............................] - ETA: 259s - train loss: nanI tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 8891 get requests, put_count=12045 evicted_count=3000 eviction_rate=0.249066 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+20.1367
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+0.759225
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+19.6646
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+0.834826
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+19.5011
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+0.689348
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+19.1095
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+0.802799
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+28.8061
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+1.04245
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+1.48913
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.207307
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+22.383
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+0.984818
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+21.2695
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+2.45054
+ 28/274 [==>...........................] - ETA: 258s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+20.5852
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+0.782755
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+20.1226
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+0.855129
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+20.0038
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+0.720551
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+19.6068
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+0.829446
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+29.5634
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+1.07584
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+1.50569
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.208528
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+22.7895
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+1.02245
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+21.7124
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+2.51114
+ 29/274 [==>...........................] - ETA: 256s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+21.1694
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+0.812787
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+20.721
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+0.882442
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+20.6794
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+0.760195
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+20.2772
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+0.865025
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+30.5966
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+1.11784
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+1.52971
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.208572
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+23.3269
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+1.06269
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+22.3146
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+2.56863
+ 30/274 [==>...........................] - ETA: 255s - train loss: nanI tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 4171 get requests, put_count=5375 evicted_count=1000 eviction_rate=0.186047 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+21.9118
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+0.850456
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+21.4828
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+0.918195
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+21.5505
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+0.80918
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+21.1434
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+0.91066
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+31.9446
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+1.16948
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+1.56274
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.207566
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+24.0184
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+1.10666
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+23.0993
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+2.6242
+ 31/274 [==>...........................] - ETA: 253s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+22.8268
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+0.896464
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+22.4221
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+0.963305
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+22.6281
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+0.867813
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+22.2168
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+0.966827
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+33.6285
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+1.23132
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+1.60598
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.205626
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+24.8796
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+1.15525
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+24.0802
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+2.67888
+ 32/274 [==>...........................] - ETA: 250s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+23.9211
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+0.951078
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+23.5451
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+1.01816
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+23.9132
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+0.935905
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+23.4984
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+1.03343
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+35.6522
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+1.30348
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+1.66025
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.202851
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+25.9186
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+1.20909
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+25.2614
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+2.73359
+ 33/274 [==>...........................] - ETA: 248s - train loss: nanI tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 34601 get requests, put_count=34654 evicted_count=3000 eviction_rate=0.0865701 and unsatisfied allocation rate=0.0923095
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:259] Raising pool_size_limit_ from 2725 to 2997
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+25.1939
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+1.0142
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+24.8502
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+1.08268
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+25.398
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+1.01292
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+24.9804
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+1.10994
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+38.0056
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+1.38572
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+1.72594
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.19933
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+27.1365
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+1.26857
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+26.6391
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+2.78911
+ 34/274 [==>...........................] - ETA: 246s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+0.000214618
+26.6389
+
+grad, var (shape, norm):
+(200,)
+(200,)
+9.00191e-06
+1.08544
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+2.63302e-05
+26.3302
+
+grad, var (shape, norm):
+(200,)
+(200,)
+1.15642e-06
+1.15642
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+3.03868e-05
+27.0696
+
+grad, var (shape, norm):
+(200,)
+(200,)
+1.41907e-06
+1.09813
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+2.66499e-05
+26.6499
+
+grad, var (shape, norm):
+(200,)
+(200,)
+1.19557e-06
+1.19557
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+4446.0
+40.6685
+
+grad, var (shape, norm):
+(300,)
+(300,)
+79.8649
+1.47752
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+6187.06
+1.80308
+
+grad, var (shape, norm):
+(1,)
+(1,)
+708.53
+0.195143
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+0.00117988
+28.5284
+
+grad, var (shape, norm):
+(200,)
+(200,)
+0.000111355
+1.33388
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+2.82035e-05
+28.2035
+
+grad, var (shape, norm):
+(200,)
+(200,)
+2.84609e-06
+2.84609
+ 35/274 [==>...........................] - ETA: 245s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+9.82076e-05
+28.0532
+
+grad, var (shape, norm):
+(200,)
+(200,)
+1.38337e-06
+1.1545
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+2.77757e-05
+27.7757
+
+grad, var (shape, norm):
+(200,)
+(200,)
+1.22863e-06
+1.22863
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+3.25726e-05
+28.6924
+
+grad, var (shape, norm):
+(200,)
+(200,)
+1.55706e-06
+1.17946
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+2.82702e-05
+28.2703
+
+grad, var (shape, norm):
+(200,)
+(200,)
+1.27811e-06
+1.27811
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+6318.02
+43.206
+
+grad, var (shape, norm):
+(300,)
+(300,)
+94.4502
+1.56539
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+6369.81
+1.87878
+
+grad, var (shape, norm):
+(1,)
+(1,)
+884.913
+0.192411
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+0.000257263
+29.8979
+
+grad, var (shape, norm):
+(200,)
+(200,)
+1.75021e-05
+1.39736
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+2.97325e-05
+29.7325
+
+grad, var (shape, norm):
+(200,)
+(200,)
+2.90104e-06
+2.90104
+ 36/274 [==>...........................] - ETA: 244s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+2.94107e-05
+29.4107
+
+grad, var (shape, norm):
+(200,)
+(200,)
+1.22025e-06
+1.22025
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+2.91608e-05
+29.1608
+
+grad, var (shape, norm):
+(200,)
+(200,)
+1.29787e-06
+1.29787
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+3.02401e-05
+30.2401
+
+grad, var (shape, norm):
+(200,)
+(200,)
+1.25603e-06
+1.25603
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+2.98152e-05
+29.8152
+
+grad, var (shape, norm):
+(200,)
+(200,)
+1.35636e-06
+1.35636
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+6767.3
+45.5886
+
+grad, var (shape, norm):
+(300,)
+(300,)
+78.3491
+1.64534
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+2370.48
+1.9514
+
+grad, var (shape, norm):
+(1,)
+(1,)
+855.58
+0.190982
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+3.12184e-05
+31.2184
+
+grad, var (shape, norm):
+(200,)
+(200,)
+1.45805e-06
+1.45805
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+3.11986e-05
+31.1986
+
+grad, var (shape, norm):
+(200,)
+(200,)
+2.95346e-06
+2.95346
+ 37/274 [===>..........................] - ETA: 243s - train loss: nanI tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 35519 get requests, put_count=35851 evicted_count=2000 eviction_rate=0.0557864 and unsatisfied allocation rate=0.0571525
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:259] Raising pool_size_limit_ from 3987 to 4385
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+3.06968e-05
+30.6968
+
+grad, var (shape, norm):
+(200,)
+(200,)
+1.28214e-06
+1.28214
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+3.04713e-05
+30.4713
+
+grad, var (shape, norm):
+(200,)
+(200,)
+1.36337e-06
+1.36337
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+3.16987e-05
+31.6988
+
+grad, var (shape, norm):
+(200,)
+(200,)
+1.32746e-06
+1.32746
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+3.12709e-05
+31.2709
+
+grad, var (shape, norm):
+(200,)
+(200,)
+1.42974e-06
+1.42974
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+5431.81
+47.8008
+
+grad, var (shape, norm):
+(300,)
+(300,)
+83.5645
+1.71874
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+11448.0
+2.02003
+
+grad, var (shape, norm):
+(1,)
+(1,)
+843.594
+0.190719
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+3.24742e-05
+32.4742
+
+grad, var (shape, norm):
+(200,)
+(200,)
+1.51542e-06
+1.51542
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+3.25864e-05
+32.5864
+
+grad, var (shape, norm):
+(200,)
+(200,)
+3.00306e-06
+3.00306
+ 38/274 [===>..........................] - ETA: 242s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+3.19043e-05
+31.9043
+
+grad, var (shape, norm):
+(200,)
+(200,)
+1.33991e-06
+1.33991
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+3.17002e-05
+31.7002
+
+grad, var (shape, norm):
+(200,)
+(200,)
+1.42475e-06
+1.42475
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+3.30623e-05
+33.0623
+
+grad, var (shape, norm):
+(200,)
+(200,)
+1.39369e-06
+1.39369
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+3.26313e-05
+32.6313
+
+grad, var (shape, norm):
+(200,)
+(200,)
+1.49806e-06
+1.49806
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+4453.22
+49.8356
+
+grad, var (shape, norm):
+(300,)
+(300,)
+70.1147
+1.78565
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+11947.7
+2.08399
+
+grad, var (shape, norm):
+(1,)
+(1,)
+808.944
+0.191502
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+3.36567e-05
+33.6567
+
+grad, var (shape, norm):
+(200,)
+(200,)
+1.5692e-06
+1.5692
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+3.38884e-05
+33.8884
+
+grad, var (shape, norm):
+(200,)
+(200,)
+3.0497e-06
+3.0497
+ 39/274 [===>..........................] - ETA: 240s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+3.30303e-05
+33.0303
+
+grad, var (shape, norm):
+(200,)
+(200,)
+1.39355e-06
+1.39355
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+3.28452e-05
+32.8452
+
+grad, var (shape, norm):
+(200,)
+(200,)
+1.4819e-06
+1.4819
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+3.43294e-05
+34.3294
+
+grad, var (shape, norm):
+(200,)
+(200,)
+1.45484e-06
+1.45484
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+3.38954e-05
+33.8954
+
+grad, var (shape, norm):
+(200,)
+(200,)
+1.56133e-06
+1.56133
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+4893.53
+51.6976
+
+grad, var (shape, norm):
+(300,)
+(300,)
+79.1672
+1.84757
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+1410.98
+2.14314
+
+grad, var (shape, norm):
+(1,)
+(1,)
+801.259
+0.193221
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+3.47624e-05
+34.7624
+
+grad, var (shape, norm):
+(200,)
+(200,)
+1.61931e-06
+1.61931
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+3.51019e-05
+35.1019
+
+grad, var (shape, norm):
+(200,)
+(200,)
+3.09332e-06
+3.09332
+ 40/274 [===>..........................] - ETA: 239s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+3.40753e-05
+34.0753
+
+grad, var (shape, norm):
+(200,)
+(200,)
+1.44314e-06
+1.44314
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+3.3907e-05
+33.907
+
+grad, var (shape, norm):
+(200,)
+(200,)
+1.53484e-06
+1.53484
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+3.5502e-05
+35.502
+
+grad, var (shape, norm):
+(200,)
+(200,)
+1.51112e-06
+1.51112
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+3.50648e-05
+35.0648
+
+grad, var (shape, norm):
+(200,)
+(200,)
+1.61972e-06
+1.61972
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+5240.02
+53.3982
+
+grad, var (shape, norm):
+(300,)
+(300,)
+78.9864
+1.90269
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+229.098
+2.19767
+
+grad, var (shape, norm):
+(1,)
+(1,)
+806.454
+0.195782
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+3.57907e-05
+35.7907
+
+grad, var (shape, norm):
+(200,)
+(200,)
+1.6658e-06
+1.6658
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+3.62275e-05
+36.2275
+
+grad, var (shape, norm):
+(200,)
+(200,)
+3.13395e-06
+3.13395
+ 41/274 [===>..........................] - ETA: 237s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+3.50415e-05
+35.0415
+
+grad, var (shape, norm):
+(200,)
+(200,)
+1.48884e-06
+1.48884
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+3.4888e-05
+34.888
+
+grad, var (shape, norm):
+(200,)
+(200,)
+1.58372e-06
+1.58372
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+3.65834e-05
+36.5834
+
+grad, var (shape, norm):
+(200,)
+(200,)
+1.5628e-06
+1.5628
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+3.61432e-05
+36.1432
+
+grad, var (shape, norm):
+(200,)
+(200,)
+1.67344e-06
+1.67344
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+4407.7
+54.9492
+
+grad, var (shape, norm):
+(300,)
+(300,)
+74.4115
+1.95198
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+9092.08
+2.24774
+
+grad, var (shape, norm):
+(1,)
+(1,)
+689.771
+0.199096
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+3.67432e-05
+36.7432
+
+grad, var (shape, norm):
+(200,)
+(200,)
+1.70877e-06
+1.70877
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+3.72677e-05
+37.2677
+
+grad, var (shape, norm):
+(200,)
+(200,)
+3.17166e-06
+3.17166
+ 42/274 [===>..........................] - ETA: 236s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+3.59321e-05
+35.9321
+
+grad, var (shape, norm):
+(200,)
+(200,)
+1.53085e-06
+1.53085
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+3.57918e-05
+35.7918
+
+grad, var (shape, norm):
+(200,)
+(200,)
+1.62872e-06
+1.62872
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+3.75782e-05
+37.5782
+
+grad, var (shape, norm):
+(200,)
+(200,)
+1.61016e-06
+1.61016
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+3.71351e-05
+37.1351
+
+grad, var (shape, norm):
+(200,)
+(200,)
+1.72277e-06
+1.72277
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+4296.18
+56.3608
+
+grad, var (shape, norm):
+(300,)
+(300,)
+69.6547
+1.99572
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+6375.42
+2.29337
+
+grad, var (shape, norm):
+(1,)
+(1,)
+661.915
+0.203087
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+3.76226e-05
+37.6226
+
+grad, var (shape, norm):
+(200,)
+(200,)
+1.74837e-06
+1.74837
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+3.82263e-05
+38.2263
+
+grad, var (shape, norm):
+(200,)
+(200,)
+3.20657e-06
+3.20657
+ 43/274 [===>..........................] - ETA: 235s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+3.67512e-05
+36.7512
+
+grad, var (shape, norm):
+(200,)
+(200,)
+1.5694e-06
+1.5694
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+3.66226e-05
+36.6226
+
+grad, var (shape, norm):
+(200,)
+(200,)
+1.67006e-06
+1.67006
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+3.84916e-05
+38.4916
+
+grad, var (shape, norm):
+(200,)
+(200,)
+1.65352e-06
+1.65352
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+3.80457e-05
+38.0457
+
+grad, var (shape, norm):
+(200,)
+(200,)
+1.76798e-06
+1.76798
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+4268.07
+57.6441
+
+grad, var (shape, norm):
+(300,)
+(300,)
+69.3909
+2.0359
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+7222.43
+2.33494
+
+grad, var (shape, norm):
+(1,)
+(1,)
+761.795
+0.207685
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+3.84325e-05
+38.4325
+
+grad, var (shape, norm):
+(200,)
+(200,)
+1.7848e-06
+1.7848
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+3.91077e-05
+39.1077
+
+grad, var (shape, norm):
+(200,)
+(200,)
+3.2388e-06
+3.2388
+ 44/274 [===>..........................] - ETA: 233s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+3.75032e-05
+37.5032
+
+grad, var (shape, norm):
+(200,)
+(200,)
+1.60472e-06
+1.60472
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+3.7385e-05
+37.385
+
+grad, var (shape, norm):
+(200,)
+(200,)
+1.70797e-06
+1.70797
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+3.93288e-05
+39.3288
+
+grad, var (shape, norm):
+(200,)
+(200,)
+1.69316e-06
+1.69316
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+3.88803e-05
+38.8803
+
+grad, var (shape, norm):
+(200,)
+(200,)
+1.80936e-06
+1.80936
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+4152.95
+58.8089
+
+grad, var (shape, norm):
+(300,)
+(300,)
+63.1349
+2.0731
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+6057.59
+2.37277
+
+grad, var (shape, norm):
+(1,)
+(1,)
+693.379
+0.212829
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+3.91769e-05
+39.1769
+
+grad, var (shape, norm):
+(200,)
+(200,)
+1.81824e-06
+1.81824
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+3.99166e-05
+39.9166
+
+grad, var (shape, norm):
+(200,)
+(200,)
+3.26849e-06
+3.26849
+ 45/274 [===>..........................] - ETA: 232s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+38.1924
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+1.63703
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+38.0836
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+1.74268
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+40.0952
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+1.72936
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+39.6442
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+1.84719
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+59.8672
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+2.10599
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+2.40712
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.218462
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+39.8598
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+1.84889
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+40.6578
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+3.29581
+ 46/274 [====>.........................] - ETA: 230s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+39.1217
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+1.6808
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+39.0263
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+1.78977
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+41.1285
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+1.7782
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+40.6745
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+1.89822
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+61.3031
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+2.15219
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+2.45434
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.22252
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+40.783
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+1.88917
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+41.659
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+3.32914
+ 47/274 [====>.........................] - ETA: 229s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+40.2695
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+1.73502
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+40.1909
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+1.84808
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+42.4014
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+1.83842
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+41.9443
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+1.96111
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+63.0814
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+2.21043
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+2.51352
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.225162
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+41.9249
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+1.93839
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+42.8948
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+3.36828
+ 48/274 [====>.........................] - ETA: 227s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+41.6167
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+1.79879
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+41.5578
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+1.91662
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+43.8903
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+1.90891
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+43.4301
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+2.03469
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+65.1719
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+2.27959
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+2.58387
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.226532
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+43.2667
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+1.99598
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+44.3429
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+3.41307
+ 49/274 [====>.........................] - ETA: 226s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+43.1464
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+1.87131
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+43.1097
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+1.99449
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+45.5742
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+1.98869
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+45.1111
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+2.11792
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+67.5473
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+2.35872
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+2.66465
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.226759
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+44.7918
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+2.06142
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+45.9838
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+3.46346
+ 50/274 [====>.........................] - ETA: 225s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+44.8431
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+1.95185
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+44.8305
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+2.08086
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+47.4341
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+2.07686
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+46.9682
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+2.20984
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+70.1833
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+2.44696
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+2.7552
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.225957
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+46.4848
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+2.13421
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+47.7996
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+3.51936
+ 51/274 [====>.........................] - ETA: 224s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+46.6922
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+2.0397
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+46.7052
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+2.17496
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+49.4527
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+2.1726
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+48.9843
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+2.3096
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+73.0572
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+2.54351
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+2.85487
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.224231
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+48.3313
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+2.2139
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+49.7737
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+3.5807
+ 52/274 [====>.........................] - ETA: 223s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+48.68
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+2.13421
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+48.7198
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+2.27607
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+51.614
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+2.27516
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+51.1435
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+2.4164
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+76.1483
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+2.64768
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+2.96304
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.221674
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+50.3177
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+2.30001
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+51.8909
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+3.6474
+ 53/274 [====>.........................] - ETA: 222s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+50.7938
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+2.23478
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+50.8612
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+2.38352
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+53.9034
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+2.38385
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+53.4309
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+2.52951
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+79.4374
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+2.75879
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+3.0791
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.218371
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+52.4313
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+2.39207
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+54.1369
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+3.71933
+ 54/274 [====>.........................] - ETA: 221s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+53.0217
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+2.34084
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+53.1172
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+2.49668
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+56.3074
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+2.49804
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+55.8334
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+2.64827
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+82.9065
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+2.87625
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+3.20247
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.214395
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+54.6602
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+2.48965
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+56.4989
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+3.79636
+ 55/274 [=====>........................] - ETA: 220s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+55.3523
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+2.45185
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+55.4764
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+2.61498
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+58.8139
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+2.61716
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+58.3385
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+2.77207
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+86.5391
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+2.99948
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+3.33257
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.209815
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+56.9931
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+2.59229
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+58.9646
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+3.87831
+ 56/274 [=====>........................] - ETA: 218s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+57.7755
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+2.56734
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+57.9284
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+2.73789
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+61.4115
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+2.74068
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+60.9352
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+2.90036
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+90.32
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+3.12797
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+3.46887
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.204692
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+59.4198
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+2.69959
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+61.5231
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+3.96499
+ 57/274 [=====>........................] - ETA: 217s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+60.2818
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+2.68685
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+60.4636
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+2.86491
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+64.0902
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+2.86813
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+63.6131
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+3.03265
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+94.235
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+3.26123
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+3.61086
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.199079
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+61.9306
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+2.81114
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+64.1643
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+4.0562
+ 58/274 [=====>........................] - ETA: 216s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+62.8624
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+2.80997
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+63.073
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+2.99561
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+66.8408
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+2.99908
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+66.3632
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+3.16849
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+98.2712
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+3.39882
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+3.75806
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.193027
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+64.5167
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+2.92656
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+66.8791
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+4.1517
+ 59/274 [=====>........................] - ETA: 215s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+65.5094
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+2.93633
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+65.7487
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+3.12959
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+69.6551
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+3.13314
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+69.177
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+3.30746
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+102.417
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+3.54034
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+3.91001
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.18658
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+67.1702
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+3.04549
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+69.6591
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+4.25128
+ 60/274 [=====>........................] - ETA: 214s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+68.2155
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+3.06559
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+68.4835
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+3.26647
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+72.5254
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+3.26997
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+72.0473
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+3.4492
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+106.661
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+3.68542
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+4.0663
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.179776
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+69.8837
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+3.16762
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+72.4968
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+4.35469
+ 61/274 [=====>........................] - ETA: 212s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+70.9744
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+3.19745
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+71.2707
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+3.40594
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+75.4452
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+3.40925
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+74.9672
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+3.59339
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+110.994
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+3.83371
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+4.22654
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.172652
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+72.6507
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+3.29262
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+75.3856
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+4.46169
+ 62/274 [=====>........................] - ETA: 211s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+73.78
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+3.33161
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+74.1044
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+3.5477
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+78.4085
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+3.5507
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+77.9307
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+3.73973
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+115.407
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+3.9849
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+4.39037
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.165241
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+75.465
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+3.42023
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+78.3194
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+4.57206
+ 63/274 [=====>........................] - ETA: 210s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+76.6271
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+3.46784
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+76.9792
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+3.69147
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+81.41
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+3.69406
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+80.9326
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+3.88796
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+119.892
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+4.13872
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+4.55746
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.15757
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+78.3215
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+3.55018
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+81.2926
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+4.68555
+ 64/274 [======>.......................] - ETA: 208s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+79.5109
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+3.60591
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+79.8904
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+3.83703
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+84.4447
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+3.83912
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+83.9679
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+4.03785
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+124.442
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+4.2949
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+4.72752
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.149666
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+81.2151
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+3.68224
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+84.3006
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+4.80196
+ 65/274 [======>.......................] - ETA: 207s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+82.427
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+3.74561
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+82.8337
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+3.98417
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+87.5085
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+3.98566
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+87.0324
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+4.18919
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+129.049
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+4.45322
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+4.90027
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.141552
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+84.1416
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+3.81619
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+87.3389
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+4.92107
+ 66/274 [======>.......................] - ETA: 206s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+85.3718
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+3.88676
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+85.8052
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+4.13268
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+90.5976
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+4.13352
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+90.1223
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+4.3418
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+133.708
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+4.61346
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+5.07545
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.133249
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+87.0969
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+3.95185
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+90.4037
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+5.04267
+ 67/274 [======>.......................] - ETA: 206s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+88.3416
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+4.0292
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+88.8014
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+4.2824
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+93.7086
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+4.28252
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+93.2342
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+4.4955
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+138.413
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+4.77543
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+5.25285
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.124777
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+90.0777
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+4.08903
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+93.4914
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+5.16658
+ 68/274 [======>.......................] - ETA: 204s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+91.3334
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+4.17278
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+91.8193
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+4.43318
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+96.8384
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+4.43253
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+96.3651
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+4.65015
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+143.161
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+4.93896
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+5.43226
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.116151
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+93.0808
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+4.22758
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+96.5991
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+5.29261
+ 69/274 [======>.......................] - ETA: 203s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+94.3445
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+4.31737
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+94.856
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+4.58488
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+99.9844
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+4.58342
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+99.5123
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+4.80562
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+147.945
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+5.1039
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+5.61348
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.107388
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+96.1033
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+4.36735
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+99.7239
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+5.4206
+ 70/274 [======>.......................] - ETA: 202s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+97.3724
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+4.46285
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+97.9093
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+4.73739
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+103.144
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+4.73506
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+102.673
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+4.96179
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+152.763
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+5.27009
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+5.79635
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.0985013
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+99.1429
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+4.50821
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+102.864
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+5.55038
+ 71/274 [======>.......................] - ETA: 201s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+100.415
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+4.60912
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+100.977
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+4.89059
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+106.316
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+4.88736
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+105.846
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+5.11856
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+157.611
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+5.43743
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+5.98072
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.0895032
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+102.197
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+4.65005
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+106.016
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+5.68181
+ 72/274 [======>.......................] - ETA: 200s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+103.47
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+4.75607
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+104.056
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+5.04438
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+109.497
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+5.04024
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+109.029
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+5.27584
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+162.485
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+5.60578
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+6.16644
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.0804048
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+105.264
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+4.79276
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+109.178
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+5.81475
+ 73/274 [======>.......................] - ETA: 199s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+106.536
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+4.90364
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+107.147
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+5.19869
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+112.686
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+5.1936
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+112.22
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+5.43354
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+167.383
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+5.77506
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+6.35339
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.0712162
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+108.342
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+4.93625
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+112.35
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+5.94908
+ 74/274 [=======>......................] - ETA: 198s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+109.611
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+5.05174
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+110.246
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+5.35344
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+115.882
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+5.34737
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+115.417
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+5.5916
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+172.302
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+5.94515
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+6.54146
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.0619465
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+111.43
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+5.08043
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+115.529
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+6.08467
+ 75/274 [=======>......................] - ETA: 196s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+112.695
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+5.2003
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+113.353
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+5.50855
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+119.084
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+5.5015
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+118.621
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+5.74994
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+177.24
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+6.11599
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+6.73054
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.0526037
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+114.525
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+5.22522
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+118.714
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+6.22143
+ 76/274 [=======>......................] - ETA: 195s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+115.785
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+5.34926
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+116.466
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+5.66398
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+122.29
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+5.65592
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+121.828
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+5.90851
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+182.194
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+6.28749
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+6.92054
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.0431951
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+117.627
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+5.37056
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+121.904
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+6.35926
+ 77/274 [=======>......................] - ETA: 194s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+118.881
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+5.49858
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+119.585
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+5.81965
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+125.499
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+5.81058
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+125.039
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+6.06727
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+187.164
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+6.45958
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+7.11137
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.0337274
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+120.735
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+5.51638
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+125.098
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+6.49805
+ 78/274 [=======>......................] - ETA: 193s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+121.981
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+5.64819
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+122.708
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+5.97554
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+128.71
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+5.96544
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+128.252
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+6.22616
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+192.146
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+6.63221
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+7.30296
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.0242064
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+123.847
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+5.66262
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+128.295
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+6.63774
+ 79/274 [=======>......................] - ETA: 192s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+125.085
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+5.79806
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+125.834
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+6.13159
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+131.923
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+6.12046
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+131.466
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+6.38515
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+197.141
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+6.80532
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+7.49524
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.0146376
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+126.963
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+5.80925
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+131.494
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+6.77823
+ 80/274 [=======>......................] - ETA: 191s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+128.192
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+5.94815
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+128.963
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+6.28777
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+135.136
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+6.27561
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+134.682
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+6.54421
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+202.145
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+6.97885
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+7.68815
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.00502556
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+130.082
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+5.9562
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+134.694
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+6.91947
+ 81/274 [=======>......................] - ETA: 189s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+131.302
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+6.09843
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+132.094
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+6.44405
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+138.35
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+6.43084
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+137.897
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+6.7033
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+207.159
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+7.15277
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+7.88163
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.00462525
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+133.204
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+6.10344
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+137.895
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+7.06138
+ 82/274 [=======>......................] - ETA: 188s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+134.413
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+6.24887
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+135.227
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+6.60039
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+141.564
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+6.58614
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+141.113
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+6.86239
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+212.181
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+7.32702
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+8.07562
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.014311
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+136.327
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+6.25094
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+141.096
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+7.20392
+ 83/274 [========>.....................] - ETA: 188s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+137.525
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+6.39943
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+138.361
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+6.75677
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+144.777
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+6.74149
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+144.328
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+7.02147
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+217.209
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+7.50159
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+8.27009
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.0240281
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+139.451
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+6.39867
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+144.296
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+7.34702
+ 84/274 [========>.....................] - ETA: 186s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+140.639
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+6.55009
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+141.495
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+6.91318
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+147.988
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+6.89685
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+147.541
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+7.18051
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+222.244
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+7.67642
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+8.46499
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.0337736
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+142.576
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+6.54658
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+147.496
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+7.49063
+ 85/274 [========>.....................] - ETA: 185s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+143.752
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+6.70084
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+144.628
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+7.06958
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+151.199
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+7.05221
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+150.753
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+7.33949
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+227.284
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+7.8515
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+8.66029
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.0435445
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+145.701
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+6.69466
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+150.695
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+7.63472
+ 86/274 [========>.....................] - ETA: 184s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+146.866
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+6.85165
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+147.762
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+7.22596
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+154.407
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+7.20755
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+153.964
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+7.49841
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+232.329
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+8.0268
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+8.85594
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.0533383
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+148.826
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+6.84289
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+153.892
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+7.77923
+ 87/274 [========>.....................] - ETA: 183s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+149.979
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+7.0025
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+150.895
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+7.3823
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+157.613
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+7.36287
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+157.172
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+7.65724
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+237.377
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+8.20229
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+9.05192
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.0631528
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+151.95
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+6.99124
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+157.088
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+7.92413
+ 88/274 [========>.....................] - ETA: 182s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+153.091
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+7.15339
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+154.027
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+7.5386
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+160.817
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+7.51814
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+160.378
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+7.81597
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+242.43
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+8.37794
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+9.2482
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.0729858
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+155.074
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+7.13969
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+160.281
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+8.06939
+ 89/274 [========>.....................] - ETA: 181s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+156.203
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+7.30429
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+157.158
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+7.69484
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+164.018
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+7.67335
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+163.581
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+7.9746
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+247.485
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+8.55375
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+9.44475
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.0828355
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+158.196
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+7.28823
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+163.473
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+8.21497
+ 90/274 [========>.....................] - ETA: 180s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+159.313
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+7.4552
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+160.288
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+7.85101
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+167.217
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+7.8285
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+166.782
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+8.13312
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+252.542
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+8.72969
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+9.64155
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.0927002
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+161.318
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+7.43684
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+166.662
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+8.36085
+ 91/274 [========>.....................] - ETA: 179s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+162.422
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+7.60611
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+163.416
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+8.00711
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+170.413
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+7.98358
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+169.98
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+8.29151
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+257.602
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+8.90575
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+9.83858
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.102578
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+164.438
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+7.58551
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+169.848
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+8.507
+ 92/274 [=========>....................] - ETA: 178s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+165.53
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+7.757
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+166.542
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+8.16311
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+173.606
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+8.13857
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+173.175
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+8.44978
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+262.663
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+9.08191
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+10.0358
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.112469
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+167.556
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+7.73422
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+173.032
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+8.65339
+ 93/274 [=========>....................] - ETA: 176s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+168.636
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+7.90787
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+169.667
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+8.31903
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+176.796
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+8.29348
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+176.367
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+8.60791
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+267.726
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+9.25816
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+10.2333
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.12237
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+170.673
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+7.88297
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+176.213
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+8.8
+ 94/274 [=========>....................] - ETA: 175s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+171.74
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+8.05871
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+172.789
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+8.47484
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+179.983
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+8.4483
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+179.556
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+8.76591
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+272.789
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+9.4345
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+10.4309
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.132282
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+173.788
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+8.03174
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+179.391
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+8.94681
+ 95/274 [=========>....................] - ETA: 175s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+174.842
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+8.20952
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+175.909
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+8.63055
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+183.166
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+8.60303
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+182.742
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+8.92377
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+277.854
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+9.61089
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+10.6286
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.142202
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+176.901
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+8.18053
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+182.566
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+9.09381
+ 96/274 [=========>....................] - ETA: 173s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+177.943
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+8.36028
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+179.028
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+8.78616
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+186.347
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+8.75765
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+185.924
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+9.08148
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+282.919
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+9.78735
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+10.8266
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.15213
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+180.012
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+8.32933
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+185.738
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+9.24097
+ 97/274 [=========>....................] - ETA: 172s - train loss: nan
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+181.042
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+8.511
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+182.144
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+8.94166
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+189.524
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+8.91217
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+189.104
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+9.23905
+
+grad, var (shape, norm):
+(800, 300)
+(800, 300)
+nan
+287.985
+
+grad, var (shape, norm):
+(300,)
+(300,)
+nan
+9.96386
+
+grad, var (shape, norm):
+(400, 1)
+(400, 1)
+nan
+11.0246
+
+grad, var (shape, norm):
+(1,)
+(1,)
+nan
+0.162065
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+183.121
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+8.47813
+
+grad, var (shape, norm):
+(400, 200)
+(400, 200)
+nan
+188.907
+
+grad, var (shape, norm):
+(200,)
+(200,)
+nan
+9.38828
+ 98/274 [=========>....................] - ETA: 171s - train loss: nan

@@ -210,6 +210,11 @@ class RNNGeneratorModel(object):
         masks = tf.zeros(shape = tf.shape(zProbs), dtype = tf.int32) + self.maskId
         maskedInputs = tf.select(uniform, self.inputPH, masks)
 
+        # compute probability of observing subsection of words
+        probObs = self.zPreds * zProbs + (1.0 - self.zPreds) * (1.0 - zProbs)
+        probObs = tf.reduce_prod(probObs, axis = 1, keep_dims=True)
+        self.probObs = probObs
+
         # Return masked embeddings to pass to encoder
         embedding_shape = (-1,
                            self.config.max_sentence,
@@ -255,7 +260,7 @@ class RNNGeneratorModel(object):
 
     def add_loss_op(self, pred):
         # Compute L2 loss
-        L2loss = tf.nn.l2_loss(self.labelsPH - pred)
+        L2loss = tf.nn.l2_loss((self.labelsPH - pred) * self.probObs)
         L2loss = tf.reduce_mean(L2loss)
 
         # Apply L2 regularization - all vars
@@ -553,23 +558,31 @@ def main(debug=False):
             # # train_on_batch(self, sess, inputs_batch, labels_batch, mask_batch)
             # # model.fit(session, saver, parser, train_examples, dev_set)
             #
-            if not debug:
-                print 80 * "="
-                print "TESTING"
-                print 80 * "="
-                print "Restoring the best model weights found on the dev set"
-                saver.restore(session, './parser.weights')
-                print "Final evaluation on test set",
-                ## we won't have this. we need function in our model that will evaluate on test set
-                ## this is a function that will only calculate loss, "Evaluate function" takes inputs and compares to labels
-                ## ie model.evaluate(test_set)
-                loss = model.evaluate(test_set)
-                print "- test UAS: {:.2f}".format(UAS * 100.0)
-                print "Writing predictions"
-                with open('q2_test.predicted.pkl', 'w') as f:
-                    cPickle.dump(dependencies, f, -1)
-                print "Done!"
+            # if not debug:
+            #     print 80 * "="
+            #     print "TESTING"
+            #     print 80 * "="
+            #     print "Restoring the best model weights found on the dev set"
+            #     saver.restore(session, './parser.weights')
+            #     print "Final evaluation on test set",
+            #     ## we won't have this. we need function in our model that will evaluate on test set
+            #     ## this is a function that will only calculate loss, "Evaluate function" takes inputs and compares to labels
+            #     ## ie model.evaluate(test_set)
+            #     loss = model.evaluate(test_set)
+            #     print "- test UAS: {:.2f}".format(UAS * 100.0)
+            #     print "Writing predictions"
+            #     with open('q2_test.predicted.pkl', 'w') as f:
+            #         cPickle.dump(dependencies, f, -1)
+            #     print "Done!"
 
 
 if __name__ == '__main__':
     main()
+
+#
+# a = np.array([[0.3, 0.75], [0.25, 0.25]])
+# b = np.array([[0.0, 1.0], [1.0, 0.0]])
+#
+# c = np.array([[0.7, 0.75], [0.25, 0.75]])
+#
+# a * b + (1 - b) * (1 - a)

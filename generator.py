@@ -200,7 +200,7 @@ class RNNGeneratorModel(object):
         # zProbs = tf.stop_gradient(zProbs)
 
         # sample zprobs to pick which review words to keep. mask unselected words
-        uniform = tf.stop_gradient(tf.random_uniform(shape = tf.shape(zProbs), minval=0, maxval=1) < zProbs)
+        uniform = tf.random_uniform(shape = tf.shape(zProbs), minval=0, maxval=1) < zProbs
         # uniform = tf.stop_gradient(
         #     tf.random_uniform(shape=tf.shape(zProbs), minval=0,
         #                       maxval=1) < zProbs, 'uniform')
@@ -265,26 +265,32 @@ class RNNGeneratorModel(object):
         return y_t
 
     def add_loss_op(self, pred):
-        sparsity_factor = 0.3
+        sparsity_factor = 0.03
         coherent_ratio = 2.0
         coherent_factor = sparsity_factor * coherent_ratio
 
         # Compute L2 loss
         logPz = self.crossEntropy
-        logPz = tf.Print(logPz, data=[tf.shape(logPz)], message="logPz", first_n=1, summarize=None)
+        #logPz = tf.Print(logPz, data=[tf.shape(logPz)], message="logPz", first_n=1, summarize=None)
         logPzSum = tf.reduce_sum(logPz, axis=1)
-        logPzSum = tf.Print(logPzSum, data=[tf.shape(logPzSum)], message="logPzSum", first_n=1, summarize=None)
+        #logPzSum = tf.Print(logPzSum, data=[tf.shape(logPzSum)], message="logPzSum", first_n=1, summarize=None)
         predDiff = tf.square(self.labelsPH - pred)
-        predDiff = tf.Print(predDiff, data=[tf.shape(predDiff)], message="predDiff", first_n=1, summarize=None)
+        #predDiff = tf.Print(predDiff, data=[tf.shape(predDiff)], message="predDiff", first_n=1, summarize=None)
+
         Zsum = tf.reduce_sum(self.zPreds, axis=1)
-        Zsum = tf.Print(Zsum, data=[tf.shape(Zsum)], message="Zsum", first_n=1, summarize=None)
-        self.zPreds = tf.Print(self.zPreds, data=[tf.shape(self.zPreds)], message="self.zPreds", first_n=1, summarize=None)
+        #Zsum = tf.reduce_sum(logPz, axis=1)
+        #Zsum = tf.Print(Zsum, data=[tf.shape(Zsum)], message="Zsum", first_n=1, summarize=None)
+
+        #self.zPreds = tf.Print(self.zPreds, data=[tf.shape(self.zPreds)], message="self.zPreds", first_n=1, summarize=None)
+
         Zdiff = tf.reduce_sum(tf.abs(self.zPreds[:,1:] - self.zPreds[:,:-1]), axis=1)
-        Zdiff = tf.Print(Zdiff, data=[tf.shape(Zdiff)], message="Zdiff", first_n=1, summarize=None)
+        #Zdiff = tf.reduce_sum(tf.abs(logPz[:,1:] - logPz[:,:-1]), axis=1)
+        #Zdiff = tf.Print(Zdiff, data=[tf.shape(Zdiff)], message="Zdiff", first_n=1, summarize=None)
+
         costVec = predDiff + Zsum * sparsity_factor + Zdiff * coherent_factor
-        costVec = tf.Print(costVec, data=[tf.shape(costVec)], message="costVec", first_n=1, summarize=None)
+        #costVec = tf.Print(costVec, data=[tf.shape(costVec)], message="costVec", first_n=1, summarize=None)
         costLogPz = tf.reduce_mean(costVec * logPzSum)
-        costLogPz = tf.Print(costLogPz, data=[tf.shape(costLogPz)], message="costLogPz", first_n=1, summarize=None)
+        #costLogPz = tf.Print(costLogPz, data=[tf.shape(costLogPz)], message="costLogPz", first_n=1, summarize=None)
 
         # regularization
         reg_by_var = [tf.nn.l2_loss(v) for v in tf.trainable_variables()]
@@ -398,13 +404,13 @@ class RNNGeneratorModel(object):
                                      dropout=self.config.drop_out,
                                      l2_reg=self.config.l2Reg)
         _, loss, grad_print = sess.run([self.train_op, self.loss, self.grad_print], feed_dict=feed)
-        for grad in grad_print:
-             print ''
-             print 'grad, var (shape, norm):'
-             print grad[0].shape
-             print grad[1].shape
-             print np.linalg.norm(grad[0])
-             print np.linalg.norm(grad[1])
+        #for grad in grad_print:
+        #     print ''
+        #     print 'grad, var (shape, norm):'
+        #     print grad[0].shape
+        #     print grad[1].shape
+        #     print np.linalg.norm(grad[0])
+        #     print np.linalg.norm(grad[1])
         return loss
 
     def save_preds(self, outFile, metaFile):
@@ -491,12 +497,12 @@ class RNNGeneratorModel(object):
         dev_y = dev_y.reshape(dev_y.shape[0], 1)
         test_y = test_y.reshape(test_y.shape[0], 1)
 
-        #train_x_pad = train_x_pad[:,0:20]
-        #train_mask = train_mask[:,0:20]
-        #dev_x_pad = dev_x_pad[:,0:20]
-        #dev_mask = dev_mask[:,0:20]
-        #test_x_pad = test_x_pad[:,0:20]
-        #test_mask = test_mask[:,0:20]
+        train_x_pad = train_x_pad[:,0:300]
+        train_mask = train_mask[:,0:300]
+        dev_x_pad = dev_x_pad[:,0:300]
+        dev_mask = dev_mask[:,0:300]
+        test_x_pad = test_x_pad[:,0:300]
+        test_mask = test_mask[:,0:300]
 
         self.train_x = train_x_pad
         self.train_y = train_y
@@ -517,8 +523,7 @@ class RNNGeneratorModel(object):
         # get rationals
         ration = self._get_rationals(rationals)
 
-        #ration = ration[:,0:20]
-        #ration = ration[:,0:20]
+        ration = ration[:,0:300]
 
         maxPadding = train_x_pad.shape[1]
         rationalDiff = maxPadding - ration.shape[1]
@@ -559,8 +564,8 @@ class RNNGeneratorModel(object):
 Read in Data
 '''
 
-train = '/home/neuron/beer/reviews.aspect1.small.train.txt.gz'
-dev = '/home/neuron/beer/reviews.aspect1.small.heldout.txt.gz'
+train = '/home/neuron/beer/reviews.aspect1.train.txt.gz'
+dev = '/home/neuron/beer/reviews.aspect1.heldout.txt.gz'
 embedding = '/home/neuron/beer/review+wiki.filtered.200.txt.gz'
 test = '/home/neuron/beer/annotations.txt.gz'
 annotations = '/home/neuron/beer/annotations.json'

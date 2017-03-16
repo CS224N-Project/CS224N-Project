@@ -277,14 +277,14 @@ class RNNGeneratorModel(object):
         predDiff = tf.square(self.labelsPH - pred)
         #predDiff = tf.Print(predDiff, data=[tf.shape(predDiff)], message="predDiff", first_n=1, summarize=None)
 
-        Zsum = tf.reduce_sum(self.zPreds, axis=1)
-        #Zsum = tf.reduce_sum(logPz, axis=1)
+        #Zsum = tf.reduce_sum(self.zPreds, axis=1)
+        Zsum = tf.reduce_sum(logPz, axis=1)
         #Zsum = tf.Print(Zsum, data=[tf.shape(Zsum)], message="Zsum", first_n=1, summarize=None)
 
         #self.zPreds = tf.Print(self.zPreds, data=[tf.shape(self.zPreds)], message="self.zPreds", first_n=1, summarize=None)
 
-        Zdiff = tf.reduce_sum(tf.abs(self.zPreds[:,1:] - self.zPreds[:,:-1]), axis=1)
-        #Zdiff = tf.reduce_sum(tf.abs(logPz[:,1:] - logPz[:,:-1]), axis=1)
+        #Zdiff = tf.reduce_sum(tf.abs(self.zPreds[:,1:] - self.zPreds[:,:-1]), axis=1)
+        Zdiff = tf.reduce_sum(tf.abs(logPz[:,1:] - logPz[:,:-1]), axis=1)
         #Zdiff = tf.Print(Zdiff, data=[tf.shape(Zdiff)], message="Zdiff", first_n=1, summarize=None)
 
         costVec = predDiff + Zsum * sparsity_factor + Zdiff * coherent_factor

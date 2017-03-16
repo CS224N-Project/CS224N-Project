@@ -194,19 +194,20 @@ class RNNGeneratorModel(object):
 
         # zLayer probabilities - each prob is prob of keeping word in review
         zProbs = tf.sigmoid(tf.matmul(finalStates, U) + c)
-        zProbs = tf.select(self.maskPH,
-                           zProbs,
-                           tf.zeros(shape = tf.shape(zProbs), dtype = tf.float32))
+        #zProbs = tf.select(self.maskPH,
+        #                   zProbs,
+        #                   tf.zeros(shape = tf.shape(zProbs), dtype = tf.float32))
         # zProbs = tf.stop_gradient(zProbs)
 
         # sample zprobs to pick which review words to keep. mask unselected words
-        uniform = tf.random_uniform(shape = tf.shape(zProbs), minval=0, maxval=1) < zProbs
+        uniform = tf.stop_gradient(tf.random_uniform(shape = tf.shape(zProbs), minval=0, maxval=1) < zProbs)
         # uniform = tf.stop_gradient(
         #     tf.random_uniform(shape=tf.shape(zProbs), minval=0,
         #                       maxval=1) < zProbs, 'uniform')
         self.zPreds = tf.select(uniform,
                                 tf.ones(shape = tf.shape(uniform), dtype = tf.float32),
                                 tf.zeros(shape = tf.shape(uniform), dtype = tf.float32))
+        self.zPreds = tf.select(self.maskPH, self.zPreds, tf.zeros(shape=tf.shape(zProbs), dtype=tf.float32))
         masks = tf.zeros(shape = tf.shape(zProbs), dtype = tf.int32) + self.maskId
         maskedInputs = tf.select(uniform, self.inputPH, masks)
 
@@ -215,7 +216,7 @@ class RNNGeneratorModel(object):
         # probObs = tf.reduce_prod(probObs, axis = 1, keep_dims=True)
         # self.probObs = probObs
         maskFloats = tf.cast(self.maskPH, tf.float32)
-        crossEntropy = (self.zPreds * tf.log(zProbs) + (1 - self.zPred) * tf.log(1 - zProbs)) * maskFloats
+        crossEntropy = -1.0 * (((self.zPreds * tf.log(zProbs)) + ((1 - self.zPreds) * tf.log(1 - zProbs))) * maskFloats)
         self.crossEntropy = crossEntropy
 
 
@@ -264,19 +265,26 @@ class RNNGeneratorModel(object):
         return y_t
 
     def add_loss_op(self, pred):
-        sparsity_factor = 0.0003
+        sparsity_factor = 0.3
         coherent_ratio = 2.0
         coherent_factor = sparsity_factor * coherent_ratio
 
         # Compute L2 loss
         logPz = self.crossEntropy
-        logPzSum = tf.reduce_sum(logPz, axis = 1)
-        predDiff = self.labelsPH - pred
+        logPz = tf.Print(logPz, data=[tf.shape(logPz)], message="logPz", first_n=1, summarize=None)
+        logPzSum = tf.reduce_sum(logPz, axis=1)
+        logPzSum = tf.Print(logPzSum, data=[tf.shape(logPzSum)], message="logPzSum", first_n=1, summarize=None)
+        predDiff = tf.square(self.labelsPH - pred)
+        predDiff = tf.Print(predDiff, data=[tf.shape(predDiff)], message="predDiff", first_n=1, summarize=None)
         Zsum = tf.reduce_sum(self.zPreds, axis=1)
-        Zdiff = tf.reduce_sum(tf.abs(self.zPreds[1:] - self.zPreds[:-1]),
-                              axis=1)
+        Zsum = tf.Print(Zsum, data=[tf.shape(Zsum)], message="Zsum", first_n=1, summarize=None)
+        self.zPreds = tf.Print(self.zPreds, data=[tf.shape(self.zPreds)], message="self.zPreds", first_n=1, summarize=None)
+        Zdiff = tf.reduce_sum(tf.abs(self.zPreds[:,1:] - self.zPreds[:,:-1]), axis=1)
+        Zdiff = tf.Print(Zdiff, data=[tf.shape(Zdiff)], message="Zdiff", first_n=1, summarize=None)
         costVec = predDiff + Zsum * sparsity_factor + Zdiff * coherent_factor
+        costVec = tf.Print(costVec, data=[tf.shape(costVec)], message="costVec", first_n=1, summarize=None)
         costLogPz = tf.reduce_mean(costVec * logPzSum)
+        costLogPz = tf.Print(costLogPz, data=[tf.shape(costLogPz)], message="costLogPz", first_n=1, summarize=None)
 
         # regularization
         reg_by_var = [tf.nn.l2_loss(v) for v in tf.trainable_variables()]

@@ -211,9 +211,14 @@ class RNNGeneratorModel(object):
         maskedInputs = tf.select(uniform, self.inputPH, masks)
 
         # compute probability of observing subsection of words
-        probObs = self.zPreds * zProbs + (1.0 - self.zPreds) * (1.0 - zProbs)
-        probObs = tf.reduce_prod(probObs, axis = 1, keep_dims=True)
-        self.probObs = probObs
+        # probObs = self.zPreds * zProbs + (1.0 - self.zPreds) * (1.0 - zProbs)
+        # probObs = tf.reduce_prod(probObs, axis = 1, keep_dims=True)
+        # self.probObs = probObs
+        maskFloats = tf.cast(self.maskPH, tf.float32)
+        crossEntropy = (self.zPreds * tf.log(zProbs) + (1 - self.zPred) * tf.log(1 - zProbs)) * maskFloats
+        self.crossEntropy = crossEntropy
+
+
 
         # Return masked embeddings to pass to encoder
         embedding_shape = (-1,
@@ -259,27 +264,49 @@ class RNNGeneratorModel(object):
         return y_t
 
     def add_loss_op(self, pred):
-        # Compute L2 loss
-        L2loss = tf.nn.l2_loss((self.labelsPH - pred) * self.probObs)
-        L2loss = tf.reduce_mean(L2loss)
-
-        # Apply L2 regularization - all vars
-        reg_by_var = [tf.nn.l2_loss(v) for v in tf.trainable_variables()]
-        regularization = tf.reduce_sum(reg_by_var)
-
-        # apply L2 regularization to number of predictions
-        # regPreds = tf.reduce_sum(tf.nn.l2_loss(self.zPreds))
-
-        # apply reg to sequence
         sparsity_factor = 0.0003
         coherent_ratio = 2.0
         coherent_factor = sparsity_factor * coherent_ratio
-        Zsum = tf.reduce_sum(self.zPreds, axis=0)
-        Zdiff = tf.reduce_sum(tf.abs(self.zPreds[1:] - self.zPreds[:-1]), axis=0)
-        sparsity_cost = tf.reduce_mean(Zsum) * sparsity_factor + tf.reduce_mean(
-            Zdiff) * coherent_factor
 
-        loss = (10.0 * L2loss) + (self.l2RegPH * regularization) + sparsity_cost
+        # Compute L2 loss
+        logPz = self.crossEntropy
+        logPzSum = tf.reduce_sum(logPz, axis = 1)
+        predDiff = self.labelsPH - pred
+        Zsum = tf.reduce_sum(self.zPreds, axis=1)
+        Zdiff = tf.reduce_sum(tf.abs(self.zPreds[1:] - self.zPreds[:-1]),
+                              axis=1)
+        costVec = predDiff + Zsum * sparsity_factor + Zdiff * coherent_factor
+        costLogPz = tf.reduce_mean(costVec * logPzSum)
+
+        # regularization
+        reg_by_var = [tf.nn.l2_loss(v) for v in tf.trainable_variables()]
+        regularization = tf.reduce_sum(reg_by_var)
+
+        loss = 10.0 * costLogPz + regularization * self.l2RegPH
+
+
+
+        # L2loss = tf.nn.l2_loss((self.labelsPH - pred))
+        # # L2loss = tf.nn.l2_loss((self.labelsPH - pred) * self.probObs)
+        # L2loss = tf.reduce_mean(L2loss)
+        #
+        # # Apply L2 regularization - all vars
+        # reg_by_var = [tf.nn.l2_loss(v) for v in tf.trainable_variables()]
+        # regularization = tf.reduce_sum(reg_by_var)
+        #
+        # # apply L2 regularization to number of predictions
+        # # regPreds = tf.reduce_sum(tf.nn.l2_loss(self.zPreds))
+        #
+        # # apply reg to sequence
+        # sparsity_factor = 0.0003
+        # coherent_ratio = 2.0
+        # coherent_factor = sparsity_factor * coherent_ratio
+        # Zsum = tf.reduce_sum(self.zPreds, axis=0)
+        # Zdiff = tf.reduce_sum(tf.abs(self.zPreds[1:] - self.zPreds[:-1]), axis=0)
+        # sparsity_cost = tf.reduce_mean(Zsum) * sparsity_factor + tf.reduce_mean(
+        #     Zdiff) * coherent_factor
+        #
+        # loss = (10.0 * L2loss) + (self.l2RegPH * regularization) + sparsity_cost
 
         return loss
 

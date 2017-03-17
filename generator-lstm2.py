@@ -481,9 +481,9 @@ class RNNGeneratorModel(object):
             if dev_mse < best_dev_mse:
                 best_dev_mse = dev_mse
                 if saver:
-                    print "New best dev MSE! Saving model in ./encoder.weights"
+                    print "New best dev MSE! Saving model in ./lstm2.weights"
                     # saver.save(sess, './encoder.weights', write_meta_graph = False)
-                    saver.save(sess, './encoder.weights')
+                    saver.save(sess, './lstm2.weights')
             print
 
     def __init__(self, config, embedding_path, train_path, dev_path, test_path, rationals, aspect = 0):

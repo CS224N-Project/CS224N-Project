@@ -1,0 +1,8960 @@
+I tensorflow/stream_executor/dso_loader.cc:128] successfully opened CUDA library libcublas.so locally
+I tensorflow/stream_executor/dso_loader.cc:128] successfully opened CUDA library libcudnn.so locally
+I tensorflow/stream_executor/dso_loader.cc:128] successfully opened CUDA library libcufft.so locally
+I tensorflow/stream_executor/dso_loader.cc:128] successfully opened CUDA library libcuda.so.1 locally
+I tensorflow/stream_executor/dso_loader.cc:128] successfully opened CUDA library libcurand.so locally
+================================================================================
+INITIALIZING
+================================================================================
+Building model...147759 pre-trained embeddings loaded.
+70000 examples loaded from /home/neuron/beer/reviews.aspect1.train.txt.gz
+max text length: 1145
+10000 examples loaded from /home/neuron/beer/reviews.aspect1.heldout.txt.gz
+max text length: 915
+994 examples loaded from /home/neuron/beer/annotations.txt.gz
+max text length: 413
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:885] Found device 0 with properties: 
+name: Tesla M60
+major: 5 minor: 2 memoryClockRate (GHz) 1.1775
+pciBusID 9e06:00:00.0
+Total memory: 7.93GiB
+Free memory: 7.86GiB
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:906] DMA: 0 
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:916] 0:   Y 
+I tensorflow/core/common_runtime/gpu/gpu_device.cc:975] Creating TensorFlow device (/gpu:0) -> (device: 0, name: Tesla M60, pci bus id: 9e06:00:00.0)
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 29486 get requests, put_count=9963 evicted_count=1000 eviction_rate=0.100371 and unsatisfied allocation rate=0.699417
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:259] Raising pool_size_limit_ from 100 to 110
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 10188 get requests, put_count=20197 evicted_count=10000 eviction_rate=0.495123 and unsatisfied allocation rate=9.81547e-05
+took 20.04 seconds
+
+================================================================================
+TRAINING
+================================================================================
+Epoch 1 out of 100
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+839.343
+28.2754
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1265.67
+0.0
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+452.658
+28.313
+
+grad, var (shape, norm):
+(800,)
+(800,)
+748.633
+0.0
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+595.882
+28.2633
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1007.94
+0.0
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+374.9
+28.2469
+
+grad, var (shape, norm):
+(800,)
+(800,)
+765.925
+0.0
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+664.583
+22.4852
+
+grad, var (shape, norm):
+(300,)
+(300,)
+377.94
+0.0
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+996.786
+1.39679
+
+grad, var (shape, norm):
+(1,)
+(1,)
+1525.91
+0.0
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+1269.83
+28.2982
+
+grad, var (shape, norm):
+(800,)
+(800,)
+3879.92
+0.0
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+819.928
+28.2679
+
+grad, var (shape, norm):
+(800,)
+(800,)
+2855.65
+0.0
+  1/274 [..............................] - ETA: 1339s - train loss: 5044.6030I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 53795 get requests, put_count=53239 evicted_count=20000 eviction_rate=0.375664 and unsatisfied allocation rate=0.382303
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:259] Raising pool_size_limit_ from 110 to 121
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 10148 get requests, put_count=20159 evicted_count=10000 eviction_rate=0.496056 and unsatisfied allocation rate=0
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 18157 get requests, put_count=38168 evicted_count=20000 eviction_rate=0.523999 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+1562.68
+28.776
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1760.64
+0.282842
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+1363.57
+28.8358
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1462.15
+0.282842
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+2187.83
+28.7819
+
+grad, var (shape, norm):
+(800,)
+(800,)
+2239.01
+0.282842
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+2270.58
+28.7697
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1877.94
+0.282841
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+1488.5
+23.3324
+
+grad, var (shape, norm):
+(300,)
+(300,)
+435.995
+0.173205
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+0.0233205
+1.43345
+
+grad, var (shape, norm):
+(1,)
+(1,)
+0.00240001
+0.01
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+0.221998
+28.8464
+
+grad, var (shape, norm):
+(800,)
+(800,)
+0.12462
+0.282842
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+0.0574684
+28.8316
+
+grad, var (shape, norm):
+(800,)
+(800,)
+0.0159818
+0.282842
+  2/274 [..............................] - ETA: 933s - train loss: 5093.1890 I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 9149 get requests, put_count=18161 evicted_count=9000 eviction_rate=0.495567 and unsatisfied allocation rate=0
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 17564 get requests, put_count=36576 evicted_count=19000 eviction_rate=0.519466 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+5910.03
+29.3479
+
+grad, var (shape, norm):
+(800,)
+(800,)
+4191.01
+0.429098
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4726.02
+29.4226
+
+grad, var (shape, norm):
+(800,)
+(800,)
+2504.8
+0.413791
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+12505.7
+29.2886
+
+grad, var (shape, norm):
+(800,)
+(800,)
+6391.15
+0.412174
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+9106.88
+29.2623
+
+grad, var (shape, norm):
+(800,)
+(800,)
+3425.41
+0.424554
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+3063.21
+24.2898
+
+grad, var (shape, norm):
+(300,)
+(300,)
+400.136
+0.32702
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+1.48783e-06
+1.48783
+
+grad, var (shape, norm):
+(1,)
+(1,)
+1.66827e-08
+0.0166827
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+2.98122e-05
+29.8122
+
+grad, var (shape, norm):
+(800,)
+(800,)
+4.72355e-07
+0.472355
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+2.98072e-05
+29.8072
+
+grad, var (shape, norm):
+(800,)
+(800,)
+4.7218e-07
+0.47218
+  3/274 [..............................] - ETA: 797s - train loss: 5836.2137I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 9133 get requests, put_count=18146 evicted_count=9000 eviction_rate=0.495977 and unsatisfied allocation rate=0
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 18009 get requests, put_count=37022 evicted_count=19000 eviction_rate=0.513208 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+6062.29
+29.8413
+
+grad, var (shape, norm):
+(800,)
+(800,)
+4905.36
+0.547297
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+6664.7
+29.9082
+
+grad, var (shape, norm):
+(800,)
+(800,)
+3415.04
+0.508314
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4475.85
+29.7177
+
+grad, var (shape, norm):
+(800,)
+(800,)
+3873.36
+0.513419
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+5488.32
+29.6935
+
+grad, var (shape, norm):
+(800,)
+(800,)
+3083.14
+0.517788
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+2184.92
+25.2534
+
+grad, var (shape, norm):
+(300,)
+(300,)
+368.317
+0.381124
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+1.54455e-06
+1.54455
+
+grad, var (shape, norm):
+(1,)
+(1,)
+2.18484e-08
+0.0218484
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+3.08584e-05
+30.8584
+
+grad, var (shape, norm):
+(800,)
+(800,)
+6.18852e-07
+0.618852
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+3.08603e-05
+30.8603
+
+grad, var (shape, norm):
+(800,)
+(800,)
+6.1855e-07
+0.61855
+  4/274 [..............................] - ETA: 725s - train loss: 5970.1222I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 8145 get requests, put_count=16159 evicted_count=8000 eviction_rate=0.49508 and unsatisfied allocation rate=0
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 17368 get requests, put_count=35382 evicted_count=18000 eviction_rate=0.508733 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+2200.27
+30.3801
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1577.13
+0.644498
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+2153.41
+30.4346
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1111.8
+0.587964
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+18475.0
+30.2405
+
+grad, var (shape, norm):
+(800,)
+(800,)
+5464.06
+0.585463
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+3003.21
+30.2358
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1062.64
+0.596146
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+1371.78
+26.1618
+
+grad, var (shape, norm):
+(300,)
+(300,)
+174.172
+0.463473
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+1.59953e-06
+1.59953
+
+grad, var (shape, norm):
+(1,)
+(1,)
+2.60798e-08
+0.0260798
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+3.18907e-05
+31.8907
+
+grad, var (shape, norm):
+(800,)
+(800,)
+7.38856e-07
+0.738856
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+3.18977e-05
+31.8977
+
+grad, var (shape, norm):
+(800,)
+(800,)
+7.38451e-07
+0.738451
+  5/274 [..............................] - ETA: 680s - train loss: 6123.6432I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 8102 get requests, put_count=16118 evicted_count=8000 eviction_rate=0.496339 and unsatisfied allocation rate=0
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 17679 get requests, put_count=35695 evicted_count=18000 eviction_rate=0.504272 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+2681.06
+30.9612
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1574.28
+0.737651
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+5008.97
+31.0259
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1566.0
+0.658602
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+2636.57
+30.7296
+
+grad, var (shape, norm):
+(800,)
+(800,)
+791.973
+0.652605
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+1856.19
+30.7971
+
+grad, var (shape, norm):
+(800,)
+(800,)
+418.798
+0.674688
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+2178.42
+26.9736
+
+grad, var (shape, norm):
+(300,)
+(300,)
+169.631
+0.507705
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+1.65138e-06
+1.65138
+
+grad, var (shape, norm):
+(1,)
+(1,)
+2.96564e-08
+0.0296564
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+3.28747e-05
+32.8747
+
+grad, var (shape, norm):
+(800,)
+(800,)
+8.40286e-07
+0.840286
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+3.28854e-05
+32.8854
+
+grad, var (shape, norm):
+(800,)
+(800,)
+8.39795e-07
+0.839795
+  6/274 [..............................] - ETA: 648s - train loss: 6149.6388I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 7108 get requests, put_count=14125 evicted_count=7000 eviction_rate=0.495575 and unsatisfied allocation rate=0
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 17027 get requests, put_count=34044 evicted_count=17000 eviction_rate=0.499354 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+3131.18
+31.5375
+
+grad, var (shape, norm):
+(800,)
+(800,)
+2042.45
+0.831092
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+3263.57
+31.5697
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1391.62
+0.724871
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+2970.24
+31.2959
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1363.73
+0.723886
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+3099.16
+31.3937
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1033.83
+0.747052
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+3321.77
+27.6789
+
+grad, var (shape, norm):
+(300,)
+(300,)
+346.977
+0.550815
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+1.69966e-06
+1.69966
+
+grad, var (shape, norm):
+(1,)
+(1,)
+3.27389e-08
+0.0327389
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+3.37974e-05
+33.7974
+
+grad, var (shape, norm):
+(800,)
+(800,)
+9.27706e-07
+0.927706
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+3.38111e-05
+33.8111
+
+grad, var (shape, norm):
+(800,)
+(800,)
+9.27141e-07
+0.927141
+  7/274 [..............................] - ETA: 626s - train loss: 6206.5087I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 7098 get requests, put_count=14117 evicted_count=7000 eviction_rate=0.495856 and unsatisfied allocation rate=0
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 17245 get requests, put_count=34264 evicted_count=17000 eviction_rate=0.496148 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+615.872
+32.1489
+
+grad, var (shape, norm):
+(800,)
+(800,)
+472.322
+0.920382
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+952.581
+32.1738
+
+grad, var (shape, norm):
+(800,)
+(800,)
+501.654
+0.78301
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+2764.94
+31.9128
+
+grad, var (shape, norm):
+(800,)
+(800,)
+833.701
+0.792164
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+1838.71
+32.0241
+
+grad, var (shape, norm):
+(800,)
+(800,)
+404.364
+0.810656
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+1426.94
+28.3252
+
+grad, var (shape, norm):
+(300,)
+(300,)
+91.5166
+0.596572
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+1.74431e-06
+1.74431
+
+grad, var (shape, norm):
+(1,)
+(1,)
+3.54308e-08
+0.0354308
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+3.46552e-05
+34.6552
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.00405e-06
+1.00405
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+3.46712e-05
+34.6712
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.00342e-06
+1.00342
+  8/274 [..............................] - ETA: 608s - train loss: 5957.0269I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 6101 get requests, put_count=12124 evicted_count=6000 eviction_rate=0.494886 and unsatisfied allocation rate=0
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 16245 get requests, put_count=32268 evicted_count=16000 eviction_rate=0.495847 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+1380.08
+32.7952
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1195.67
+1.00623
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+2142.24
+32.8277
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1288.67
+0.8402
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+5396.72
+32.5357
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1980.94
+0.855956
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4015.1
+32.6789
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1042.42
+0.875065
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+3667.8
+28.9438
+
+grad, var (shape, norm):
+(300,)
+(300,)
+290.788
+0.619529
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+1.78545e-06
+1.78545
+
+grad, var (shape, norm):
+(1,)
+(1,)
+3.7804e-08
+0.037804
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+3.54487e-05
+35.4487
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.07135e-06
+1.07135
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+3.54664e-05
+35.4664
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.07067e-06
+1.07067
+  9/274 [..............................] - ETA: 596s - train loss: 6123.2585I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 6105 get requests, put_count=12130 evicted_count=6000 eviction_rate=0.494641 and unsatisfied allocation rate=0
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 16250 get requests, put_count=32275 evicted_count=16000 eviction_rate=0.49574 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+2784.9
+33.4288
+
+grad, var (shape, norm):
+(800,)
+(800,)
+2107.89
+1.07936
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4064.57
+33.4976
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1522.15
+0.891704
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+2335.03
+33.1595
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1305.29
+0.916059
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+3382.78
+33.3553
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1124.53
+0.933409
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+1414.77
+29.5281
+
+grad, var (shape, norm):
+(300,)
+(300,)
+136.784
+0.626502
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+1.82328e-06
+1.82328
+
+grad, var (shape, norm):
+(1,)
+(1,)
+3.99107e-08
+0.0399107
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+3.61803e-05
+36.1803
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.1311e-06
+1.1311
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+3.61995e-05
+36.1995
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.13036e-06
+1.13036
+ 10/274 [>.............................] - ETA: 584s - train loss: 6063.8324I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 6108 get requests, put_count=12136 evicted_count=6000 eviction_rate=0.494397 and unsatisfied allocation rate=0
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 16251 get requests, put_count=32279 evicted_count=16000 eviction_rate=0.495678 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+2006.2
+34.0626
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1550.07
+1.15111
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+2339.4
+34.1201
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1227.12
+0.945866
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+12787.5
+33.7923
+
+grad, var (shape, norm):
+(800,)
+(800,)
+6052.23
+0.974338
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+2729.37
+34.0148
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1507.29
+0.990777
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+1271.79
+30.0397
+
+grad, var (shape, norm):
+(300,)
+(300,)
+199.928
+0.652345
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+1.85801e-06
+1.85801
+
+grad, var (shape, norm):
+(1,)
+(1,)
+4.17909e-08
+0.0417909
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+3.68537e-05
+36.8537
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.18442e-06
+1.18442
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+3.68739e-05
+36.8739
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.18364e-06
+1.18364
+ 11/274 [>.............................] - ETA: 575s - train loss: 6042.5904I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 5103 get requests, put_count=10136 evicted_count=5000 eviction_rate=0.493291 and unsatisfied allocation rate=0
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 15247 get requests, put_count=30280 evicted_count=15000 eviction_rate=0.495376 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+5015.44
+34.6763
+
+grad, var (shape, norm):
+(800,)
+(800,)
+3331.91
+1.21638
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+5631.3
+34.7375
+
+grad, var (shape, norm):
+(800,)
+(800,)
+2418.74
+0.997932
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+2963.96
+34.419
+
+grad, var (shape, norm):
+(800,)
+(800,)
+2151.89
+1.03173
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+3787.2
+34.6615
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1926.47
+1.04706
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+2252.88
+30.4749
+
+grad, var (shape, norm):
+(300,)
+(300,)
+299.368
+0.685623
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+1.88988e-06
+1.88988
+
+grad, var (shape, norm):
+(1,)
+(1,)
+4.34759e-08
+0.0434759
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+3.74725e-05
+37.4725
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.23221e-06
+1.23221
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+3.74936e-05
+37.4936
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.23139e-06
+1.23139
+ 12/274 [>.............................] - ETA: 567s - train loss: 6147.7405I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 5106 get requests, put_count=10143 evicted_count=5000 eviction_rate=0.492951 and unsatisfied allocation rate=0
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 15248 get requests, put_count=30285 evicted_count=15000 eviction_rate=0.495295 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+2715.46
+35.3143
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1954.09
+1.28529
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+3612.06
+35.325
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1816.25
+1.05334
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+942.723
+35.0778
+
+grad, var (shape, norm):
+(800,)
+(800,)
+680.408
+1.09425
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+1009.76
+35.3003
+
+grad, var (shape, norm):
+(800,)
+(800,)
+499.701
+1.10575
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+1784.92
+30.8604
+
+grad, var (shape, norm):
+(300,)
+(300,)
+270.176
+0.700935
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+1.91909e-06
+1.91909
+
+grad, var (shape, norm):
+(1,)
+(1,)
+4.4991e-08
+0.044991
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+3.80408e-05
+38.0408
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.27518e-06
+1.27518
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+3.80624e-05
+38.0624
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.27432e-06
+1.27432
+ 13/274 [>.............................] - ETA: 559s - train loss: 6162.1507I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 5108 get requests, put_count=10148 evicted_count=5000 eviction_rate=0.492708 and unsatisfied allocation rate=0
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 15249 get requests, put_count=30289 evicted_count=15000 eviction_rate=0.495229 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+2378.97
+35.9611
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1999.89
+1.35726
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+3733.62
+35.9055
+
+grad, var (shape, norm):
+(800,)
+(800,)
+2338.96
+1.11362
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+3409.95
+35.7469
+
+grad, var (shape, norm):
+(800,)
+(800,)
+2536.83
+1.1614
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4532.71
+35.9439
+
+grad, var (shape, norm):
+(800,)
+(800,)
+2307.7
+1.16204
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+2123.49
+31.2106
+
+grad, var (shape, norm):
+(300,)
+(300,)
+348.889
+0.71234
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+1.94586e-06
+1.94586
+
+grad, var (shape, norm):
+(1,)
+(1,)
+4.63568e-08
+0.0463568
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+3.85621e-05
+38.5621
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.31391e-06
+1.31391
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+3.85843e-05
+38.5843
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.31302e-06
+1.31302
+ 14/274 [>.............................] - ETA: 551s - train loss: 6194.2591I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 5109 get requests, put_count=10153 evicted_count=5000 eviction_rate=0.492465 and unsatisfied allocation rate=0
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 15254 get requests, put_count=30298 evicted_count=15000 eviction_rate=0.495082 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+1083.52
+36.6101
+
+grad, var (shape, norm):
+(800,)
+(800,)
+981.973
+1.4257
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+1741.48
+36.4907
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1102.19
+1.17126
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+1262.5
+36.4181
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1015.77
+1.22849
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+1361.46
+36.5656
+
+grad, var (shape, norm):
+(800,)
+(800,)
+814.028
+1.21449
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+1904.99
+31.5583
+
+grad, var (shape, norm):
+(300,)
+(300,)
+350.748
+0.73771
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+1.97039e-06
+1.97039
+
+grad, var (shape, norm):
+(1,)
+(1,)
+4.75907e-08
+0.0475907
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+3.90403e-05
+39.0403
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.3489e-06
+1.3489
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+3.90627e-05
+39.0627
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.34799e-06
+1.34799
+ 15/274 [>.............................] - ETA: 545s - train loss: 6164.6913I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 5110 get requests, put_count=10159 evicted_count=5000 eviction_rate=0.492174 and unsatisfied allocation rate=0
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 15251 get requests, put_count=30300 evicted_count=15000 eviction_rate=0.49505 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+542.204
+37.273
+
+grad, var (shape, norm):
+(800,)
+(800,)
+526.127
+1.49567
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+702.256
+37.082
+
+grad, var (shape, norm):
+(800,)
+(800,)
+495.645
+1.23185
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+1810.52
+37.081
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1534.98
+1.2987
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+1767.54
+37.1701
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1205.59
+1.27212
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+1341.56
+31.8859
+
+grad, var (shape, norm):
+(300,)
+(300,)
+293.289
+0.756748
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+1.99286e-06
+1.99286
+
+grad, var (shape, norm):
+(1,)
+(1,)
+4.87074e-08
+0.0487074
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+3.94787e-05
+39.4787
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.38057e-06
+1.38057
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+3.95012e-05
+39.5012
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.37963e-06
+1.37963
+ 16/274 [>.............................] - ETA: 538s - train loss: 6105.6135I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 5113 get requests, put_count=10167 evicted_count=5000 eviction_rate=0.491787 and unsatisfied allocation rate=0
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 15255 get requests, put_count=30309 evicted_count=15000 eviction_rate=0.494903 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+1103.2
+37.9391
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1178.16
+1.56848
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+1691.38
+37.6702
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1397.22
+1.29381
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+1325.87
+37.7364
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1206.25
+1.37478
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+1618.9
+37.7465
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1297.2
+1.33496
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+1519.22
+32.1958
+
+grad, var (shape, norm):
+(300,)
+(300,)
+371.448
+0.773662
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.01343e-06
+2.01343
+
+grad, var (shape, norm):
+(1,)
+(1,)
+4.97193e-08
+0.0497193
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+3.98803e-05
+39.8803
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.40927e-06
+1.40927
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+3.99029e-05
+39.9029
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.4083e-06
+1.4083
+ 17/274 [>.............................] - ETA: 534s - train loss: 6091.4278I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 5156 get requests, put_count=10215 evicted_count=5000 eviction_rate=0.489476 and unsatisfied allocation rate=0
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 15296 get requests, put_count=30355 evicted_count=15000 eviction_rate=0.494153 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+1710.06
+38.5913
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1927.15
+1.63606
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+2762.55
+38.2465
+
+grad, var (shape, norm):
+(800,)
+(800,)
+2440.02
+1.35281
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+1944.34
+38.3773
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1830.69
+1.45066
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+2879.24
+38.3047
+
+grad, var (shape, norm):
+(800,)
+(800,)
+2217.4
+1.39623
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+1610.65
+32.4839
+
+grad, var (shape, norm):
+(300,)
+(300,)
+389.621
+0.794505
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.03227e-06
+2.03227
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.06375e-08
+0.0506375
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.02483e-05
+40.2483
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.43531e-06
+1.43531
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.02708e-05
+40.2708
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.43432e-06
+1.43432
+ 18/274 [>.............................] - ETA: 529s - train loss: 6065.8784I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 5115 get requests, put_count=10180 evicted_count=5000 eviction_rate=0.491159 and unsatisfied allocation rate=0
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 15261 get requests, put_count=30326 evicted_count=15000 eviction_rate=0.494625 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+1015.56
+39.2336
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1144.6
+1.70408
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+1248.15
+38.8029
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1262.94
+1.4143
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+1140.14
+39.0067
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1115.25
+1.52438
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+1371.67
+38.8442
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1137.24
+1.46201
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+1370.24
+32.7536
+
+grad, var (shape, norm):
+(300,)
+(300,)
+366.506
+0.800242
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.04951e-06
+2.04951
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.14713e-08
+0.0514713
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.05852e-05
+40.5852
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.45896e-06
+1.45896
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.06076e-05
+40.6076
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.45795e-06
+1.45795
+ 19/274 [=>............................] - ETA: 524s - train loss: 6039.0799I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 5117 get requests, put_count=10189 evicted_count=5000 eviction_rate=0.490725 and unsatisfied allocation rate=0
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 15308 get requests, put_count=30380 evicted_count=15000 eviction_rate=0.493746 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+715.931
+39.8588
+
+grad, var (shape, norm):
+(800,)
+(800,)
+837.244
+1.76718
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+1070.2
+39.3418
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1197.11
+1.47811
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+780.569
+39.6173
+
+grad, var (shape, norm):
+(800,)
+(800,)
+783.453
+1.59714
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+1187.03
+39.3607
+
+grad, var (shape, norm):
+(800,)
+(800,)
+998.886
+1.52667
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+1201.22
+33.0003
+
+grad, var (shape, norm):
+(300,)
+(300,)
+335.758
+0.807769
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.0653e-06
+2.0653
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.22292e-08
+0.0522292
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.08937e-05
+40.8937
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.48045e-06
+1.48045
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.09158e-05
+40.9158
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.47942e-06
+1.47942
+ 20/274 [=>............................] - ETA: 520s - train loss: 6005.3495I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 6162 get requests, put_count=12241 evicted_count=6000 eviction_rate=0.490156 and unsatisfied allocation rate=0
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 16308 get requests, put_count=32387 evicted_count=16000 eviction_rate=0.494025 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+1433.05
+40.4669
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1737.05
+1.83172
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+2044.22
+39.8579
+
+grad, var (shape, norm):
+(800,)
+(800,)
+2450.2
+1.54229
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+1349.78
+40.2108
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1438.9
+1.67031
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+2145.56
+39.8565
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1962.88
+1.59515
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+1296.73
+33.2297
+
+grad, var (shape, norm):
+(300,)
+(300,)
+386.464
+0.810027
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.07974e-06
+2.07974
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.29183e-08
+0.0529183
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.1176e-05
+41.176
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.49999e-06
+1.49999
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.11978e-05
+41.1978
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.49895e-06
+1.49895
+ 21/274 [=>............................] - ETA: 515s - train loss: 5969.6615I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 6166 get requests, put_count=12253 evicted_count=6000 eviction_rate=0.489676 and unsatisfied allocation rate=0
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 16310 get requests, put_count=32397 evicted_count=16000 eviction_rate=0.493873 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+715.585
+41.0668
+
+grad, var (shape, norm):
+(800,)
+(800,)
+877.135
+1.89573
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+983.007
+40.3516
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1237.9
+1.60642
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+935.502
+40.7801
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1028.31
+1.74274
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+1284.77
+40.3262
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1197.5
+1.65893
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+1197.74
+33.4401
+
+grad, var (shape, norm):
+(300,)
+(300,)
+369.826
+0.823418
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.09295e-06
+2.09295
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.35454e-08
+0.0535454
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.14343e-05
+41.4343
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.51778e-06
+1.51778
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.14557e-05
+41.4557
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.51672e-06
+1.51672
+ 22/274 [=>............................] - ETA: 512s - train loss: 5924.1883I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 6177 get requests, put_count=12272 evicted_count=6000 eviction_rate=0.488918 and unsatisfied allocation rate=0
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 16253 get requests, put_count=32348 evicted_count=16000 eviction_rate=0.494621 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+707.341
+41.6506
+
+grad, var (shape, norm):
+(800,)
+(800,)
+901.629
+1.9621
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+947.172
+40.822
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1245.01
+1.6737
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+743.603
+41.3287
+
+grad, var (shape, norm):
+(800,)
+(800,)
+858.483
+1.81359
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+1032.2
+40.7764
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1088.79
+1.72483
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+1113.77
+33.6351
+
+grad, var (shape, norm):
+(300,)
+(300,)
+376.045
+0.831537
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.10503e-06
+2.10503
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.41161e-08
+0.0541161
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.16705e-05
+41.6705
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.53396e-06
+1.53396
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.16915e-05
+41.6915
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.53289e-06
+1.53289
+ 23/274 [=>............................] - ETA: 508s - train loss: 5903.9021I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 7176 get requests, put_count=14281 evicted_count=7000 eviction_rate=0.490162 and unsatisfied allocation rate=0
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 16802 get requests, put_count=33907 evicted_count=17000 eviction_rate=0.501371 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+1153.12
+42.2127
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1499.22
+2.02479
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+1703.28
+41.2694
+
+grad, var (shape, norm):
+(800,)
+(800,)
+2300.61
+1.74239
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+1300.61
+41.851
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1547.09
+1.88296
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+1959.98
+41.2021
+
+grad, var (shape, norm):
+(800,)
+(800,)
+2080.65
+1.79016
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+1147.08
+33.8086
+
+grad, var (shape, norm):
+(300,)
+(300,)
+395.801
+0.84336
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.11608e-06
+2.11608
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.46358e-08
+0.0546358
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.18865e-05
+41.8865
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.5487e-06
+1.5487
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.1907e-05
+41.907
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.54762e-06
+1.54762
+ 24/274 [=>............................] - ETA: 503s - train loss: 5872.1700I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 7179 get requests, put_count=14294 evicted_count=7000 eviction_rate=0.489716 and unsatisfied allocation rate=0
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 16242 get requests, put_count=33357 evicted_count=17000 eviction_rate=0.509638 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+609.866
+42.7567
+
+grad, var (shape, norm):
+(800,)
+(800,)
+820.042
+2.08774
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+752.047
+41.6918
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1064.13
+1.8088
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+653.16
+42.35
+
+grad, var (shape, norm):
+(800,)
+(800,)
+790.617
+1.9481
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+1010.1
+41.6066
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1150.8
+1.85635
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+988.089
+33.9739
+
+grad, var (shape, norm):
+(300,)
+(300,)
+363.098
+0.842667
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.12618e-06
+2.12618
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.51091e-08
+0.0551091
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.2084e-05
+42.084
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.56212e-06
+1.56212
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.21039e-05
+42.1039
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.56103e-06
+1.56103
+ 25/274 [=>............................] - ETA: 501s - train loss: 5821.9124I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 8226 get requests, put_count=16353 evicted_count=8000 eviction_rate=0.489207 and unsatisfied allocation rate=0
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 16647 get requests, put_count=34774 evicted_count=18000 eviction_rate=0.517628 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+320.95
+43.2778
+
+grad, var (shape, norm):
+(800,)
+(800,)
+424.951
+2.14753
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+397.076
+42.0914
+
+grad, var (shape, norm):
+(800,)
+(800,)
+583.806
+1.87764
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+405.177
+42.8283
+
+grad, var (shape, norm):
+(800,)
+(800,)
+507.278
+2.01418
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+455.118
+41.9879
+
+grad, var (shape, norm):
+(800,)
+(800,)
+533.741
+1.92149
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+974.759
+34.1244
+
+grad, var (shape, norm):
+(300,)
+(300,)
+370.548
+0.845741
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.13542e-06
+2.13542
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.55402e-08
+0.0555402
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.22644e-05
+42.2644
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.57435e-06
+1.57435
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.22838e-05
+42.2838
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.57324e-06
+1.57324
+ 26/274 [=>............................] - ETA: 499s - train loss: 5797.9231I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 9279 get requests, put_count=18419 evicted_count=9000 eviction_rate=0.488626 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+561.44
+43.7766
+
+grad, var (shape, norm):
+(800,)
+(800,)
+800.041
+2.20824
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+846.803
+42.4669
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1278.87
+1.94609
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+550.146
+43.2834
+
+grad, var (shape, norm):
+(800,)
+(800,)
+707.48
+2.08184
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+787.302
+42.3476
+
+grad, var (shape, norm):
+(800,)
+(800,)
+992.302
+1.98866
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+826.992
+34.2618
+
+grad, var (shape, norm):
+(300,)
+(300,)
+325.623
+0.846952
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.14386e-06
+2.14386
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.5933e-08
+0.055933
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.24293e-05
+42.4293
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.58549e-06
+1.58549
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.24479e-05
+42.448
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.58437e-06
+1.58437
+ 27/274 [=>............................] - ETA: 496s - train loss: 5749.6256I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 54480 get requests, put_count=54633 evicted_count=19000 eviction_rate=0.347775 and unsatisfied allocation rate=0.348513
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:259] Raising pool_size_limit_ from 1540 to 1694
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 10334 get requests, put_count=20488 evicted_count=10000 eviction_rate=0.488091 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+1010.61
+44.2554
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1412.88
+2.26831
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+1290.19
+42.8226
+
+grad, var (shape, norm):
+(800,)
+(800,)
+2068.74
+2.0151
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+1067.34
+43.715
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1425.38
+2.14926
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+1796.8
+42.686
+
+grad, var (shape, norm):
+(800,)
+(800,)
+2262.58
+2.05403
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+1088.81
+34.3818
+
+grad, var (shape, norm):
+(300,)
+(300,)
+438.751
+0.853731
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.15156e-06
+2.15156
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.62908e-08
+0.0562908
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.25798e-05
+42.5798
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.59563e-06
+1.59563
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.25978e-05
+42.5978
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.59451e-06
+1.59451
+ 28/274 [==>...........................] - ETA: 493s - train loss: 5734.8778I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 1199 get requests, put_count=2368 evicted_count=1000 eviction_rate=0.422297 and unsatisfied allocation rate=0
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 10845 get requests, put_count=22014 evicted_count=11000 eviction_rate=0.499682 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+299.509
+44.7208
+
+grad, var (shape, norm):
+(800,)
+(800,)
+431.611
+2.32814
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+412.017
+43.1572
+
+grad, var (shape, norm):
+(800,)
+(800,)
+702.151
+2.08082
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+300.75
+44.1277
+
+grad, var (shape, norm):
+(800,)
+(800,)
+407.662
+2.21402
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+387.849
+43.0092
+
+grad, var (shape, norm):
+(800,)
+(800,)
+517.285
+2.11986
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+869.435
+34.4967
+
+grad, var (shape, norm):
+(300,)
+(300,)
+373.64
+0.850411
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.15861e-06
+2.15861
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.66168e-08
+0.0566168
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.27172e-05
+42.7172
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.60488e-06
+1.60488
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.27345e-05
+42.7345
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.60375e-06
+1.60375
+ 29/274 [==>...........................] - ETA: 490s - train loss: 5706.5149I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 2246 get requests, put_count=4432 evicted_count=2000 eviction_rate=0.451264 and unsatisfied allocation rate=0
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 12392 get requests, put_count=24578 evicted_count=12000 eviction_rate=0.488242 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+751.154
+45.1674
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1075.89
+2.39035
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+951.984
+43.4711
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1811.55
+2.14918
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+776.128
+44.5183
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1108.17
+2.27918
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+1210.77
+43.3133
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1851.66
+2.18739
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+812.161
+34.601
+
+grad, var (shape, norm):
+(300,)
+(300,)
+388.86
+0.846857
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.16504e-06
+2.16504
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.69139e-08
+0.0569139
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.28426e-05
+42.8426
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.6133e-06
+1.6133
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.28592e-05
+42.8591
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.61217e-06
+1.61217
+ 30/274 [==>...........................] - ETA: 487s - train loss: 5673.5499I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 4256 get requests, put_count=8460 evicted_count=4000 eviction_rate=0.472813 and unsatisfied allocation rate=0
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 14444 get requests, put_count=28648 evicted_count=14000 eviction_rate=0.48869 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+667.204
+45.5898
+
+grad, var (shape, norm):
+(800,)
+(800,)
+967.129
+2.44989
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+861.956
+43.767
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1736.14
+2.21756
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+757.262
+44.8919
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1110.67
+2.34336
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+1118.27
+43.5976
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1714.99
+2.2531
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+789.202
+34.6888
+
+grad, var (shape, norm):
+(300,)
+(300,)
+388.426
+0.851977
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.17091e-06
+2.17091
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.71845e-08
+0.0571845
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.2957e-05
+42.957
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.62098e-06
+1.62098
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.29728e-05
+42.9728
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.61983e-06
+1.61983
+ 31/274 [==>...........................] - ETA: 484s - train loss: 5635.2923I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 6309 get requests, put_count=12534 evicted_count=6000 eviction_rate=0.478698 and unsatisfied allocation rate=0
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 15788 get requests, put_count=32013 evicted_count=16000 eviction_rate=0.499797 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+233.335
+45.9928
+
+grad, var (shape, norm):
+(800,)
+(800,)
+358.292
+2.50773
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+315.144
+44.0443
+
+grad, var (shape, norm):
+(800,)
+(800,)
+632.696
+2.28233
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+277.52
+45.2523
+
+grad, var (shape, norm):
+(800,)
+(800,)
+405.325
+2.40688
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+324.593
+43.8672
+
+grad, var (shape, norm):
+(800,)
+(800,)
+531.921
+2.31829
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+752.849
+34.7758
+
+grad, var (shape, norm):
+(300,)
+(300,)
+390.402
+0.850472
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.17627e-06
+2.17627
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.74311e-08
+0.0574311
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.30613e-05
+43.0613
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.62797e-06
+1.62797
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.30763e-05
+43.0763
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.62682e-06
+1.62682
+ 32/274 [==>...........................] - ETA: 482s - train loss: 5619.3013I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 8395 get requests, put_count=16642 evicted_count=8000 eviction_rate=0.480711 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+551.654
+46.3763
+
+grad, var (shape, norm):
+(800,)
+(800,)
+810.215
+2.56551
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+807.901
+44.304
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1596.07
+2.34712
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+576.374
+45.5941
+
+grad, var (shape, norm):
+(800,)
+(800,)
+901.72
+2.47356
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+779.327
+44.1195
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1428.06
+2.38496
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+681.288
+34.8527
+
+grad, var (shape, norm):
+(300,)
+(300,)
+369.058
+0.850921
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.18115e-06
+2.18115
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.76557e-08
+0.0576557
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.31564e-05
+43.1564
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.63434e-06
+1.63434
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.31706e-05
+43.1706
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.63319e-06
+1.63319
+ 33/274 [==>...........................] - ETA: 479s - train loss: 5587.0898I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 54794 get requests, put_count=55227 evicted_count=18000 eviction_rate=0.325928 and unsatisfied allocation rate=0.325109
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:259] Raising pool_size_limit_ from 2725 to 2997
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 10412 get requests, put_count=20684 evicted_count=10000 eviction_rate=0.483465 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+698.366
+46.7428
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1046.32
+2.62333
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+868.408
+44.5476
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1786.17
+2.41297
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+691.353
+45.9133
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1097.6
+2.53767
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+1084.01
+44.3551
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1922.17
+2.44822
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+718.448
+34.9191
+
+grad, var (shape, norm):
+(300,)
+(300,)
+387.686
+0.859848
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.18562e-06
+2.18562
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.78603e-08
+0.0578603
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.3243e-05
+43.243
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.64014e-06
+1.64014
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.32564e-05
+43.2564
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.63898e-06
+1.63898
+ 34/274 [==>...........................] - ETA: 476s - train loss: 5550.0499I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 2371 get requests, put_count=4670 evicted_count=2000 eviction_rate=0.428266 and unsatisfied allocation rate=0
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 12514 get requests, put_count=24813 evicted_count=12000 eviction_rate=0.483617 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+264.954
+47.1001
+
+grad, var (shape, norm):
+(800,)
+(800,)
+420.886
+2.68154
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+304.656
+44.7764
+
+grad, var (shape, norm):
+(800,)
+(800,)
+640.245
+2.47744
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+263.676
+46.2212
+
+grad, var (shape, norm):
+(800,)
+(800,)
+418.024
+2.60074
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+378.824
+44.5792
+
+grad, var (shape, norm):
+(800,)
+(800,)
+692.531
+2.51026
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+655.423
+34.9819
+
+grad, var (shape, norm):
+(300,)
+(300,)
+364.472
+0.858938
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.18968e-06
+2.18968
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.80467e-08
+0.0580467
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.3322e-05
+43.322
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.64543e-06
+1.64543
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.33344e-05
+43.3344
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.64427e-06
+1.64427
+ 35/274 [==>...........................] - ETA: 474s - train loss: 5519.3905I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 5430 get requests, put_count=10759 evicted_count=5000 eviction_rate=0.464727 and unsatisfied allocation rate=0
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 14507 get requests, put_count=29836 evicted_count=15000 eviction_rate=0.502748 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+739.339
+47.4419
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1098.64
+2.74104
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+927.427
+44.9896
+
+grad, var (shape, norm):
+(800,)
+(800,)
+2042.6
+2.54494
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+729.771
+46.5138
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1203.96
+2.66528
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+1014.89
+44.7895
+
+grad, var (shape, norm):
+(800,)
+(800,)
+2025.24
+2.5737
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+690.397
+35.038
+
+grad, var (shape, norm):
+(300,)
+(300,)
+407.579
+0.855285
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.19339e-06
+2.19339
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.82165e-08
+0.0582165
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.33938e-05
+43.3938
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.65024e-06
+1.65024
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.34054e-05
+43.4054
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.64908e-06
+1.64908
+ 36/274 [==>...........................] - ETA: 470s - train loss: 5492.0459I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 8484 get requests, put_count=16846 evicted_count=8000 eviction_rate=0.47489 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+375.011
+47.7624
+
+grad, var (shape, norm):
+(800,)
+(800,)
+583.141
+2.79803
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+398.877
+45.19
+
+grad, var (shape, norm):
+(800,)
+(800,)
+913.821
+2.61
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+354.607
+46.7879
+
+grad, var (shape, norm):
+(800,)
+(800,)
+574.442
+2.72709
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+464.879
+44.9856
+
+grad, var (shape, norm):
+(800,)
+(800,)
+951.33
+2.63484
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+627.953
+35.0812
+
+grad, var (shape, norm):
+(300,)
+(300,)
+383.814
+0.863674
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.19678e-06
+2.19678
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.83711e-08
+0.0583711
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.34593e-05
+43.4592
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.65463e-06
+1.65463
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.34699e-05
+43.4699
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.65346e-06
+1.65346
+ 37/274 [===>..........................] - ETA: 468s - train loss: 5465.7565I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 1445 get requests, put_count=2843 evicted_count=1000 eviction_rate=0.351741 and unsatisfied allocation rate=0
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 11588 get requests, put_count=22986 evicted_count=11000 eviction_rate=0.478552 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+779.426
+48.0658
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1158.64
+2.85419
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+875.55
+45.3781
+
+grad, var (shape, norm):
+(800,)
+(800,)
+2120.2
+2.67325
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+766.953
+47.0454
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1291.93
+2.78677
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+1075.7
+45.1692
+
+grad, var (shape, norm):
+(800,)
+(800,)
+2270.46
+2.69427
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+708.987
+35.1195
+
+grad, var (shape, norm):
+(300,)
+(300,)
+448.76
+0.874874
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.19986e-06
+2.19986
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.85118e-08
+0.0585118
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.35188e-05
+43.5188
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.65862e-06
+1.65862
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.35285e-05
+43.5285
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.65744e-06
+1.65744
+ 38/274 [===>..........................] - ETA: 466s - train loss: 5451.3875I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 5518 get requests, put_count=10956 evicted_count=5000 eviction_rate=0.456371 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+557.243
+48.37
+
+grad, var (shape, norm):
+(800,)
+(800,)
+840.454
+2.91194
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+532.556
+45.5543
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1367.03
+2.7359
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+515.37
+47.2994
+
+grad, var (shape, norm):
+(800,)
+(800,)
+878.604
+2.84666
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+673.271
+45.3455
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1524.21
+2.7539
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+609.01
+35.1553
+
+grad, var (shape, norm):
+(300,)
+(300,)
+407.712
+0.876545
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.20267e-06
+2.20267
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.864e-08
+0.05864
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.35729e-05
+43.5729
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.66225e-06
+1.66225
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.35816e-05
+43.5816
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.66107e-06
+1.66107
+ 39/274 [===>..........................] - ETA: 462s - train loss: 5433.9236I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 54076 get requests, put_count=53809 evicted_count=15000 eviction_rate=0.278764 and unsatisfied allocation rate=0.290425
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:259] Raising pool_size_limit_ from 4823 to 5305
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 10666 get requests, put_count=21148 evicted_count=10000 eviction_rate=0.472858 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+713.649
+48.6653
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1122.1
+2.96966
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+983.229
+45.7193
+
+grad, var (shape, norm):
+(800,)
+(800,)
+2486.24
+2.79639
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+797.181
+47.5473
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1393.48
+2.90726
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+1062.97
+45.5133
+
+grad, var (shape, norm):
+(800,)
+(800,)
+2518.68
+2.81225
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+654.128
+35.1879
+
+grad, var (shape, norm):
+(300,)
+(300,)
+453.95
+0.873091
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.20523e-06
+2.20523
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.87566e-08
+0.0587566
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.36221e-05
+43.6221
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.66556e-06
+1.66556
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.36299e-05
+43.6298
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.66438e-06
+1.66438
+ 40/274 [===>..........................] - ETA: 460s - train loss: 5427.2561I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 4627 get requests, put_count=9157 evicted_count=4000 eviction_rate=0.436824 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+682.954
+48.9431
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1090.76
+3.02419
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+887.068
+45.8774
+
+grad, var (shape, norm):
+(800,)
+(800,)
+2354.88
+2.85737
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+689.104
+47.787
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1204.55
+2.96705
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+873.102
+45.6723
+
+grad, var (shape, norm):
+(800,)
+(800,)
+2194.51
+2.87275
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+629.147
+35.2036
+
+grad, var (shape, norm):
+(300,)
+(300,)
+453.556
+0.880181
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.20756e-06
+2.20756
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.88628e-08
+0.0588628
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.36668e-05
+43.6668
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.66857e-06
+1.66857
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.36735e-05
+43.6735
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.66739e-06
+1.66739
+ 41/274 [===>..........................] - ETA: 458s - train loss: 5420.4471I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 54198 get requests, put_count=54029 evicted_count=14000 eviction_rate=0.25912 and unsatisfied allocation rate=0.271209
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:259] Raising pool_size_limit_ from 5835 to 6418
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 10739 get requests, put_count=21322 evicted_count=10000 eviction_rate=0.468999 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+398.806
+49.202
+
+grad, var (shape, norm):
+(800,)
+(800,)
+634.717
+3.0753
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+503.009
+46.0299
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1372.69
+2.91624
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+427.226
+48.0145
+
+grad, var (shape, norm):
+(800,)
+(800,)
+747.659
+3.02392
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+554.442
+45.8226
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1369.8
+2.93291
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+503.21
+35.2093
+
+grad, var (shape, norm):
+(300,)
+(300,)
+366.825
+0.896983
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.20968e-06
+2.20968
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.89594e-08
+0.0589594
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.37073e-05
+43.7073
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.67131e-06
+1.67131
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.37131e-05
+43.7131
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.67012e-06
+1.67012
+ 42/274 [===>..........................] - ETA: 455s - train loss: 5393.0568I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 6717 get requests, put_count=13358 evicted_count=6000 eviction_rate=0.449169 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+505.286
+49.4578
+
+grad, var (shape, norm):
+(800,)
+(800,)
+738.578
+3.1286
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+558.966
+46.1731
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1584.96
+2.97632
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+503.492
+48.234
+
+grad, var (shape, norm):
+(800,)
+(800,)
+889.664
+3.08253
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+608.597
+45.9641
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1526.59
+2.99252
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+523.638
+35.2185
+
+grad, var (shape, norm):
+(300,)
+(300,)
+385.909
+0.905924
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.21161e-06
+2.21161
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.90474e-08
+0.0590474
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.37442e-05
+43.7442
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.6738e-06
+1.6738
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.37489e-05
+43.7489
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.67262e-06
+1.67262
+ 43/274 [===>..........................] - ETA: 454s - train loss: 5368.1517I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 2771 get requests, put_count=5476 evicted_count=2000 eviction_rate=0.36523 and unsatisfied allocation rate=0
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 10789 get requests, put_count=23494 evicted_count=12000 eviction_rate=0.510769 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+465.097
+49.7115
+
+grad, var (shape, norm):
+(800,)
+(800,)
+704.849
+3.18321
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+600.68
+46.3066
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1698.99
+3.03619
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+519.161
+48.4485
+
+grad, var (shape, norm):
+(800,)
+(800,)
+928.889
+3.14206
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+634.008
+46.0976
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1584.18
+3.05126
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+564.622
+35.2307
+
+grad, var (shape, norm):
+(300,)
+(300,)
+413.203
+0.904861
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.21337e-06
+2.21337
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.91273e-08
+0.0591273
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.37776e-05
+43.7776
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.67607e-06
+1.67607
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.37813e-05
+43.7813
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.67488e-06
+1.67488
+ 44/274 [===>..........................] - ETA: 451s - train loss: 5351.1046I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 9170 get requests, put_count=18946 evicted_count=9000 eviction_rate=0.475034 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+420.926
+49.9456
+
+grad, var (shape, norm):
+(800,)
+(800,)
+634.705
+3.23392
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+544.659
+46.4327
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1560.45
+3.09404
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+462.207
+48.6522
+
+grad, var (shape, norm):
+(800,)
+(800,)
+823.265
+3.19838
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+540.13
+46.2236
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1384.59
+3.11099
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+539.637
+35.2388
+
+grad, var (shape, norm):
+(300,)
+(300,)
+402.435
+0.909933
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.21497e-06
+2.21497
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.92001e-08
+0.0592001
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.38078e-05
+43.8078
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.67813e-06
+1.67813
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.38105e-05
+43.8105
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.67694e-06
+1.67694
+ 45/274 [===>..........................] - ETA: 449s - train loss: 5335.5197I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 8962 get requests, put_count=17816 evicted_count=8000 eviction_rate=0.449035 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+508.632
+50.1629
+
+grad, var (shape, norm):
+(800,)
+(800,)
+761.678
+3.28114
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+577.712
+46.5518
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1710.49
+3.14993
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+554.701
+48.8442
+
+grad, var (shape, norm):
+(800,)
+(800,)
+993.718
+3.25168
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+639.012
+46.3425
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1664.17
+3.17088
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+513.968
+35.2434
+
+grad, var (shape, norm):
+(300,)
+(300,)
+393.16
+0.92265
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.21643e-06
+2.21643
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.92663e-08
+0.0592663
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.38353e-05
+43.8353
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.68001e-06
+1.68001
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.38369e-05
+43.8369
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.67882e-06
+1.67882
+ 46/274 [====>.........................] - ETA: 447s - train loss: 5309.0988I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 7028 get requests, put_count=13967 evicted_count=6000 eviction_rate=0.429584 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+514.048
+50.3813
+
+grad, var (shape, norm):
+(800,)
+(800,)
+782.744
+3.32898
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+606.631
+46.6635
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1812.1
+3.20453
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+571.917
+49.0337
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1029.86
+3.30631
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+642.348
+46.455
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1695.06
+3.22873
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+581.677
+35.2506
+
+grad, var (shape, norm):
+(300,)
+(300,)
+452.252
+0.925112
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.21776e-06
+2.21776
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.93265e-08
+0.0593265
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.38601e-05
+43.8601
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.68172e-06
+1.68172
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.38606e-05
+43.8606
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.68052e-06
+1.68052
+ 47/274 [====>.........................] - ETA: 444s - train loss: 5302.1409I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 6832 get requests, put_count=13865 evicted_count=6000 eviction_rate=0.432744 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+475.866
+50.5995
+
+grad, var (shape, norm):
+(800,)
+(800,)
+770.299
+3.37653
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+599.596
+46.7691
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1783.51
+3.25726
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+550.617
+49.2207
+
+grad, var (shape, norm):
+(800,)
+(800,)
+979.175
+3.36206
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+583.293
+46.5618
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1535.76
+3.28307
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+526.095
+35.258
+
+grad, var (shape, norm):
+(300,)
+(300,)
+408.186
+0.92139
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.21896e-06
+2.21896
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.93812e-08
+0.0593812
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.38825e-05
+43.8825
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.68327e-06
+1.68327
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.3882e-05
+43.882
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.68207e-06
+1.68207
+ 48/274 [====>.........................] - ETA: 442s - train loss: 5291.0222I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 6449 get requests, put_count=14585 evicted_count=7000 eviction_rate=0.479945 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+428.064
+50.8009
+
+grad, var (shape, norm):
+(800,)
+(800,)
+674.622
+3.42138
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+532.592
+46.8706
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1616.92
+3.31011
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+476.764
+49.3947
+
+grad, var (shape, norm):
+(800,)
+(800,)
+848.696
+3.41388
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+517.058
+46.6625
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1414.05
+3.33873
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+493.197
+35.2535
+
+grad, var (shape, norm):
+(300,)
+(300,)
+390.914
+0.926471
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.22006e-06
+2.22006
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.94309e-08
+0.0594309
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.39028e-05
+43.9028
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.68468e-06
+1.68468
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.39012e-05
+43.9012
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.68348e-06
+1.68348
+ 49/274 [====>.........................] - ETA: 440s - train loss: 5276.0561
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+508.962
+50.9887
+
+grad, var (shape, norm):
+(800,)
+(800,)
+828.67
+3.46472
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+576.161
+46.9673
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1826.95
+3.3618
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+550.753
+49.5568
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1000.05
+3.4622
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+557.498
+46.7572
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1590.75
+3.39479
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+533.845
+35.2411
+
+grad, var (shape, norm):
+(300,)
+(300,)
+438.554
+0.938979
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.22105e-06
+2.22105
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.94761e-08
+0.0594761
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.39212e-05
+43.9212
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.68596e-06
+1.68596
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.39184e-05
+43.9184
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.68476e-06
+1.68476
+ 50/274 [====>.........................] - ETA: 437s - train loss: 5268.9139I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 3286 get requests, put_count=6661 evicted_count=2000 eviction_rate=0.300255 and unsatisfied allocation rate=0
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+368.376
+51.1775
+
+grad, var (shape, norm):
+(800,)
+(800,)
+578.344
+3.50943
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+406.673
+47.0578
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1310.25
+3.41369
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+386.224
+49.719
+
+grad, var (shape, norm):
+(800,)
+(800,)
+693.079
+3.51245
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+400.28
+46.8461
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1165.49
+3.44719
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+436.18
+35.2321
+
+grad, var (shape, norm):
+(300,)
+(300,)
+365.925
+0.943166
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.22196e-06
+2.22196
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.95172e-08
+0.0595172
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.39377e-05
+43.9377
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.68712e-06
+1.68712
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.39338e-05
+43.9338
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.68592e-06
+1.68592
+ 51/274 [====>.........................] - ETA: 435s - train loss: 5247.6687
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+410.655
+51.3624
+
+grad, var (shape, norm):
+(800,)
+(800,)
+630.27
+3.55487
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+447.708
+47.1425
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1476.76
+3.46464
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+402.183
+49.878
+
+grad, var (shape, norm):
+(800,)
+(800,)
+730.095
+3.56319
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+437.044
+46.9292
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1296.09
+3.49619
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+429.835
+35.2282
+
+grad, var (shape, norm):
+(300,)
+(300,)
+364.488
+0.939845
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.22278e-06
+2.22278
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.95546e-08
+0.0595546
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.39526e-05
+43.9526
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.68818e-06
+1.68818
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.39476e-05
+43.9476
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.68698e-06
+1.68698
+ 52/274 [====>.........................] - ETA: 433s - train loss: 5220.9063
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+384.811
+51.5362
+
+grad, var (shape, norm):
+(800,)
+(800,)
+574.644
+3.59831
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+406.01
+47.2228
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1365.65
+3.51559
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+365.299
+50.026
+
+grad, var (shape, norm):
+(800,)
+(800,)
+668.036
+3.61082
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+402.664
+47.0082
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1209.26
+3.54556
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+431.562
+35.2139
+
+grad, var (shape, norm):
+(300,)
+(300,)
+373.81
+0.94495
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.22353e-06
+2.22353
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.95885e-08
+0.0595885
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.3966e-05
+43.966
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.68914e-06
+1.68914
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.39599e-05
+43.9599
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.68794e-06
+1.68794
+ 53/274 [====>.........................] - ETA: 431s - train loss: 5202.7157
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+419.408
+51.6997
+
+grad, var (shape, norm):
+(800,)
+(800,)
+689.822
+3.63914
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+458.037
+47.2989
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1572.24
+3.56568
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+445.613
+50.1639
+
+grad, var (shape, norm):
+(800,)
+(800,)
+831.522
+3.65654
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+481.692
+47.0831
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1464.61
+3.59445
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+467.418
+35.1904
+
+grad, var (shape, norm):
+(300,)
+(300,)
+407.235
+0.956465
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.22421e-06
+2.22421
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.96193e-08
+0.0596193
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.3978e-05
+43.978
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69002e-06
+1.69002
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.39708e-05
+43.9708
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.68882e-06
+1.68882
+ 54/274 [====>.........................] - ETA: 429s - train loss: 5189.1442
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+350.331
+51.8612
+
+grad, var (shape, norm):
+(800,)
+(800,)
+542.695
+3.68061
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+369.994
+47.3702
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1304.95
+3.61293
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+378.236
+50.3022
+
+grad, var (shape, norm):
+(800,)
+(800,)
+690.202
+3.70394
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+392.955
+47.1528
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1225.42
+3.64147
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+425.85
+35.1718
+
+grad, var (shape, norm):
+(300,)
+(300,)
+378.997
+0.958606
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.22483e-06
+2.22483
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.96473e-08
+0.0596473
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.39888e-05
+43.9888
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69081e-06
+1.69081
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.39804e-05
+43.9804
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.68961e-06
+1.68961
+ 55/274 [=====>........................] - ETA: 426s - train loss: 5168.7090I tensorflow/core/common_runtime/gpu/pool_allocator.cc:247] PoolAllocator: After 109156 get requests, put_count=111159 evicted_count=1000 eviction_rate=0.00899612 and unsatisfied allocation rate=0.00757631
+I tensorflow/core/common_runtime/gpu/pool_allocator.cc:259] Raising pool_size_limit_ from 20132 to 22145
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+370.443
+52.018
+
+grad, var (shape, norm):
+(800,)
+(800,)
+599.802
+3.72209
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+412.279
+47.4366
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1461.4
+3.65807
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+400.456
+50.4384
+
+grad, var (shape, norm):
+(800,)
+(800,)
+746.001
+3.75166
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+445.343
+47.2174
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1414.93
+3.68663
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+418.219
+35.1593
+
+grad, var (shape, norm):
+(300,)
+(300,)
+381.862
+0.952943
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.22539e-06
+2.22539
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.96727e-08
+0.0596727
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.39985e-05
+43.9985
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69153e-06
+1.69153
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.3989e-05
+43.989
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69033e-06
+1.69033
+ 56/274 [=====>........................] - ETA: 424s - train loss: 5154.1002
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+310.015
+52.1629
+
+grad, var (shape, norm):
+(800,)
+(800,)
+475.553
+3.76072
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+330.04
+47.4996
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1191.5
+3.70327
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+309.786
+50.5669
+
+grad, var (shape, norm):
+(800,)
+(800,)
+579.229
+3.79825
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+329.999
+47.2785
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1082.12
+3.73261
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+377.085
+35.1381
+
+grad, var (shape, norm):
+(300,)
+(300,)
+350.446
+0.957106
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.2259e-06
+2.2259
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.96958e-08
+0.0596958
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.40072e-05
+44.0072
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69218e-06
+1.69218
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.39965e-05
+43.9965
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69098e-06
+1.69098
+ 57/274 [=====>........................] - ETA: 422s - train loss: 5132.2887
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+343.123
+52.2966
+
+grad, var (shape, norm):
+(800,)
+(800,)
+540.004
+3.79628
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+362.864
+47.5599
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1326.68
+3.74664
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+354.148
+50.6873
+
+grad, var (shape, norm):
+(800,)
+(800,)
+655.267
+3.84323
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+407.992
+47.3363
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1319.07
+3.77843
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+409.045
+35.1113
+
+grad, var (shape, norm):
+(300,)
+(300,)
+380.401
+0.968913
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.22636e-06
+2.22636
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.97168e-08
+0.0597168
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.40149e-05
+44.0149
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69278e-06
+1.69278
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.4003e-05
+44.003
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69158e-06
+1.69158
+ 58/274 [=====>........................] - ETA: 420s - train loss: 5112.9632
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+321.966
+52.4302
+
+grad, var (shape, norm):
+(800,)
+(800,)
+515.111
+3.83408
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+346.442
+47.6153
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1291.79
+3.78868
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+338.273
+50.8073
+
+grad, var (shape, norm):
+(800,)
+(800,)
+637.569
+3.88803
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+364.081
+47.3898
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1205.27
+3.82285
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+399.618
+35.0892
+
+grad, var (shape, norm):
+(300,)
+(300,)
+378.598
+0.9723
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.22678e-06
+2.22678
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.97358e-08
+0.0597358
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.40218e-05
+44.0218
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69331e-06
+1.69332
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.40087e-05
+44.0087
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69211e-06
+1.69211
+ 59/274 [=====>........................] - ETA: 418s - train loss: 5099.4103
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+321.016
+52.5647
+
+grad, var (shape, norm):
+(800,)
+(800,)
+517.365
+3.87349
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+342.915
+47.6662
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1304.97
+3.82959
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+317.925
+50.9268
+
+grad, var (shape, norm):
+(800,)
+(800,)
+591.432
+3.93315
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+353.105
+47.4394
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1232.43
+3.86579
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+396.594
+35.0695
+
+grad, var (shape, norm):
+(300,)
+(300,)
+387.666
+0.968722
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.22717e-06
+2.22717
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.97531e-08
+0.0597531
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.40279e-05
+44.0279
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.6938e-06
+1.6938
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.40136e-05
+44.0136
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.6926e-06
+1.6926
+ 60/274 [=====>........................] - ETA: 415s - train loss: 5088.9025
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+292.13
+52.6915
+
+grad, var (shape, norm):
+(800,)
+(800,)
+477.293
+3.91116
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+325.213
+47.7152
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1258.26
+3.8704
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+283.184
+51.0389
+
+grad, var (shape, norm):
+(800,)
+(800,)
+531.197
+3.97716
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+306.321
+47.487
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1094.87
+3.90952
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+386.541
+35.0405
+
+grad, var (shape, norm):
+(300,)
+(300,)
+385.405
+0.973045
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.22751e-06
+2.22751
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.97688e-08
+0.0597688
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.40333e-05
+44.0333
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69425e-06
+1.69425
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.40178e-05
+44.0178
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69305e-06
+1.69305
+ 61/274 [=====>........................] - ETA: 414s - train loss: 5075.3117
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+304.298
+52.8077
+
+grad, var (shape, norm):
+(800,)
+(800,)
+502.813
+3.94591
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+315.109
+47.7623
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1240.9
+3.91008
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+302.279
+51.1432
+
+grad, var (shape, norm):
+(800,)
+(800,)
+565.773
+4.01968
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+318.309
+47.5322
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1147.18
+3.95241
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+363.647
+35.0065
+
+grad, var (shape, norm):
+(300,)
+(300,)
+369.591
+0.982474
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.22783e-06
+2.22783
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.9783e-08
+0.059783
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.40381e-05
+44.0381
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69465e-06
+1.69465
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.40214e-05
+44.0214
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69345e-06
+1.69345
+ 62/274 [=====>........................] - ETA: 412s - train loss: 5062.8184
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+274.355
+52.9209
+
+grad, var (shape, norm):
+(800,)
+(800,)
+438.378
+3.98126
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+273.125
+47.8053
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1126.76
+3.94826
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+259.666
+51.2477
+
+grad, var (shape, norm):
+(800,)
+(800,)
+487.976
+4.06226
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+269.94
+47.5741
+
+grad, var (shape, norm):
+(800,)
+(800,)
+990.461
+3.99338
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+367.642
+34.9779
+
+grad, var (shape, norm):
+(300,)
+(300,)
+380.114
+0.983012
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.22811e-06
+2.22811
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.97959e-08
+0.0597959
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.40423e-05
+44.0423
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69502e-06
+1.69502
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.40244e-05
+44.0244
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69381e-06
+1.69381
+ 63/274 [=====>........................] - ETA: 409s - train loss: 5053.5969
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+288.069
+53.0307
+
+grad, var (shape, norm):
+(800,)
+(800,)
+457.427
+4.01623
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+282.272
+47.8445
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1157.55
+3.98486
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+262.855
+51.3513
+
+grad, var (shape, norm):
+(800,)
+(800,)
+489.364
+4.10574
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+257.318
+47.6126
+
+grad, var (shape, norm):
+(800,)
+(800,)
+974.135
+4.03249
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+327.831
+34.9539
+
+grad, var (shape, norm):
+(300,)
+(300,)
+344.023
+0.978007
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.22837e-06
+2.22837
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.98076e-08
+0.0598076
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.4046e-05
+44.046
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69535e-06
+1.69535
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.40268e-05
+44.0268
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69414e-06
+1.69414
+ 64/274 [======>.......................] - ETA: 407s - train loss: 5032.4351
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+266.66
+53.1334
+
+grad, var (shape, norm):
+(800,)
+(800,)
+435.855
+4.04919
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+263.723
+47.8829
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1118.89
+4.02113
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+249.233
+51.4481
+
+grad, var (shape, norm):
+(800,)
+(800,)
+473.558
+4.14708
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+248.668
+47.6491
+
+grad, var (shape, norm):
+(800,)
+(800,)
+957.651
+4.07135
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+338.87
+34.9225
+
+grad, var (shape, norm):
+(300,)
+(300,)
+364.018
+0.982214
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.22861e-06
+2.22861
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.98182e-08
+0.0598182
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.40491e-05
+44.0491
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69565e-06
+1.69565
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.40288e-05
+44.0288
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69445e-06
+1.69445
+ 65/274 [======>.......................] - ETA: 405s - train loss: 5021.7159
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+289.767
+53.2305
+
+grad, var (shape, norm):
+(800,)
+(800,)
+471.472
+4.08112
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+270.982
+47.9204
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1177.39
+4.05628
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+272.989
+51.5382
+
+grad, var (shape, norm):
+(800,)
+(800,)
+518.258
+4.18658
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+252.532
+47.6841
+
+grad, var (shape, norm):
+(800,)
+(800,)
+996.679
+4.10986
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+340.876
+34.8842
+
+grad, var (shape, norm):
+(300,)
+(300,)
+375.145
+0.991838
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.22882e-06
+2.22882
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.98279e-08
+0.0598279
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.40519e-05
+44.0519
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69592e-06
+1.69592
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.40303e-05
+44.0303
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69472e-06
+1.69472
+ 66/274 [======>.......................] - ETA: 403s - train loss: 5008.9175
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+285.383
+53.3268
+
+grad, var (shape, norm):
+(800,)
+(800,)
+451.93
+4.11425
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+248.131
+47.9543
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1103.59
+4.09068
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+267.13
+51.628
+
+grad, var (shape, norm):
+(800,)
+(800,)
+511.455
+4.22617
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+239.534
+47.7159
+
+grad, var (shape, norm):
+(800,)
+(800,)
+983.482
+4.14725
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+329.423
+34.8518
+
+grad, var (shape, norm):
+(300,)
+(300,)
+371.249
+0.994321
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.22901e-06
+2.22901
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.98366e-08
+0.0598366
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.40542e-05
+44.0542
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69617e-06
+1.69617
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.40314e-05
+44.0314
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69496e-06
+1.69496
+ 67/274 [======>.......................] - ETA: 401s - train loss: 4996.0743
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+255.322
+53.4207
+
+grad, var (shape, norm):
+(800,)
+(800,)
+420.764
+4.14745
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+253.505
+47.9853
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1122.98
+4.1232
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+250.913
+51.7171
+
+grad, var (shape, norm):
+(800,)
+(800,)
+477.094
+4.26604
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+224.917
+47.7455
+
+grad, var (shape, norm):
+(800,)
+(800,)
+938.968
+4.18274
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+332.175
+34.825
+
+grad, var (shape, norm):
+(300,)
+(300,)
+378.105
+0.990506
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.22919e-06
+2.22919
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.98446e-08
+0.0598446
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.40562e-05
+44.0562
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69639e-06
+1.69639
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.40322e-05
+44.0322
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69519e-06
+1.69519
+ 68/274 [======>.......................] - ETA: 399s - train loss: 4986.9051
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+255.99
+53.5088
+
+grad, var (shape, norm):
+(800,)
+(800,)
+416.134
+4.17901
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+217.401
+48.0159
+
+grad, var (shape, norm):
+(800,)
+(800,)
+972.722
+4.15531
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+228.023
+51.801
+
+grad, var (shape, norm):
+(800,)
+(800,)
+428.667
+4.30518
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+210.994
+47.7743
+
+grad, var (shape, norm):
+(800,)
+(800,)
+884.846
+4.21787
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+318.428
+34.7894
+
+grad, var (shape, norm):
+(300,)
+(300,)
+367.458
+0.992623
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.22935e-06
+2.22935
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.98518e-08
+0.0598517
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.40579e-05
+44.0579
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69659e-06
+1.69659
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.40326e-05
+44.0326
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69539e-06
+1.69539
+ 69/274 [======>.......................] - ETA: 396s - train loss: 4977.3505
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+226.767
+53.5921
+
+grad, var (shape, norm):
+(800,)
+(800,)
+375.167
+4.20925
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+215.652
+48.045
+
+grad, var (shape, norm):
+(800,)
+(800,)
+985.007
+4.18725
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+247.007
+51.8798
+
+grad, var (shape, norm):
+(800,)
+(800,)
+460.67
+4.34341
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+205.872
+47.8013
+
+grad, var (shape, norm):
+(800,)
+(800,)
+884.888
+4.25311
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+306.637
+34.7487
+
+grad, var (shape, norm):
+(300,)
+(300,)
+359.195
+0.997878
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.22949e-06
+2.22949
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.98583e-08
+0.0598583
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.40592e-05
+44.0592
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69678e-06
+1.69678
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.40327e-05
+44.0327
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69558e-06
+1.69558
+ 70/274 [======>.......................] - ETA: 394s - train loss: 4969.1650
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+183.433
+53.6742
+
+grad, var (shape, norm):
+(800,)
+(800,)
+299.278
+4.23985
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+160.293
+48.0708
+
+grad, var (shape, norm):
+(800,)
+(800,)
+739.952
+4.21862
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+185.474
+51.9567
+
+grad, var (shape, norm):
+(800,)
+(800,)
+351.96
+4.38174
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+180.238
+47.8259
+
+grad, var (shape, norm):
+(800,)
+(800,)
+796.974
+4.2869
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+287.811
+34.715
+
+grad, var (shape, norm):
+(300,)
+(300,)
+342.942
+0.995609
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.22962e-06
+2.22962
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.98642e-08
+0.0598642
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.40603e-05
+44.0603
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69694e-06
+1.69694
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.40325e-05
+44.0325
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69574e-06
+1.69574
+ 71/274 [======>.......................] - ETA: 392s - train loss: 4957.4072
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+184.895
+53.7541
+
+grad, var (shape, norm):
+(800,)
+(800,)
+317.422
+4.2708
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+172.941
+48.0949
+
+grad, var (shape, norm):
+(800,)
+(800,)
+808.528
+4.24944
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+194.072
+52.0314
+
+grad, var (shape, norm):
+(800,)
+(800,)
+372.105
+4.4201
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+162.787
+47.8487
+
+grad, var (shape, norm):
+(800,)
+(800,)
+739.415
+4.32047
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+282.005
+34.6822
+
+grad, var (shape, norm):
+(300,)
+(300,)
+341.842
+0.993965
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.22974e-06
+2.22974
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.98695e-08
+0.0598695
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.40612e-05
+44.0612
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.6971e-06
+1.6971
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.40321e-05
+44.0321
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69589e-06
+1.69589
+ 72/274 [======>.......................] - ETA: 390s - train loss: 4951.9823
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+145.272
+53.8301
+
+grad, var (shape, norm):
+(800,)
+(800,)
+248.787
+4.30179
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+156.599
+48.1186
+
+grad, var (shape, norm):
+(800,)
+(800,)
+745.982
+4.27975
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+200.21
+52.1019
+
+grad, var (shape, norm):
+(800,)
+(800,)
+389.433
+4.45839
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+179.955
+47.8704
+
+grad, var (shape, norm):
+(800,)
+(800,)
+818.345
+4.35387
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+273.288
+34.6413
+
+grad, var (shape, norm):
+(300,)
+(300,)
+335.849
+1.00029
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.22985e-06
+2.22985
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.98744e-08
+0.0598744
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.40618e-05
+44.0618
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69723e-06
+1.69723
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.40315e-05
+44.0315
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69603e-06
+1.69603
+ 73/274 [======>.......................] - ETA: 388s - train loss: 4938.4465
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+98.1247
+53.9026
+
+grad, var (shape, norm):
+(800,)
+(800,)
+161.403
+4.33214
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+90.456
+48.1401
+
+grad, var (shape, norm):
+(800,)
+(800,)
+434.306
+4.30886
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+101.754
+52.17
+
+grad, var (shape, norm):
+(800,)
+(800,)
+192.376
+4.49723
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+89.6227
+47.8903
+
+grad, var (shape, norm):
+(800,)
+(800,)
+412.733
+4.38604
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+218.949
+34.6013
+
+grad, var (shape, norm):
+(300,)
+(300,)
+273.098
+1.00273
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.22994e-06
+2.22994
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.98788e-08
+0.0598788
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.40622e-05
+44.0622
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69736e-06
+1.69736
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.40306e-05
+44.0306
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69615e-06
+1.69615
+ 74/274 [=======>......................] - ETA: 386s - train loss: 4921.6523
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+136.932
+53.9717
+
+grad, var (shape, norm):
+(800,)
+(800,)
+238.921
+4.36152
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+144.544
+48.1595
+
+grad, var (shape, norm):
+(800,)
+(800,)
+686.244
+4.33757
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+165.846
+52.2352
+
+grad, var (shape, norm):
+(800,)
+(800,)
+322.678
+4.53584
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+135.876
+47.9086
+
+grad, var (shape, norm):
+(800,)
+(800,)
+644.262
+4.41767
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+272.463
+34.564
+
+grad, var (shape, norm):
+(300,)
+(300,)
+340.374
+1.00401
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.23003e-06
+2.23003
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.98828e-08
+0.0598828
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.40624e-05
+44.0624
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69747e-06
+1.69747
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.40296e-05
+44.0296
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69627e-06
+1.69627
+ 75/274 [=======>......................] - ETA: 384s - train loss: 4914.4061
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+142.728
+54.0383
+
+grad, var (shape, norm):
+(800,)
+(800,)
+247.14
+4.39106
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+146.17
+48.1779
+
+grad, var (shape, norm):
+(800,)
+(800,)
+706.063
+4.36573
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+146.368
+52.2984
+
+grad, var (shape, norm):
+(800,)
+(800,)
+288.612
+4.57404
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+144.619
+47.9261
+
+grad, var (shape, norm):
+(800,)
+(800,)
+689.717
+4.44908
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+261.229
+34.5241
+
+grad, var (shape, norm):
+(300,)
+(300,)
+333.535
+1.00726
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.23011e-06
+2.23011
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.98864e-08
+0.0598864
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.40625e-05
+44.0625
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69757e-06
+1.69757
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.40283e-05
+44.0283
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69637e-06
+1.69637
+ 76/274 [=======>......................] - ETA: 381s - train loss: 4902.4350
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+112.154
+54.1009
+
+grad, var (shape, norm):
+(800,)
+(800,)
+199.496
+4.41987
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+109.213
+48.1949
+
+grad, var (shape, norm):
+(800,)
+(800,)
+537.066
+4.39233
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+112.105
+52.3594
+
+grad, var (shape, norm):
+(800,)
+(800,)
+216.442
+4.61196
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+88.7238
+47.9421
+
+grad, var (shape, norm):
+(800,)
+(800,)
+420.393
+4.47887
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+233.938
+34.4872
+
+grad, var (shape, norm):
+(300,)
+(300,)
+300.019
+1.00763
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.23018e-06
+2.23018
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.98897e-08
+0.0598897
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.40624e-05
+44.0624
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69766e-06
+1.69766
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.4027e-05
+44.027
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69646e-06
+1.69646
+ 77/274 [=======>......................] - ETA: 379s - train loss: 4894.6900
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+150.749
+54.1613
+
+grad, var (shape, norm):
+(800,)
+(800,)
+245.168
+4.44865
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+140.3
+48.2103
+
+grad, var (shape, norm):
+(800,)
+(800,)
+692.943
+4.41961
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+166.209
+52.4174
+
+grad, var (shape, norm):
+(800,)
+(800,)
+320.498
+4.64938
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+133.582
+47.9568
+
+grad, var (shape, norm):
+(800,)
+(800,)
+649.633
+4.5083
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+243.146
+34.4488
+
+grad, var (shape, norm):
+(300,)
+(300,)
+317.782
+1.00916
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.23025e-06
+2.23025
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.98926e-08
+0.0598926
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.40621e-05
+44.0621
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69775e-06
+1.69775
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.40254e-05
+44.0254
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69654e-06
+1.69654
+ 78/274 [=======>......................] - ETA: 377s - train loss: 4884.8928
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+150.169
+54.2206
+
+grad, var (shape, norm):
+(800,)
+(800,)
+261.558
+4.4773
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+146.735
+48.2256
+
+grad, var (shape, norm):
+(800,)
+(800,)
+729.992
+4.44648
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+147.175
+52.4725
+
+grad, var (shape, norm):
+(800,)
+(800,)
+293.362
+4.68657
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+124.063
+47.9709
+
+grad, var (shape, norm):
+(800,)
+(800,)
+609.509
+4.53732
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+240.234
+34.4062
+
+grad, var (shape, norm):
+(300,)
+(300,)
+317.168
+1.01639
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.23031e-06
+2.23031
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.98953e-08
+0.0598953
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.40617e-05
+44.0617
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69782e-06
+1.69782
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.40238e-05
+44.0238
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69662e-06
+1.69662
+ 79/274 [=======>......................] - ETA: 376s - train loss: 4873.7193
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+103.965
+54.2769
+
+grad, var (shape, norm):
+(800,)
+(800,)
+183.089
+4.50568
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+92.7547
+48.2396
+
+grad, var (shape, norm):
+(800,)
+(800,)
+471.621
+4.47166
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+112.21
+52.5254
+
+grad, var (shape, norm):
+(800,)
+(800,)
+220.389
+4.72411
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+97.2233
+47.9837
+
+grad, var (shape, norm):
+(800,)
+(800,)
+468.278
+4.56477
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+229.804
+34.3685
+
+grad, var (shape, norm):
+(300,)
+(300,)
+308.222
+1.01765
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.23036e-06
+2.23036
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.98977e-08
+0.0598977
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.40612e-05
+44.0612
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69789e-06
+1.69789
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.4022e-05
+44.022
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69669e-06
+1.69669
+ 80/274 [=======>......................] - ETA: 374s - train loss: 4865.8050
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+159.703
+54.3306
+
+grad, var (shape, norm):
+(800,)
+(800,)
+273.582
+4.53349
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+143.916
+48.2519
+
+grad, var (shape, norm):
+(800,)
+(800,)
+738.694
+4.49684
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+187.009
+52.576
+
+grad, var (shape, norm):
+(800,)
+(800,)
+371.256
+4.76068
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+138.829
+47.995
+
+grad, var (shape, norm):
+(800,)
+(800,)
+680.578
+4.59151
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+239.885
+34.3324
+
+grad, var (shape, norm):
+(300,)
+(300,)
+326.766
+1.01838
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.23041e-06
+2.23041
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.98999e-08
+0.0598999
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.40607e-05
+44.0607
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69795e-06
+1.69795
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.40201e-05
+44.0201
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69675e-06
+1.69675
+ 81/274 [=======>......................] - ETA: 372s - train loss: 4860.0017
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+130.086
+54.3851
+
+grad, var (shape, norm):
+(800,)
+(800,)
+232.259
+4.56114
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+117.14
+48.2644
+
+grad, var (shape, norm):
+(800,)
+(800,)
+611.921
+4.52207
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+143.272
+52.6251
+
+grad, var (shape, norm):
+(800,)
+(800,)
+274.637
+4.79758
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+108.077
+48.0062
+
+grad, var (shape, norm):
+(800,)
+(800,)
+538.408
+4.61839
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+226.404
+34.287
+
+grad, var (shape, norm):
+(300,)
+(300,)
+309.434
+1.02692
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.23045e-06
+2.23045
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.99019e-08
+0.0599019
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.406e-05
+44.06
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69801e-06
+1.69801
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.40181e-05
+44.0181
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.6968e-06
+1.6968
+ 82/274 [=======>......................] - ETA: 370s - train loss: 4850.9146
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+140.519
+54.4372
+
+grad, var (shape, norm):
+(800,)
+(800,)
+246.982
+4.58909
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+94.4989
+48.2756
+
+grad, var (shape, norm):
+(800,)
+(800,)
+505.332
+4.5464
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+121.523
+52.6726
+
+grad, var (shape, norm):
+(800,)
+(800,)
+234.564
+4.83392
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+108.565
+48.0159
+
+grad, var (shape, norm):
+(800,)
+(800,)
+547.082
+4.6449
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+217.695
+34.2466
+
+grad, var (shape, norm):
+(300,)
+(300,)
+301.408
+1.03005
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.23049e-06
+2.23049
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.99038e-08
+0.0599038
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.40592e-05
+44.0592
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69806e-06
+1.69806
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.4016e-05
+44.016
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69685e-06
+1.69685
+ 83/274 [========>.....................] - ETA: 368s - train loss: 4840.3929
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+124.914
+54.4849
+
+grad, var (shape, norm):
+(800,)
+(800,)
+211.781
+4.61557
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+98.1056
+48.2858
+
+grad, var (shape, norm):
+(800,)
+(800,)
+529.117
+4.57018
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+139.053
+52.7181
+
+grad, var (shape, norm):
+(800,)
+(800,)
+278.498
+4.86911
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+94.2827
+48.0249
+
+grad, var (shape, norm):
+(800,)
+(800,)
+473.175
+4.67108
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+213.924
+34.2079
+
+grad, var (shape, norm):
+(300,)
+(300,)
+300.077
+1.03209
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.23053e-06
+2.23053
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.99054e-08
+0.0599054
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.40583e-05
+44.0583
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.6981e-06
+1.6981
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.40139e-05
+44.0139
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.6969e-06
+1.6969
+ 84/274 [========>.....................] - ETA: 366s - train loss: 4827.7418
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+122.353
+54.5323
+
+grad, var (shape, norm):
+(800,)
+(800,)
+205.63
+4.64146
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+98.1841
+48.296
+
+grad, var (shape, norm):
+(800,)
+(800,)
+528.128
+4.59345
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+115.658
+52.7621
+
+grad, var (shape, norm):
+(800,)
+(800,)
+225.681
+4.90462
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+90.9868
+48.0338
+
+grad, var (shape, norm):
+(800,)
+(800,)
+465.734
+4.69673
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+218.707
+34.1656
+
+grad, var (shape, norm):
+(300,)
+(300,)
+308.57
+1.03722
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.23056e-06
+2.23056
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.99069e-08
+0.0599069
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.40574e-05
+44.0574
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69814e-06
+1.69814
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.40116e-05
+44.0116
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69694e-06
+1.69694
+ 85/274 [========>.....................] - ETA: 364s - train loss: 4819.4678
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+148.261
+54.5794
+
+grad, var (shape, norm):
+(800,)
+(800,)
+261.867
+4.6682
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+110.346
+48.305
+
+grad, var (shape, norm):
+(800,)
+(800,)
+587.458
+4.61674
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+131.795
+52.8039
+
+grad, var (shape, norm):
+(800,)
+(800,)
+256.162
+4.93928
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+108.545
+48.0416
+
+grad, var (shape, norm):
+(800,)
+(800,)
+554.805
+4.72082
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+219.264
+34.1269
+
+grad, var (shape, norm):
+(300,)
+(300,)
+307.479
+1.0391
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.23059e-06
+2.23059
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.99082e-08
+0.0599082
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.40564e-05
+44.0564
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69818e-06
+1.69818
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.40093e-05
+44.0093
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69698e-06
+1.69698
+ 86/274 [========>.....................] - ETA: 362s - train loss: 4806.1477
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+100.717
+54.6245
+
+grad, var (shape, norm):
+(800,)
+(800,)
+168.861
+4.69404
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+91.3598
+48.3134
+
+grad, var (shape, norm):
+(800,)
+(800,)
+495.599
+4.63932
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+99.5272
+52.8435
+
+grad, var (shape, norm):
+(800,)
+(800,)
+194.248
+4.97241
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+87.4511
+48.0486
+
+grad, var (shape, norm):
+(800,)
+(800,)
+446.136
+4.74478
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+218.367
+34.0903
+
+grad, var (shape, norm):
+(300,)
+(300,)
+307.349
+1.03945
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.23062e-06
+2.23062
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.99094e-08
+0.0599094
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.40554e-05
+44.0554
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69821e-06
+1.69821
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.40069e-05
+44.0069
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69701e-06
+1.69701
+ 87/274 [========>.....................] - ETA: 360s - train loss: 4799.1926
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+143.159
+54.6674
+
+grad, var (shape, norm):
+(800,)
+(800,)
+243.635
+4.71923
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+125.005
+48.3217
+
+grad, var (shape, norm):
+(800,)
+(800,)
+688.777
+4.66128
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+144.818
+52.8813
+
+grad, var (shape, norm):
+(800,)
+(800,)
+292.44
+5.00538
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+121.12
+48.0557
+
+grad, var (shape, norm):
+(800,)
+(800,)
+631.407
+4.76902
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+228.839
+34.0521
+
+grad, var (shape, norm):
+(300,)
+(300,)
+326.829
+1.04013
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.23064e-06
+2.23064
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.99105e-08
+0.0599105
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.40542e-05
+44.0542
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69824e-06
+1.69824
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.40045e-05
+44.0045
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69704e-06
+1.69704
+ 88/274 [========>.....................] - ETA: 358s - train loss: 4788.7917
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+110.232
+54.7107
+
+grad, var (shape, norm):
+(800,)
+(800,)
+195.917
+4.74459
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+96.7349
+48.3297
+
+grad, var (shape, norm):
+(800,)
+(800,)
+526.922
+4.6838
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+117.104
+52.9182
+
+grad, var (shape, norm):
+(800,)
+(800,)
+233.881
+5.03694
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+83.9123
+48.0622
+
+grad, var (shape, norm):
+(800,)
+(800,)
+451.431
+4.79237
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+240.37
+34.0145
+
+grad, var (shape, norm):
+(300,)
+(300,)
+348.82
+1.04173
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.23066e-06
+2.23066
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.99115e-08
+0.0599115
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.40531e-05
+44.0531
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69827e-06
+1.69827
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.4002e-05
+44.002
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69707e-06
+1.69707
+ 89/274 [========>.....................] - ETA: 356s - train loss: 4785.7609
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+117.35
+54.7537
+
+grad, var (shape, norm):
+(800,)
+(800,)
+207.624
+4.77007
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+124.333
+48.3369
+
+grad, var (shape, norm):
+(800,)
+(800,)
+681.919
+4.70626
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+135.322
+52.9546
+
+grad, var (shape, norm):
+(800,)
+(800,)
+269.815
+5.06953
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+111.54
+48.068
+
+grad, var (shape, norm):
+(800,)
+(800,)
+600.842
+4.81576
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+244.479
+33.9779
+
+grad, var (shape, norm):
+(300,)
+(300,)
+358.16
+1.04194
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.23068e-06
+2.23068
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.99124e-08
+0.0599124
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.40519e-05
+44.0519
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69829e-06
+1.69829
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.39995e-05
+43.9995
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69709e-06
+1.69709
+ 90/274 [========>.....................] - ETA: 354s - train loss: 4782.9364
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+118.719
+54.7942
+
+grad, var (shape, norm):
+(800,)
+(800,)
+197.031
+4.79477
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+93.4942
+48.3439
+
+grad, var (shape, norm):
+(800,)
+(800,)
+521.819
+4.72797
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+118.953
+52.9902
+
+grad, var (shape, norm):
+(800,)
+(800,)
+240.749
+5.10223
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+80.8727
+48.0739
+
+grad, var (shape, norm):
+(800,)
+(800,)
+437.41
+4.83926
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+220.881
+33.9396
+
+grad, var (shape, norm):
+(300,)
+(300,)
+326.282
+1.04261
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.2307e-06
+2.2307
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.99132e-08
+0.0599132
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.40506e-05
+44.0506
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69832e-06
+1.69832
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.39969e-05
+43.9969
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69712e-06
+1.69712
+ 91/274 [========>.....................] - ETA: 352s - train loss: 4772.4584
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+140.881
+54.8338
+
+grad, var (shape, norm):
+(800,)
+(800,)
+248.453
+4.81928
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+117.294
+48.3511
+
+grad, var (shape, norm):
+(800,)
+(800,)
+648.807
+4.74939
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+136.133
+53.0237
+
+grad, var (shape, norm):
+(800,)
+(800,)
+274.657
+5.13344
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+102.464
+48.0795
+
+grad, var (shape, norm):
+(800,)
+(800,)
+569.82
+4.86172
+
+grad, var (shape, norm):
+(1600, 300)
+(1600, 300)
+239.245
+33.9026
+
+grad, var (shape, norm):
+(300,)
+(300,)
+357.837
+1.04417
+
+grad, var (shape, norm):
+(800, 1)
+(800, 1)
+2.23072e-06
+2.23072
+
+grad, var (shape, norm):
+(1,)
+(1,)
+5.9914e-08
+0.059914
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.40493e-05
+44.0493
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69834e-06
+1.69834
+
+grad, var (shape, norm):
+(400, 800)
+(400, 800)
+4.39942e-05
+43.9942
+
+grad, var (shape, norm):
+(800,)
+(800,)
+1.69714e-06
+1.69714
+ 92/274 [=========>....................] - ETA: 349s - train loss: 4766.3756

@@ -9,4 +9,4 @@ class Config(object):
     max_sentence = 0
     n_class = 0
     embedding_size = 0
-    next_words = 10
+    span_len = 10

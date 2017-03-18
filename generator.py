@@ -200,16 +200,20 @@ class RNNGeneratorModel(object):
         # zProbs = tf.stop_gradient(zProbs)
 
         # sample zprobs to pick which review words to keep. mask unselected words
-        uniform = tf.random_uniform(shape = tf.shape(zProbs), minval=0, maxval=1) < zProbs
+        # uniform = tf.random_uniform(shape = tf.shape(zProbs), minval=0, maxval=1) < zProbs
         # uniform = tf.stop_gradient(
         #     tf.random_uniform(shape=tf.shape(zProbs), minval=0,
         #                       maxval=1) < zProbs, 'uniform')
-        self.zPreds = tf.select(uniform,
-                                tf.ones(shape = tf.shape(uniform), dtype = tf.float32),
-                                tf.zeros(shape = tf.shape(uniform), dtype = tf.float32))
+        #self.zPreds = tf.select(uniform,
+        #                        tf.ones(shape = tf.shape(uniform), dtype = tf.float32),
+        #                        tf.zeros(shape = tf.shape(uniform), dtype = tf.float32))
+        
+        self.zPreds = 1.0 / (1.0 + tf.exp(-60.0*(zProbs-0.5))) # sigmoid to simulate rounding
+
         self.zPreds = tf.select(self.maskPH, self.zPreds, tf.zeros(shape=tf.shape(zProbs), dtype=tf.float32))
         masks = tf.zeros(shape = tf.shape(zProbs), dtype = tf.int32) + self.maskId
-        maskedInputs = tf.select(uniform, self.inputPH, masks)
+        maskedInputs = tf.select(tf.cast(self.zPreds, tf.bool), self.inputPH, masks)
+        #maskedInputs = tf.select(uniform, self.inputPH, masks)
 
         # compute probability of observing subsection of words
         # probObs = self.zPreds * zProbs + (1.0 - self.zPreds) * (1.0 - zProbs)
@@ -564,8 +568,8 @@ class RNNGeneratorModel(object):
 Read in Data
 '''
 
-train = '/home/neuron/beer/reviews.aspect1.train.txt.gz'
-dev = '/home/neuron/beer/reviews.aspect1.heldout.txt.gz'
+train = '/home/neuron/beer/reviews.aspect1.small.train.txt.gz'
+dev = '/home/neuron/beer/reviews.aspect1.small.heldout.txt.gz'
 embedding = '/home/neuron/beer/review+wiki.filtered.200.txt.gz'
 test = '/home/neuron/beer/annotations.txt.gz'
 annotations = '/home/neuron/beer/annotations.json'

@@ -3,7 +3,7 @@ class Config(object):
     hidden_size = 200
     batch_size = 256
     epochs = 100
-    lr = 0.01
+    lr = 0.0001
     l2Reg = 1.0e-6
     # built when we construct the model
     max_sentence = 0

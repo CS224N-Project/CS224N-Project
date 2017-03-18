@@ -25,7 +25,7 @@ class RNNGeneratorModel(object):
         self.loss = self.add_loss_op(self.pred)
         self.train_op = self.add_training_op(self.loss)
         self.eval = self.evaluate(self.pred)
-        self.predCorrect, self.predTotal = self.get_batch_precision()
+        # self.predCorrect, self.predTotal = self.get_batch_precision()
 
     def _read_data(self, train_path, dev_path, testPath, embedding_path):
         '''
@@ -113,8 +113,6 @@ class RNNGeneratorModel(object):
         x = self.add_embedding()
         currBatch = tf.shape(x)[0]
         xDrop = tf.nn.dropout(x, self.dropoutPH)
-        xRev = tf.reverse(xDrop, dims = [False, True, False])
-        # embeds = tf.concat(concat_dim=1, values = [xDrop, xRev])
 
         # Extract sizes
         hidden_size = self.config.hidden_size
@@ -122,6 +120,7 @@ class RNNGeneratorModel(object):
         batch_size = self.config.batch_size
         max_sentence = self.config.max_sentence
         embedding_size = self.config.embedding_size
+        span_len = self.config.span_len
 
         # Define internal RNN Cells
         genCell1Layer1 = tf.nn.rnn_cell.LSTMCell(num_units = hidden_size,
@@ -147,12 +146,7 @@ class RNNGeneratorModel(object):
         multiFwd = tf.nn.rnn_cell.MultiRNNCell([genC1L1Drop, genC1L2Drop])
         multiBwd = tf.nn.rnn_cell.MultiRNNCell([genC2L1Drop, genC2L2Drop])
 
-        # Set inital states
-        # fwdInitState = genC1L1Drop.zero_state(batch_size = currBatch,
-        #                                    dtype = tf.float32)
-        # bwdInitState = genC2L1Drop.zero_state(batch_size = currBatch,
-        #                                    dtype = tf.float32)
-
+        # Set initial state
         fwdInitState = multiFwd.zero_state(batch_size = currBatch,
                                            dtype = tf.float32)
         bwdInitState = multiBwd.zero_state(batch_size = currBatch,
@@ -176,45 +170,52 @@ class RNNGeneratorModel(object):
         unpackedStates = tf.unpack(concatStates, axis = 0)
         finalStates = tf.concat(concat_dim=1, values=unpackedStates)
 
-        # Define our prediciton layer variables
+        # Define our prediciton layer variables - less span_len to not select them
         U = tf.get_variable(name='W_gen',
-                            shape=((8 * hidden_size), self.config.max_sentence),
+                            shape=((8 * hidden_size), self.config.max_sentence - span_len),
                             dtype=tf.float32,
                             initializer=tf.contrib.layers.xavier_initializer())
 
         c = tf.get_variable(name='b_gen',
-                            shape=(self.config.max_sentence,),
+                            shape=(self.config.max_sentence - span_len,),
                             dtype=tf.float32,
                             initializer=tf.constant_initializer(0.0))
 
-        # zLayer probabilities - each prob is prob of keeping word in review
+        # probability of each word as the start word
         zProbs = tf.nn.softmax(tf.matmul(finalStates, U) + c)
-        #zProbs = tf.select(self.maskPH,
-        #                   zProbs,
-        #                   tf.zeros(shape = tf.shape(zProbs), dtype = tf.float32))
-        # zProbs = tf.stop_gradient(zProbs)
+        self.zProbs = zProbs
 
-        # sample zprobs to pick which review words to keep. mask unselected words
-        uniform = tf.random_uniform(shape = tf.shape(zProbs), minval=0, maxval=1) < zProbs
-        # uniform = tf.stop_gradient(
-        #     tf.random_uniform(shape=tf.shape(zProbs), minval=0,
-        #                       maxval=1) < zProbs, 'uniform')
-        self.zPreds = tf.select(uniform,
-                                tf.ones(shape = tf.shape(uniform), dtype = tf.float32),
-                                tf.zeros(shape = tf.shape(uniform), dtype = tf.float32))
-        self.zPreds = tf.select(self.maskPH, self.zPreds, tf.zeros(shape=tf.shape(zProbs), dtype=tf.float32))
-        masks = tf.zeros(shape = tf.shape(zProbs), dtype = tf.int32) + self.maskId
-        maskedInputs = tf.select(uniform, self.inputPH, masks)
+        # we predict on the argmax of zProbs and span_len words. define zPreds
+        # return start idx for prediction
+        self.zPreds =  tf.argmax(zProbs, axis = 1, name = 'zPreds')
 
-        # compute probability of observing subsection of words
-        # probObs = self.zPreds * zProbs + (1.0 - self.zPreds) * (1.0 - zProbs)
-        # probObs = tf.reduce_prod(probObs, axis = 1, keep_dims=True)
-        # self.probObs = probObs
-        maskFloats = tf.cast(self.maskPH, tf.float32)
-        crossEntropy = -1.0 * (((self.zPreds * tf.log(zProbs)) + ((1 - self.zPreds) * tf.log(1 - zProbs))) * maskFloats)
-        self.crossEntropy = crossEntropy
+        ################
+        # START DELETE #
+        ################
 
+        # # sample zprobs to pick which review words to keep. mask unselected words
+        # uniform = tf.random_uniform(shape = tf.shape(zProbs), minval=0, maxval=1) < zProbs
+        # # uniform = tf.stop_gradient(
+        # #     tf.random_uniform(shape=tf.shape(zProbs), minval=0,
+        # #                       maxval=1) < zProbs, 'uniform')
+        # self.zPreds = tf.select(uniform,
+        #                         tf.ones(shape = tf.shape(uniform), dtype = tf.float32),
+        #                         tf.zeros(shape = tf.shape(uniform), dtype = tf.float32))
+        # self.zPreds = tf.select(self.maskPH, self.zPreds, tf.zeros(shape=tf.shape(zProbs), dtype=tf.float32))
+        # masks = tf.zeros(shape = tf.shape(zProbs), dtype = tf.int32) + self.maskId
+        # maskedInputs = tf.select(uniform, self.inputPH, masks)
+        #
+        # # compute probability of observing subsection of words
+        # # probObs = self.zPreds * zProbs + (1.0 - self.zPreds) * (1.0 - zProbs)
+        # # probObs = tf.reduce_prod(probObs, axis = 1, keep_dims=True)
+        # # self.probObs = probObs
+        # maskFloats = tf.cast(self.maskPH, tf.float32)
+        # crossEntropy = -1.0 * (((self.zPreds * tf.log(zProbs)) + ((1 - self.zPreds) * tf.log(1 - zProbs))) * maskFloats)
+        # self.crossEntropy = crossEntropy
 
+        ##############
+        # END DELETE #
+        ##############
 
         # Return masked embeddings to pass to encoder
         embedding_shape = (-1,
@@ -222,12 +223,29 @@ class RNNGeneratorModel(object):
                            self.config.embedding_size)
 
         maskedEmbeddings = tf.nn.embedding_lookup(self.pretrained_embeddings,
-                                                  maskedInputs)
+                                                  self.inputPH)
         maskedEmbeddings = tf.cast(maskedEmbeddings, tf.float32)
         maskedEmbeddings = tf.reshape(maskedEmbeddings, shape=embedding_shape)
 
-        # Use encoder to make predictions
-        # encoderPreds = self.encoder.add_prediction_op2(maskedEmbeddings)
+        # Slice embeddings
+        embedList = list()
+        for i in xrange(self.config.max_sentence - span_len):
+            slice = maskedEmbeddings[:, i:i +span_len, :]
+            # slice = tf.expand_dims(slice, axis = 1)
+            embedList.append(slice)
+
+        # maskedEmbeddings = tf.concat(concat_dim=1, values=embedList)
+        # maskedEmbeddings = tf.reshape(maskedEmbeddings, shape= (-1, self.config.max_sentence - span_len, (self.config.max_sentence - span_len) * self.config.embedding_size))
+
+        # Defin our cells
+        cell1 = tf.nn.rnn_cell.LSTMCell(embedding_size, activation=tf.tanh)
+        cell2 = tf.nn.rnn_cell.LSTMCell(hidden_size, activation=tf.tanh)
+
+        cell1_drop = tf.nn.rnn_cell.DropoutWrapper(cell1,
+                                                   output_keep_prob=self.dropoutPH)
+        cell2_drop = tf.nn.rnn_cell.DropoutWrapper(cell2,
+                                                   output_keep_prob=self.dropoutPH)
+        cell_multi = tf.nn.rnn_cell.MultiRNNCell([cell1_drop, cell2_drop])
 
         # Define our prediciton layer variables
         W = tf.get_variable(name='W',
@@ -240,86 +258,59 @@ class RNNGeneratorModel(object):
                             dtype=tf.float32,
                             initializer=tf.constant_initializer(0.0))
 
-        cell1 = tf.nn.rnn_cell.LSTMCell(embedding_size, activation=tf.tanh)
-        cell2 = tf.nn.rnn_cell.LSTMCell(hidden_size, activation=tf.tanh)
+        # Save each prediction to a list - will be a max_sentence - span_len
+        # size list, each with a batch_size x 1 tensor.
+        preds = list()
+        # Iterate for each embedding
+        for t in xrange(max_sentence - span_len):
+            if t > 0:
+                tf.get_variable_scope().reuse_variables()
+            embed = embedList[t]
+            # each result is 2 x 2 x batch_size x hidden_size
+            # form to batch_size x 4 * hidden_size
+            _, result = tf.nn.dynamic_rnn(cell_multi,
+                                          embed,
+                                          dtype=tf.float32)
 
-        cell1_drop = tf.nn.rnn_cell.DropoutWrapper(cell1,
-                                                   output_keep_prob=self.dropoutPH)
-        cell2_drop = tf.nn.rnn_cell.DropoutWrapper(cell2,
-                                                   output_keep_prob=self.dropoutPH)
-        cell_multi = tf.nn.rnn_cell.MultiRNNCell([cell1_drop, cell2_drop])
-        _, result = tf.nn.dynamic_rnn(cell_multi,
-                                   maskedEmbeddings,
-                                   dtype=tf.float32,
-                                   sequence_length=self.seqPH)
-        # Return state is a 2 x 2 x batchsize x hiddensize tensor
-        # repetedly unpack and concat to batchsize x 4 * hiddensize tensor
-        unpackedStates = tf.unpack(result, axis = 0)
-        packedStates = tf.concat(concat_dim=2, values = unpackedStates)
-        unpackedStates = tf.unpack(packedStates, axis=0)
-        finalStates = tf.concat(concat_dim=1, values = unpackedStates)
+            # repeatedly unpack and concat tensor until batch_size x hidden_size
+            unpackedStates = tf.unpack(result, axis = 0)
+            packedStates = tf.concat(concat_dim=2, values = unpackedStates)
+            unpackedStates = tf.unpack(packedStates, axis=0)
+            finalStates = tf.concat(concat_dim=1, values = unpackedStates)
 
-        y_t = tf.tanh(tf.matmul(finalStates, W) + b)
+            # batch_size x 1 - prediction for each review given our sentence
+            # span starts at index t
+            pred = tf.tanh(tf.matmul(finalStates, W) + b)
+            preds.append(pred)
 
-        return y_t
+        # concate each prediction in to a
+        # batch_size x (max_sentence - span_len) tensor
+        predsTensor = tf.concat(concat_dim=1, values=preds)
+
+        return predsTensor
 
     def add_loss_op(self, pred):
-        sparsity_factor = 0.03
-        coherent_ratio = 2.0
-        coherent_factor = sparsity_factor * coherent_ratio
 
-        # Compute L2 loss
-        logPz = self.crossEntropy
-        #logPz = tf.Print(logPz, data=[tf.shape(logPz)], message="logPz", first_n=1, summarize=None)
-        logPzSum = tf.reduce_sum(logPz, axis=1)
-        #logPzSum = tf.Print(logPzSum, data=[tf.shape(logPzSum)], message="logPzSum", first_n=1, summarize=None)
-        predDiff = tf.square(self.labelsPH - pred)
-        #predDiff = tf.Print(predDiff, data=[tf.shape(predDiff)], message="predDiff", first_n=1, summarize=None)
+        span_len = self.config.span_len
 
-        #Zsum = tf.reduce_sum(self.zPreds, axis=1)
-        Zsum = tf.reduce_sum(logPz, axis=1)
-        #Zsum = tf.Print(Zsum, data=[tf.shape(Zsum)], message="Zsum", first_n=1, summarize=None)
+        # pred will batch_size x (max_sentence - span_len)
+        # compute expected squared cost
+        predDiff = pred - self.labelsPH
+        predDiffSqr = predDiff * predDiff
+        expCost = self.zProbs * predDiffSqr
 
-        #self.zPreds = tf.Print(self.zPreds, data=[tf.shape(self.zPreds)], message="self.zPreds", first_n=1, summarize=None)
+        # mask if even one word in span has a padding word
+        mask = self.maskPH[:,span_len:]
+        maskedCost = tf.boolean_mask(expCost, mask)
 
-        #Zdiff = tf.reduce_sum(tf.abs(self.zPreds[:,1:] - self.zPreds[:,:-1]), axis=1)
-        Zdiff = tf.reduce_sum(tf.abs(logPz[:,1:] - logPz[:,:-1]), axis=1)
-        #Zdiff = tf.Print(Zdiff, data=[tf.shape(Zdiff)], message="Zdiff", first_n=1, summarize=None)
-
-        costVec = predDiff + Zsum * sparsity_factor + Zdiff * coherent_factor
-        #costVec = tf.Print(costVec, data=[tf.shape(costVec)], message="costVec", first_n=1, summarize=None)
-        costLogPz = tf.reduce_mean(costVec * logPzSum)
-        #costLogPz = tf.Print(costLogPz, data=[tf.shape(costLogPz)], message="costLogPz", first_n=1, summarize=None)
+        cost = tf.reduce_sum(maskedCost)
 
         # regularization
         reg_by_var = [tf.nn.l2_loss(v) for v in tf.trainable_variables()]
         regularization = tf.reduce_sum(reg_by_var)
 
-        loss = 10.0 * costLogPz + regularization * self.l2RegPH
-
-
-
-        # L2loss = tf.nn.l2_loss((self.labelsPH - pred))
-        # # L2loss = tf.nn.l2_loss((self.labelsPH - pred) * self.probObs)
-        # L2loss = tf.reduce_mean(L2loss)
-        #
-        # # Apply L2 regularization - all vars
-        # reg_by_var = [tf.nn.l2_loss(v) for v in tf.trainable_variables()]
-        # regularization = tf.reduce_sum(reg_by_var)
-        #
-        # # apply L2 regularization to number of predictions
-        # # regPreds = tf.reduce_sum(tf.nn.l2_loss(self.zPreds))
-        #
-        # # apply reg to sequence
-        # sparsity_factor = 0.0003
-        # coherent_ratio = 2.0
-        # coherent_factor = sparsity_factor * coherent_ratio
-        # Zsum = tf.reduce_sum(self.zPreds, axis=0)
-        # Zdiff = tf.reduce_sum(tf.abs(self.zPreds[1:] - self.zPreds[:-1]), axis=0)
-        # sparsity_cost = tf.reduce_mean(Zsum) * sparsity_factor + tf.reduce_mean(
-        #     Zdiff) * coherent_factor
-        #
-        # loss = (10.0 * L2loss) + (self.l2RegPH * regularization) + sparsity_cost
+        # total loss = expected l2 cost + regularization
+        loss = cost + regularization * self.config.l2Reg
 
         return loss
 
@@ -352,12 +343,21 @@ class RNNGeneratorModel(object):
         se = sess.run(self.eval, feed_dict=feed)
         return se
 
-    def get_batch_precision(self):
-        zPreds = self.zPreds
-        overlap = zPreds * self.rationalsPH
-        predCorrect = tf.reduce_sum(overlap)
-        predTotal = tf.reduce_sum(zPreds)
-        return predCorrect, predTotal
+    # def get_batch_precision(self):
+    #     span_len = self.config.span_len
+    #     zPreds = self.zPreds
+    #     overlap = zPreds * self.rationalsPH
+    #     predCorrect = tf.reduce_sum(overlap)
+    #     predTotal = tf.reduce_sum(zPreds)
+    #     return predCorrect, predTotal
+    #
+    # def get_batch_precision(self):
+    #     span_len = self.config.span_len
+    #     zPreds = self.zPreds
+    #     overlap = zPreds * self.rationalsPH
+    #     predCorrect = tf.reduce_sum(overlap)
+    #     predTotal = tf.reduce_sum(zPreds)
+    #     return predCorrect, predTotal
 
     def run_rationals(self, sess, inputs_batch, labels_batch, mask_batch, sentLen, rationals):
         feed = self.create_feed_dict(inputs_batch = inputs_batch,
@@ -367,7 +367,16 @@ class RNNGeneratorModel(object):
                                      dropout=self.config.drop_out,
                                      l2_reg=self.config.l2Reg,
                                      rationals=rationals)
-        predCorrect, predTotal = sess.run([self.predCorrect, self.predTotal], feed_dict = feed)
+        zPreds = sess.run(self.zPreds, feed_dict = feed)
+        predTotal = self.config.span_len * labels_batch.shape[0]
+        predCorrect = 0
+        for i in range(zPreds.shape[0]):
+            startIdx = zPreds[i]
+            rationalLine = rationals[i:, ]
+            subSeq = rationalLine[startIdx:startIdx+self.config.span_len]
+            overlap = np.sum(subSeq)
+            predCorrect += overlap
+
         return predCorrect, predTotal
 
     # def run_precision_on_batch(self, sess, inputs_batch, labels_batch, mask_batch, sentLen, rationals):
@@ -572,17 +581,17 @@ class RNNGeneratorModel(object):
 Read in Data
 '''
 
-train = '/home/neuron/beer/reviews.aspect1.train.txt.gz'
-dev = '/home/neuron/beer/reviews.aspect1.heldout.txt.gz'
-embedding = '/home/neuron/beer/review+wiki.filtered.200.txt.gz'
-test = '/home/neuron/beer/annotations.txt.gz'
-annotations = '/home/neuron/beer/annotations.json'
-#
-# train = '/Users/henryneeb/CS224N-Project/source/rcnn-master/beer/reviews.aspect1.small.train.txt.gz'
-# dev = '/Users/henryneeb/CS224N-Project/source/rcnn-master/beer/reviews.aspect1.small.heldout.txt.gz'
-# embedding = '/Users/henryneeb/CS224N-Project/source/rcnn-master/beer/review+wiki.filtered.200.txt.gz'
-# test = '/Users/henryneeb/CS224N-Project/source/rcnn-master/beer/annotations.txt.gz'
-# annotations = '/Users/henryneeb/CS224N-Project/source/rcnn-master/beer/annotations.json'
+# train = '/home/neuron/beer/reviews.aspect1.train.txt.gz'
+# dev = '/home/neuron/beer/reviews.aspect1.heldout.txt.gz'
+# embedding = '/home/neuron/beer/review+wiki.filtered.200.txt.gz'
+# test = '/home/neuron/beer/annotations.txt.gz'
+# annotations = '/home/neuron/beer/annotations.json'
+
+train = '/Users/henryneeb/CS224N-Project/source/rcnn-master/beer/reviews.aspect1.small.train.txt.gz'
+dev = '/Users/henryneeb/CS224N-Project/source/rcnn-master/beer/reviews.aspect1.small.heldout.txt.gz'
+embedding = '/Users/henryneeb/CS224N-Project/source/rcnn-master/beer/review+wiki.filtered.200.txt.gz'
+test = '/Users/henryneeb/CS224N-Project/source/rcnn-master/beer/annotations.txt.gz'
+annotations = '/Users/henryneeb/CS224N-Project/source/rcnn-master/beer/annotations.json'
 
 
 def main(debug=False):

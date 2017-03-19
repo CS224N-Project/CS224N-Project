@@ -1,48 +1,20 @@
 
 import tensorflow as tf
 
-# constant = tf.Variable("This is constant")
-
-
-# saver = tf.train.Saver()
-
-# init = tf.global_variables_initializer()
-
-
-
-# with tf.Session() as sess:
-
-#     sess.run(init)
-#     saver.restore(sess, './sample_code')
-#     for i in range(4):
-#         print(sess.run(constant))
-
-#     saver.save(sess, 'sample_code')
-
-
-constant = tf.Variable("This is constant")
-saver = tf.train.Saver()
+sess = tf.Session()
 
 init = tf.global_variables_initializer()
+sess.run(init)
 
-with tf.Session() as sess:
-    sess.run(init)
-    saver.restore(sess, './generator.weights')
-    all_vars = tf.get_collection('vars')
-    for v in all_vars:
-    	v_ = sess.run(v)
-    	print(v_)
-
-
-# sess = tf.Session()
-
-# new_saver = tf.train.import_meta_graph('./generator.weights', clear_devices=True)
-# # new_saver.restore(sess, tf.train.latest_checkpoint('./checkpoint'))
-# new_saver.restore(sess, './generator.weights')
-# all_vars = tf.get_collection('vars')
-# for v in all_vars:
-#     v_ = sess.run(v)
-#     print(v_)
+# saver = tf.train.Saver()
+saver = tf.train.import_meta_graph('./generator.weights.meta')
+saver.restore(sess, tf.train.latest_checkpoint('./'))
+saver.restore(sess, './generator.weights')
+all_vars = tf.get_collection('vars')
+print all_vars
+for v in all_vars:
+     v_ = sess.run(v)
+     print(v_)
 
 
 # for i, (test_x, test_y, test_sentLen, test_mask, test_rat) in enumerate(

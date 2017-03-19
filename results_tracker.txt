@@ -1,16 +1,16 @@
 ==========================================
 Run 4
 
-Comment: first LSTM run with precision above 18%
+Comment: another LSTM run after fixing NaNs via log(... + 0.001)
 
 Date: Sat, 3/19/2017
-Start Time: 8:25am PT
-Complete Time: 2:21pm PT
+Start Time: 3:10pm PT
+Complete Time: pm PT
 # Epochs: 40
 Run Time: 
 Code File: generator-lstm.py
 Processor: Azure GPU
-Screen Output File: generator-lstm_output_2017-03-19-0825.txt
+Screen Output File: generator-lstm_output_2017-03-19-1510.txt
 Data Files: FULL
 train = '/home/neuron/beer/reviews.aspect1.train.txt.gz'
 dev = '/home/neuron/beer/reviews.aspect1.heldout.txt.gz'
@@ -31,23 +31,23 @@ l2Reg = 1.0e-6
 review cut off: 300
 data = data[:,0:300]
 
-sigmoid factor: 7.0
-self.zPreds = 1.0 / (1.0 + tf.exp(-7.0*(zProbs-0.5))) # sigmoid to simulate rounding
+sigmoid factor: 60.0
+self.zPreds = 1.0 / (1.0 + tf.exp(-60.0*(zProbs-0.5))) # sigmoid to simulate rounding
 
 loss factor: 10.0
 loss = 10.0 * costLogPz + regularization * self.l2RegPH
 
 Weight Saved:
-generator.weights.index_2017-03-19-0825
-generator.weights.data-00000-of-00001_2017-03-19-0825
-checkpoint_2017-03-19-0825
-generator.weights.meta_2017-03-19-0825
+generator-lstm.weights.index_2017-03-19-1510
+generator-lstm.weights.data-00000-of-00001_2017-03-19-1510
+checkpoint_2017-03-19-1510
+generator-lstm.weights.meta_2017-03-19-1510
 
 
 ==========================================
 Run 3
 
-Comment: second LSTM (attempt to avoid NaNs)
+Comment: second LSTM (attempt to avoid NaNs), but not great results (stuck at 35% precision)
 
 Date: Sat, 3/19/2017
 Start Time: 8:25am PT
@@ -84,16 +84,16 @@ loss factor: 10.0
 loss = 10.0 * costLogPz + regularization * self.l2RegPH
 
 Weight Saved:
-generator.weights.index_2017-03-19-0825
-generator.weights.data-00000-of-00001_2017-03-19-0825
+generator-lstm.weights.index_2017-03-19-0825
+generator-lstm.weights.data-00000-of-00001_2017-03-19-0825
 checkpoint_2017-03-19-0825
-generator.weights.meta_2017-03-19-0825
+generator-lstm.weights.meta_2017-03-19-0825
 
 
 ==========================================
 Run 2
 
-Comment: first LSTM run with precision above 18%
+Comment: first LSTM run with precision above 18%, got NaNs and it effectively died
 
 Date: Sat, 3/19/2017
 Start Time: 12:50am PT
@@ -130,10 +130,10 @@ loss factor: 10.0
 loss = 10.0 * costLogPz + regularization * self.l2RegPH
 
 Weight Saved:
-generator.weights.index_2017-03-19-0050
-generator.weights.data-00000-of-00001_2017-03-19-0050
+generator-lstm.weights.index_2017-03-19-0050
+generator-lstm.weights.data-00000-of-00001_2017-03-19-0050
 checkpoint_2017-03-19-0050
-generator.weights.meta_2017-03-19-0050
+generator-lstm.weights.meta_2017-03-19-0050
 
 
 ==========================================

@@ -1,50 +1,39 @@
 
 import tensorflow as tf
+from generator import RNNGeneratorModel
+from config import Config
+import time
 
-sess = tf.Session()
+# train = '/home/neuron/beer/reviews.aspect1.train.txt.gz'
+# dev = '/home/neuron/beer/reviews.aspect1.heldout.txt.gz'
+# embedding = '/home/neuron/beer/review+wiki.filtered.200.txt.gz'
+# test = '/home/neuron/beer/annotations.txt.gz'
+# annotations = '/home/neuron/beer/annotations.json'
 
-init = tf.global_variables_initializer()
-sess.run(init)
+train = '/Users/henryneeb/CS224N-Project/source/rcnn-master/beer/reviews.aspect1.small.train.txt.gz'
+dev = '/Users/henryneeb/CS224N-Project/source/rcnn-master/beer/reviews.aspect1.small.heldout.txt.gz'
+embedding = '/Users/henryneeb/CS224N-Project/source/rcnn-master/beer/review+wiki.filtered.200.txt.gz'
+test = '/Users/henryneeb/CS224N-Project/source/rcnn-master/beer/annotations.txt.gz'
+annotations = '/Users/henryneeb/CS224N-Project/source/rcnn-master/beer/annotations.json'
 
-# saver = tf.train.Saver()
-saver = tf.train.import_meta_graph('./generator.weights.meta')
-#saver.restore(sess, tf.train.latest_checkpoint('./'))
-#saver.restore(sess, './generator.weights')
+outFile = 'generator-RNN-testpreds.txt'
 
-all_vars = tf.get_collection('vars')
+config = Config()
 
-train_op = tf.get_collection('train_op')
-print ''
-print 'train_op:'
-for v in train_op:
-     print ''
-     print v.name
+with tf.Graph().as_default():
+    print "Building model...",
+    start = time.time()
+    # Construct a raw model
+    model = RNNGeneratorModel(config, embedding, train, dev, test,
+                                       annotations)
+    print "took {:.2f} seconds\n".format(time.time() - start)
+    # init = tf.global_variables_initializer()
+    saver = tf.train.Saver()
 
-global_vars = tf.global_variables()
-print ''
-print 'global_vars:'
-for v in global_vars:
-     print ''
-     print v.name
-     print v.get_shape()
-     print v.dtype
+    with tf.Session() as session:
+        # session.run(init)
+        saver.restore(session, './generator.weights')
+        model.save_preds(session, outFile)
+        print 'Finished predictions'
 
-for v in all_vars:
-     v_ = sess.run(v)
-     print(v_)
-
-
-# for i, (test_x, test_y, test_sentLen, test_mask, test_rat) in enumerate(
-#     get_minibatches_test(self.test_x, self.test_y, self.test_sentLen,
-#                          self.test_mask, self.rationals,
-#                          self.config.batch_size, False)):
-#     feed = self.create_feed_dict(inputs_batch=test_x,
-#                                  mask_batch=test_mask,
-#                                  seqLen=test_sentLen,
-#                                  labels_batch=test_y,
-#                                  dropout=self.config.drop_out,
-#                                  l2_reg=self.config.l2Reg,
-#                                  rationals=test_rat)
-#     preds = sess.run(self.zPreds, feed_dict = feed)
-#     np.savetxt(outFile, preds, delimiter=' ')
 

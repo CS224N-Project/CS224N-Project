@@ -220,7 +220,7 @@ class RNNGeneratorModel(object):
         # probObs = tf.reduce_prod(probObs, axis = 1, keep_dims=True)
         # self.probObs = probObs
         #maskFloats = tf.cast(self.maskPH, tf.float32)
-        crossEntropy = -1.0 * (((self.zPreds * tf.log(zProbs)) + ((1 - self.zPreds) * tf.log(1 - zProbs)))) # * maskFloats)
+        crossEntropy = -1.0 * (((self.zPreds * tf.log(zProbs + 0.001)) + ((1 - self.zPreds) * tf.log(1 - zProbs + 0.001)))) # * maskFloats)
         self.crossEntropy = crossEntropy
 
 

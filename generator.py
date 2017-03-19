@@ -417,11 +417,7 @@ class RNNGeneratorModel(object):
         #     print np.linalg.norm(grad[1])
         return loss
 
-    def save_preds(self, outFile, metaFile):
-        sess = tf.Session()
-        saver = tf.train.import_meta_graph('my-model.meta')
-        saver.restore(sess, tf.train.latest_checkpoint('./'))
-
+    def save_preds(self, sess, outFile):
         for i, (test_x, test_y, test_sentLen, test_mask, test_rat) in enumerate(
             get_minibatches_test(self.test_x, self.test_y, self.test_sentLen,
                                  self.test_mask, self.rationals,
@@ -508,6 +504,16 @@ class RNNGeneratorModel(object):
         test_x_pad = test_x_pad[:,0:300]
         test_mask = test_mask[:,0:300]
 
+        for i in xrange(len(train_sentLen)):
+            if train_sentLen[i] > 300:
+                train_sentLen[i] = 300
+        for i in xrange(len(dev_sentLen)):
+            if dev_sentLen[i] > 300:
+                dev_sentLen[i] = 300
+        for i in xrange(len(test_sentLen)):
+            if test_sentLen[i] > 300:
+                test_sentLen[i] = 300
+
         self.train_x = train_x_pad
         self.train_y = train_y
         self.train_mask = train_mask
@@ -574,6 +580,11 @@ embedding = '/home/neuron/beer/review+wiki.filtered.200.txt.gz'
 test = '/home/neuron/beer/annotations.txt.gz'
 annotations = '/home/neuron/beer/annotations.json'
 
+train = '/Users/henryneeb/CS224N-Project/source/rcnn-master/beer/reviews.aspect1.small.train.txt.gz'
+dev = '/Users/henryneeb/CS224N-Project/source/rcnn-master/beer/reviews.aspect1.small.heldout.txt.gz'
+embedding = '/Users/henryneeb/CS224N-Project/source/rcnn-master/beer/review+wiki.filtered.200.txt.gz'
+test = '/Users/henryneeb/CS224N-Project/source/rcnn-master/beer/annotations.txt.gz'
+annotations = '/Users/henryneeb/CS224N-Project/source/rcnn-master/beer/annotations.json'
 
 def main(debug=False):
     print 80 * "="

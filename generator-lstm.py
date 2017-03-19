@@ -422,11 +422,7 @@ class RNNGeneratorModel(object):
         #     print np.linalg.norm(grad[1])
         return loss
 
-    def save_preds(self, outFile, metaFile):
-        sess = tf.Session()
-        saver = tf.train.import_meta_graph('my-model.meta')
-        saver.restore(sess, tf.train.latest_checkpoint('./'))
-
+    def save_preds(self, sess, outFile):
         for i, (test_x, test_y, test_sentLen, test_mask, test_rat) in enumerate(
             get_minibatches_test(self.test_x, self.test_y, self.test_sentLen,
                                  self.test_mask, self.rationals,
@@ -439,7 +435,11 @@ class RNNGeneratorModel(object):
                                          l2_reg=self.config.l2Reg,
                                          rationals=test_rat)
             preds = sess.run(self.zPreds, feed_dict = feed)
-            np.savetxt(outFile, preds, delimiter=' ')
+            preds = np.round(preds, 0)
+            preds = preds.astype(int)
+            f = open(outFile, 'ab')
+            np.savetxt(f, preds, delimiter=' ')
+            f.close()
 
     def run_epoch(self, sess):
         train_se = 0.0

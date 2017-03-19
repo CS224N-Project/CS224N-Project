@@ -1,0 +1,227 @@
+\documentclass{article} % For LaTeX2e
+\usepackage{nips13submit_e,times}
+\usepackage{hyperref}
+\usepackage{url}
+\usepackage{amsmath}
+\usepackage{amssymb}
+%\documentstyle[nips13submit_09,times,art10]{article} % For LaTeX 2.09
+
+
+\title{Rationalizing Sentiment Analysis in Tensorflow}
+
+
+\author{
+Alyson Kane \\
+Stanford University\\
+\texttt{alykane@stanford.edu} \\
+\And
+Henry Neeb \\
+Stanford University\\
+\texttt{hneeb@stanford.edu}\\
+\And
+Kevin Shaw \\
+Stanford University\\
+\texttt{keshaw@stanford.edu}\\
+}
+
+% The \author macro works with any number of authors. There are two commands
+% used to separate the names and addresses of multiple authors: \And and \AND.
+%
+% Using \And between authors leaves it to \LaTeX{} to determine where to break
+% the lines. Using \AND forces a linebreak at that point. So, if \LaTeX{}
+% puts 3 of 4 authors names on the first line, and the last on the second
+% line, try using \AND instead of \And before the third author name.
+
+\newcommand{\fix}{\marginpar{FIX}}
+\newcommand{\new}{\marginpar{NEW}}
+
+\nipsfinalcopy % Uncomment for camera-ready version
+
+\begin{document}
+
+
+\maketitle
+
+\begin{abstract}
+
+Sentiment analysis has been long a leading subject of interest in Natural Language Processing. We believe the adoption of sentiment analysis may be hindered by people who are wary of computer prediction. These people would be more likely to trust such predictions if a brief explanation of the outcome is provided. Recent work by Lei et al. has set forth a framework for a multi-aspect sentiment analysis concurrently providing text rationalization with each prediction. This framework sets forth a two-part approach, which summarizes a review and predicts a rating. In this paper, we explore the performance of such framework, seeking  recreate and improve upon it in tensorflow.
+\end{abstract}
+
+\section{Introduction}
+In our highly connected world, we are constantly trying to digest information as quickly as possible. When buying products, services, or even eating at a restaurant, we scour the Internet for ratings to help us make a more informed decision. Often times when we see a rating, we may wish to understand why such a rating was given, however we are unwilling to do so at the cost of reading an entire review. A rating would be more easily interpreted if it was provided in tandem with a brief summary of a review. 
+
+This problem can be solved using a two-part approach. The first task is to provide a rationalization of each rating, which selects a subset of words or phrases from the original text review. A rationale should be a short but comprehensible summary of a review. We frame this as an unsupervised learning problem, creating a bidirectional recurrent neural net (RNN) which passes over each word in the text.   
+
+Using the output of the first task, our second task is a supervised learning problem which predicts a rating of each review using a two-hidden layer RNN. By forcing ratings to be predicted using only the rationale of the review and not the review itself, we can jointly train tasks. We can force coherency and consistency for a rationale by adding penalization terms to any regression loss function for size and distance of words of rationale selected. 
+
+\textbf{[Add some high lever results here.]}
+
+\section{Related Work}
+
+Both tasks of text summarization and sentiment analysis are highly popular subfields of natural language processing. However, the idea of combining such processes was first proposed in October 2016. The framework which we are exploring was initially proposed in the paper \textit{Rationalizing Neural Predictions} by Lei, Barzilay, and Jaakkola. This paper was the first to propose such a novel approach. 
+
+\subsection{Framework}
+
+The paper prescribes a two-part model which predicts a multi-sentiment analysis (called encoder) and extracts summary phrases (called generator). 
+
+The encoder (enc) is a supervised learning problem which predicts a rating given a text review. Training samples are (x, y) pairs,  where $x = \{x_t\}_{t=1}^T$ is an input text sequence of length T and $y \in [0, 1]^m$ is an output vector where m denotes the number of aspects in a review. Loss for the encoder is calculated using squared error loss:
+
+\begin{gather}
+L(x,y)\hspace{1mm} = \hspace{1mm}\parallel\hat{y} - y\parallel _2^2  \hspace{1mm} = \hspace{1mm}\parallel enc(x) - y\parallel _2^2
+\end{gather}
+
+The generator (gen) is a text summarization task which selects a subset of words of the text review as a rationale describing rating. There is no target rationale, but rather both the encoder and generator are jointly trained. The output of the generator is a z layer, such that $z_t \in [0, 1]$ is an indicator variable for each word in a text sequences indicating if a given word was chosen as rationale. There is no target rationale, but rather both the encoder and generator are jointly trained. That is, our final predictions are trained on the rationale output from the generator, not the full text review. Thus, our final prediction in enc(gen(z,x)). 
+
+The author notes that we want to ensure rationalizations are both concise and coherent. To ensure this, penalty terms are added to the loss function. Final cost is defined as:
+
+\begin{gather}
+Cost(z,x,y) = L(x,y) + \lambda \textsubscript{1} \parallel z \parallel + \lambda \textsubscript{2} \sum_{t = 1}^{T}  \mid z_t - z_{t-1} \mid
+\end{gather}
+
+where $\lambda \textsubscript{1}$ penalizes number of words and $\lambda \textsubscript{2}$ penalizes distance between chosen words.
+
+\section{Approach}
+\subsection{Tensorflow Framework}
+The original model as outlined in \textit{Rationalizing Neural Predictions} was created in Theano. A main goal of our project was to recreate this model in Tensorflow. We spent a large portion of time working to translate Theano code to Tensorflow code line by line. This was a huge learning experience, as we found that these deep learning platforms are somewhat incompatible. \\
+
+\textbf{Talk to Kevin, add details here.}
+
+\subsection{Data}
+\subsubsection{Datasets}
+Consistent with the Lei et al. paper, we use a dataset consisting of 1.5 million reviews from BeerAdvocate. BeerAdvocate is a user review website of beer, such that reviews are multi-aspect. That is, reviews are asked to speak to each of five categories describing a beer: look, smell, taste, feel, and overall. Each rating is on a scale of 0 - 5, inclusive. 
+
+In addition to this dataset, there is a small subset of almost 1,000 annotated reviews. Annotated reviews have a tag for each sentence in the review indicating which aspect the sentence is speaking to. The model will not use this dataset for training, but instead data is used a test dataset and can be used to calculate precision of the rationale after model is created. 
+
+\subsubsection{Preprocessing}
+Certain preprocessing steps were taken in the Lei et al. paper, a few of which we have inherited in our framework. Lei et al. measured a high correlation between review aspects, noting that this correlation was confusing the model. Using a linear regression of one aspect onto the remaining aspects, Lei et al. chose a subset of the most uncorrelated reviews for each aspect. Two of the five aspects, taste and overall, were ultimately too correlated and dropped from the model. For the remaining three aspects, we will model each aspect separately, using the decorrelated subset of around 90,000 reviews corresponding to the aspect. 
+
+Ratings are a continuous value between 0 and 5, thus we are solving a regression problem. We normalize output to [0, 1] values, allowing us to use a final layer which predicts values between 0 and 1, such as sigmoid or tanh. 
+
+As is common in deep learning, we use word embeddings to represent each word in our text. We begin using a 200-dimensional word embedding trained on Wikipedia 2014 data using the GloVe algorithm. We will experiment with running our model on various word representations, described below in section 5. 
+
+\subsection{Model}
+
+In this section, we outline the various components used in our model.
+\subsubsection{RNNs}
+
+A recurrent neural network (RNN) is a model which conditions on all previous words, making it very useful when working with sequential data. At each step, the next word in the text is fed into a hidden layer, along with the output from the previous hidden layer. Final output is then computed from the hidden state.
+
+In the encoding task of our model, we use a two-layer stacked RNN. The model is as follows:
+
+\begin{gather}
+h_1^t = f_1(W_1 x^t + U_1 h_1^{t-1} + b_1) \\
+h_2^t = f_2(W_2 h_1^t + U_2 h_2^{t-1} + b_2) \\
+\hat{y} = f_3(R[h_1^T:h_2^T] + b_3)
+\end{gather}
+
+where $x^t$ denotes input word at time t, $h_i^t$ denotes a hidden state at time t, and $\hat{y}$ denotes output. Note $\hat{y}$ is only calculated at time T, where T is the length of each rating. \\
+
+As a baseline, we implement the above model using tanh for all activation functions. Results for experimentation with activation functions are described below. 
+
+\subsubsection{Bidirectional RNNs}
+
+Bidirectional RNNs are used when both previous and future words are useful for determining output. At each layer, the input is fed into two hidden states, one which is fed forward through time steps and the other which is fed backward. 
+
+\begin{gather}
+\overrightarrow{h}^t = f_1(\overrightarrow{W} x^t + \overrightarrow{U} \overrightarrow{h}^{t-1} + \overrightarrow{b}) \\
+\overleftarrow{h^t} = = f_2(\overleftarrow{W} x^t + \overleftarrow{U} \overleftarrow{h}^{t+1} + \overleftarrow{b}) \\ 
+\hat{y} = f_3(R[\overrightarrow{h}^T:\overrightarrow{h}^T] + c)
+\end{gather}
+
+where variables with $\rightarrow$ denote inputs moving left to right and $\leftarrow$ denote inputs moving right to left. 
+
+Similar to the stacked RNN, we use tanh as an activation function and experiment with various other activations.
+
+\subsubsection{Dropout}
+
+Dropout is a regularization method for neural nets which reduces overfitting. Units from the hidden layer are randomly set to zero with some probability during training, which will keep weights small. At test time, data is run on complete model without dropout. This method has been shown to provide major improvements over other regularization methods.
+
+\subsubsection{Vanishing and Exploding Gradients}
+
+Vanishing and exploding gradients are common occurrences in deep learning. As gradients are back-propagated through time steps, we are continuously multiplying by the gradients of the weights and biases of each layer. When these values are small, the gradient of a layer many time steps back will approach zero and thus never update. Alternatively, if these values are large, we will see an exploding gradient. 
+
+\subsubsection*{LSTMs}
+
+Vanishing Gradients can often be solved using Long-Short-Term-Memories (LSTMs). LSTMs are an update to RNN activation units which capture long-term dependencies. Within a hidden unit, the LSTM has an input gate [eq (9)], which controls which words can be passed into the unit and an output gate [eq (10)], which controls how much of the memory can affect the next hidden state. 
+
+\begin{gather}
+i_t = \sigma (W^{(i)} x_t + U^{(i)} h_{t-1}) \\
+f_t = \sigma (W^{(f)} x_t + U^{(f)} h_{t-1}) \\
+o_t = \sigma (W^{(o)} x_t + U^{(o)} h_{t-1}) \\
+\widetilde{c_t} = tanh (W^{(c)} x_t + U^{(c)} h_{t-1}) \\
+c_t = f_t \circ c_{t - 1} + i_t \circ \widetilde{c_t} \\
+h_t = o_t \circ tanh(c_t)
+\end{gather}
+
+\subsubsection*{Gradient Clipping}
+Exploding gradients can be solved using a technique called gradient clipping. Each time the gradient surpasses a set threshold, we reset the gradient to a given upper or lower bound.
+
+\subsubsection{Adam Optimization}
+
+We chose to use Adam optimization in our model, which is a more complex update method as compared to Stochastic Gradient Descent. Over each batch of data, we update parameters using algorithm: 
+
+\begin{gather}
+m \leftarrow \beta \textsubscript{1} m + (1 - \beta \textsubscript{1}) \nabla_{\theta} J_\theta \\
+v \leftarrow \beta \textsubscript{2} v + (1 - \beta \textsubscript{2}) \nabla_{\theta} J_\theta^2\\
+\theta \leftarrow \theta - \alpha \circ m / \sqrt[]{v}
+\end{gather}
+
+We keep a rolling average of the first and second moments. The first moment, $m$, will prevent the gradient from varying too much. The second moment, $v$, helps update parameters with small gradients to speed learning. 
+
+\section{Experiments}
+
+\subsection{Initial Approach}
+As a baseline, we sought to re-create the model proposed by Lei, et al. in TensorFlow. We implemented a model with a two-layer stacked bi-directional RNN generator and a two-layer stacked RNN encoder. Training mean squared error (MSE) was gradually decreasing; after 10 or so epochs, our MSE jumped back up. This behavior indicates an exploding gradient, solved using gradient clipping with bounds [-1, 1]. 
+
+After this fix, the model produced MSE results consistent with the paper, getting 0.008 \textbf{(check this)}. However, precision was abysmal, hovering around 18\%. Calculating the norm of each gradient, we were able to detect a vanishing gradient issue. The graph was not differentiable, as we were taking a sample of words in the text and passing a binary vector of words chosen into the encoder. 
+
+Added binary CE -- this didn't work. It is known that RNNs can only carry memory of around 10 states. We hypothesized that perhaps the RNN didn't have enough memory to accurately predict words. Thus, we switched both the generator and encoder tasks to LSTM cells. \textbf{Results?}
+
+
+
+
+\textbf{Notes} \\
+lamba 1 = 0.0006 and lambda 2 = 0.0003 \\
+no change in precision when updating lambda values - tried implementing LSTM and still no change\\
+One vs two layer RNNS \\
+
+\subsection{Henry Approach}
+\subsection{Kevin Approach}
+%\begin{figure}[h]
+%\begin{center}
+%\framebox[4.0in]{$\;$}
+%\fbox{\rule[-.5cm]{0cm}{4cm} \rule[-.5cm]{4cm}{0cm}}
+%\end{center}
+%\caption{Sample figure caption.}
+%\end{figure}
+
+%\begin{table}[t]
+%\caption{Sample table title}
+%\label{sample-table}
+%\begin{center}
+%\begin{tabular}{ll}
+%\multicolumn{1}{c}{\bf PART}  &\multicolumn{1}{c}{\bf DESCRIPTION}
+%\\ \hline \\
+%Dendrite         &Input terminal \\
+%Axon             &Output terminal \\
+%Soma             &Cell body (contains cell nucleus) \\
+%\end{tabular}
+%\end{center}
+%\end{table}
+
+\section{Conclusion}
+
+
+
+
+
+
+\subsubsection*{References}
+
+\small{
+[1] Lei, Tao, Regina Barzilay, and Tommi Jaakkola. "Rationalizing Neural Predictions." Proceedings of the 2016 Conference on Empirical Methods in Natural Language Processing (2016): n. pag. Web.
+
+[2] D. Kingma and J. Ba. Adam: A method for stochastic optimization. arXiv preprint
+arXiv:1412.6980, 2014.
+
+\end{document}

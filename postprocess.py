@@ -18,9 +18,39 @@ def read_raw_rationals(path):
         lines.append(splitLine)
     return lines
 
+def pad_rationals(rawRationals, padLen, padToken='PAD'):
+    rawLen = [len(x) for x in rawRationals]
+    addPaddingLen = [padLen - x for x in rawLen]
+    zipRatPadLen = zip(rawRationals, addPaddingLen)
+    paddedRational = [raw + [padToken] * length for raw, length in zipRatPadLen]
+    return paddedRational
+
+def read_padded_rationals(path, padLen, padToken='PAD'):
+    rawData = read_raw_rationals(path)
+    return pad_rationals(rawData, padLen, padToken)
+
+def _extract_rationals(preds, reviews):
+    numReviews = preds.shape[0]
+    numWords = preds.shape[1]
+    rationals = list()
+    for i in xrange(numReviews):
+        subset = list()
+        for j in xrange(numWords):
+            if preds[i, j] == 1:
+                subset.append(reviews[i][j])
+        rationals.append(subset)
+    return rationals
+
+def extract_rationals(predsPath, reviewPath, padLen, padToken = 'PAD'):
+    preds = read_tf_pred(predsPath)
+    reviews = read_padded_rationals(reviewPath, padLen, padToken)
+    rationals = _extract_rationals(preds, reviews)
+    return rationals, reviews
 
 pathPreds = 'trial.txt'
-pathRaw = 'annotations.txt'
+pathReview = 'annotations.txt'
 
 preds = read_tf_pred(pathPreds)
-rawSentence = read_raw_rationals(pathRaw)
+maxPad = preds.shape[1]
+
+rationals, reviews = extract_rationals(pathPreds, pathReview, maxPad)

@@ -1,0 +1,47 @@
+
+
+
+==========================================
+Run 1
+
+Comment: first 2-layer RNN run with precision above 18%
+
+Date: Sat, 3/18/2017
+Start Time: 4:02pm PT (approx)
+Complete Time: 
+# Epochs: 
+Run Time:
+Code File: generator.py
+Processor: Azure GPU
+Screen Output File: generator_2017-03-18-1602.txt
+Data Files: FULL
+train = '/home/neuron/beer/reviews.aspect1.train.txt.gz'
+dev = '/home/neuron/beer/reviews.aspect1.heldout.txt.gz'
+embedding = '/home/neuron/beer/review+wiki.filtered.200.txt.gz'
+test = '/home/neuron/beer/annotations.txt.gz'
+annotations = '/home/neuron/beer/annotations.json'
+Run Time:
+
+drop_out = 0.5
+hidden_size = 200
+batch_size = 256
+epochs = 100
+lr = 0.0001
+l2Reg = 1.0e-6
+
+review cut off: 300
+data = data[:,0:300]
+
+sigmoid factor: 60.0
+self.zPreds = 1.0 / (1.0 + tf.exp(-60.0*(zProbs-0.5))) # sigmoid to simulate rounding
+
+loss factor: 10.0
+loss = 10.0 * costLogPz + regularization * self.l2RegPH
+
+Weight Saved:
+generator.weights.index_2017-03-18-1602.txt
+generator.weights.data-00000-of-00001_2017-03-18-1602.txt
+checkpoint_2017-03-18-1602.txt
+generator.weights.meta_2017-03-18-1602.txt
+
+

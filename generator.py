@@ -219,8 +219,8 @@ class RNNGeneratorModel(object):
         # probObs = self.zPreds * zProbs + (1.0 - self.zPreds) * (1.0 - zProbs)
         # probObs = tf.reduce_prod(probObs, axis = 1, keep_dims=True)
         # self.probObs = probObs
-        maskFloats = tf.cast(self.maskPH, tf.float32)
-        crossEntropy = -1.0 * (((self.zPreds * tf.log(zProbs)) + ((1 - self.zPreds) * tf.log(1 - zProbs))) * maskFloats)
+        #maskFloats = tf.cast(self.maskPH, tf.float32)
+        crossEntropy = -1.0 * (((self.zPreds * tf.log(zProbs)) + ((1 - self.zPreds) * tf.log(1 - zProbs)))) # * maskFloats)
         self.crossEntropy = crossEntropy
 
 
@@ -269,7 +269,7 @@ class RNNGeneratorModel(object):
         return y_t
 
     def add_loss_op(self, pred):
-        sparsity_factor = 0.03
+        sparsity_factor = 0.3
         coherent_ratio = 2.0
         coherent_factor = sparsity_factor * coherent_ratio
 
@@ -408,13 +408,13 @@ class RNNGeneratorModel(object):
                                      dropout=self.config.drop_out,
                                      l2_reg=self.config.l2Reg)
         _, loss, grad_print = sess.run([self.train_op, self.loss, self.grad_print], feed_dict=feed)
-        for grad in grad_print:
-             print ''
-             print 'grad, var (shape, norm):'
-             print grad[0].shape
-             print grad[1].shape
-             print np.linalg.norm(grad[0])
-             print np.linalg.norm(grad[1])
+        #for grad in grad_print:
+        #     print ''
+        #     print 'grad, var (shape, norm):'
+        #     print grad[0].shape
+        #     print grad[1].shape
+        #     print np.linalg.norm(grad[0])
+        #     print np.linalg.norm(grad[1])
         return loss
 
     def save_preds(self, outFile, metaFile):
@@ -488,7 +488,7 @@ class RNNGeneratorModel(object):
                 if saver:
                     print "New best dev MSE! Saving model in ./encoder.weights"
                     # saver.save(sess, './encoder.weights', write_meta_graph = False)
-                    saver.save(sess, './encoder.weights')
+                    saver.save(sess, './generator.weights')
             print
 
     def __init__(self, config, embedding_path, train_path, dev_path, test_path, rationals, aspect = 0):
@@ -568,8 +568,8 @@ class RNNGeneratorModel(object):
 Read in Data
 '''
 
-train = '/home/neuron/beer/reviews.aspect1.small.train.txt.gz'
-dev = '/home/neuron/beer/reviews.aspect1.small.heldout.txt.gz'
+train = '/home/neuron/beer/reviews.aspect1.train.txt.gz'
+dev = '/home/neuron/beer/reviews.aspect1.heldout.txt.gz'
 embedding = '/home/neuron/beer/review+wiki.filtered.200.txt.gz'
 test = '/home/neuron/beer/annotations.txt.gz'
 annotations = '/home/neuron/beer/annotations.json'

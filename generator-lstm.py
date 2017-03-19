@@ -209,6 +209,8 @@ class RNNGeneratorModel(object):
         
         self.zPreds = 1.0 / (1.0 + tf.exp(-60.0*(zProbs-0.5))) # sigmoid to simulate rounding
 
+        self.zPreds = tf.clip_by_value(self.zPreds, -1.0, 1.0)
+
         self.zPreds = tf.select(self.maskPH, self.zPreds, tf.zeros(shape=tf.shape(zProbs), dtype=tf.float32))
         masks = tf.zeros(shape = tf.shape(zProbs), dtype = tf.int32) + self.maskId
         maskedInputs = tf.select(tf.cast(self.zPreds, tf.bool), self.inputPH, masks)
@@ -511,6 +513,16 @@ class RNNGeneratorModel(object):
         test_x_pad = test_x_pad[:,0:300]
         test_mask = test_mask[:,0:300]
 
+        for i in xrange(len(train_sentLen)):
+            if train_sentLen[i] > 300:
+                train_sentLen[i] = 300
+        for i in xrange(len(dev_sentLen)):
+            if dev_sentLen[i] > 300:
+                dev_sentLen[i] = 300
+        for i in xrange(len(test_sentLen)):
+            if test_sentLen[i] > 300:
+                test_sentLen[i] = 300
+
         self.train_x = train_x_pad
         self.train_y = train_y
         self.train_mask = train_mask
@@ -576,6 +588,12 @@ dev = '/home/neuron/beer/reviews.aspect1.heldout.txt.gz'
 embedding = '/home/neuron/beer/review+wiki.filtered.200.txt.gz'
 test = '/home/neuron/beer/annotations.txt.gz'
 annotations = '/home/neuron/beer/annotations.json'
+
+train = '/Users/henryneeb/CS224N-Project/source/rcnn-master/beer/reviews.aspect1.small.train.txt.gz'
+dev = '/Users/henryneeb/CS224N-Project/source/rcnn-master/beer/reviews.aspect1.small.heldout.txt.gz'
+embedding = '/Users/henryneeb/CS224N-Project/source/rcnn-master/beer/review+wiki.filtered.200.txt.gz'
+test = '/Users/henryneeb/CS224N-Project/source/rcnn-master/beer/annotations.txt.gz'
+annotations = '/Users/henryneeb/CS224N-Project/source/rcnn-master/beer/annotations.json'
 
 
 def main(debug=False):

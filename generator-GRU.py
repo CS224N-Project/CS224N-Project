@@ -499,6 +499,16 @@ class GRUGeneratorModel(object):
         test_x_pad = test_x_pad[:,0:300]
         test_mask = test_mask[:,0:300]
 
+        for i in xrange(len(train_sentLen)):
+            if train_sentLen[i] > 300:
+                train_sentLen[i] = 300
+        for i in xrange(len(dev_sentLen)):
+            if dev_sentLen[i] > 300:
+                dev_sentLen[i] = 300
+        for i in xrange(len(test_sentLen)):
+            if test_sentLen[i] > 300:
+                test_sentLen[i] = 300
+
         self.train_x = train_x_pad
         self.train_y = train_y
         self.train_mask = train_mask

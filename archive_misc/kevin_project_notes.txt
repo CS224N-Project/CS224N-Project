@@ -165,6 +165,8 @@ sudo cp -P cuda/lib64/libcudnn* /usr/local/cuda/lib64/
 sudo chmod a+r /usr/local/cuda/include/cudnn.h /usr/local/cuda/lib64/libcudnn*
 
 
+gdrive sync upload ./results_saves 0B27Xcqlm2gSTYjNsOW1jaFNzN0E
+
 
 echo $LD_LIBRARY_PATH
 

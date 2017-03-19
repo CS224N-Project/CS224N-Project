@@ -22,6 +22,9 @@ test = '/home/neuron/beer/annotations.txt.gz'
 annotations = '/home/neuron/beer/annotations.json'
 Run Time:
 
+best dev MSE:
+best rationale precision:
+
 drop_out = 0.5
 hidden_size = 200
 batch_size = 256

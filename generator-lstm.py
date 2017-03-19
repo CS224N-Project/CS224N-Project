@@ -124,18 +124,18 @@ class RNNGeneratorModel(object):
         embedding_size = self.config.embedding_size
 
         # Define internal RNN Cells
-        genCell1Layer1 = tf.nn.rnn_cell.BasicRNNCell(num_units = hidden_size,
+        genCell1Layer1 = tf.nn.rnn_cell.LSTMCell(num_units = hidden_size,
                                                      # input_size = embedding_size,
-                                                     activation = tf.tanh)
-        genCell2Layer1 = tf.nn.rnn_cell.BasicRNNCell(num_units = hidden_size,
+                                                 activation = tf.tanh)
+        genCell2Layer1 = tf.nn.rnn_cell.LSTMCell(num_units = hidden_size,
                                                      # input_size = embedding_size,
-                                                     activation = tf.tanh)
-        genCell1Layer2 = tf.nn.rnn_cell.BasicRNNCell(num_units = hidden_size,
+                                                 activation = tf.tanh)
+        genCell1Layer2 = tf.nn.rnn_cell.LSTMCell(num_units = hidden_size,
                                                      # input_size = hidden_size,
-                                                     activation = tf.tanh)
-        genCell2Layer2 = tf.nn.rnn_cell.BasicRNNCell(num_units = hidden_size,
+                                                 activation = tf.tanh)
+        genCell2Layer2 = tf.nn.rnn_cell.LSTMCell(num_units = hidden_size,
                                                      # input_size = hidden_size,
-                                                     activation = tf.tanh)
+                                                 activation = tf.tanh)
 
         # Apply dropout to each cell
         genC1L1Drop = tf.nn.rnn_cell.DropoutWrapper(genCell1Layer1,
@@ -171,19 +171,18 @@ class RNNGeneratorModel(object):
                                                     sequence_length = self.seqPH
                                                     )
 
-        # states returns tuple (fwdState, bwdState) where each is a 3-d tensor
-        # of (depth, batchsize, hiddendim). unpack axis 0 to get each final state
-        unpackedStates1 = tf.unpack(states[0], axis = 0)
-        unpackedStates2 = tf.unpack(states[1], axis = 0)
-        states = unpackedStates1 + unpackedStates2
-
-        finalStates = tf.concat(concat_dim = 1, values = states)
-        # finalStates = states
-        # finalStatesIn = tf.shape(finalStates)[1]
+        # Return is 2 x 2 x 2 x batchsize x hiddensize tensor
+        # repretedly unpakc and concat to batchsize x hiddensize * 8 tensor
+        unpackedStates = tf.unpack(states, axis = 0)
+        concatStates = tf.concat(concat_dim=3, values = unpackedStates)
+        unpackedStates = tf.unpack(concatStates, axis = 0)
+        concatStates = tf.concat(concat_dim=2, values=unpackedStates)
+        unpackedStates = tf.unpack(concatStates, axis = 0)
+        finalStates = tf.concat(concat_dim=1, values=unpackedStates)
 
         # Define our prediciton layer variables
         U = tf.get_variable(name='W_gen',
-                            shape=((4 * hidden_size), self.config.max_sentence),
+                            shape=((8 * hidden_size), self.config.max_sentence),
                             dtype=tf.float32,
                             initializer=tf.contrib.layers.xavier_initializer())
 
@@ -240,7 +239,7 @@ class RNNGeneratorModel(object):
 
         # Define our prediciton layer variables
         W = tf.get_variable(name='W',
-                            shape=((2 * hidden_size), n_class),
+                            shape=((4 * hidden_size), n_class),
                             dtype=tf.float32,
                             initializer=tf.contrib.layers.xavier_initializer())
 
@@ -249,22 +248,26 @@ class RNNGeneratorModel(object):
                             dtype=tf.float32,
                             initializer=tf.constant_initializer(0.0))
 
-        cell1 = tf.nn.rnn_cell.BasicRNNCell(embedding_size, activation=tf.tanh)
-        cell2 = tf.nn.rnn_cell.BasicRNNCell(hidden_size, activation=tf.tanh)
+        cell1 = tf.nn.rnn_cell.LSTMCell(embedding_size, activation=tf.tanh)
+        cell2 = tf.nn.rnn_cell.LSTMCell(hidden_size, activation=tf.tanh)
 
         cell1_drop = tf.nn.rnn_cell.DropoutWrapper(cell1,
                                                    output_keep_prob=self.dropoutPH)
         cell2_drop = tf.nn.rnn_cell.DropoutWrapper(cell2,
                                                    output_keep_prob=self.dropoutPH)
         cell_multi = tf.nn.rnn_cell.MultiRNNCell([cell1_drop, cell2_drop])
-        result = tf.nn.dynamic_rnn(cell_multi,
+        _, result = tf.nn.dynamic_rnn(cell_multi,
                                    maskedEmbeddings,
                                    dtype=tf.float32,
                                    sequence_length=self.seqPH)
-        h_t = tf.concat(concat_dim=1,
-                        values=[result[1][0], result[1][1]])
+        # Return state is a 2 x 2 x batchsize x hiddensize tensor
+        # repetedly unpack and concat to batchsize x 4 * hiddensize tensor
+        unpackedStates = tf.unpack(result, axis = 0)
+        packedStates = tf.concat(concat_dim=2, values = unpackedStates)
+        unpackedStates = tf.unpack(packedStates, axis=0)
+        finalStates = tf.concat(concat_dim=1, values = unpackedStates)
 
-        y_t = tf.tanh(tf.matmul(h_t, W) + b)
+        y_t = tf.tanh(tf.matmul(finalStates, W) + b)
 
         return y_t
 
@@ -486,9 +489,9 @@ class RNNGeneratorModel(object):
             if dev_mse < best_dev_mse:
                 best_dev_mse = dev_mse
                 if saver:
-                    print "New best dev MSE! Saving model in ./generator.weights"
+                    print "New best dev MSE! Saving model in ./generator-lstm.weights"
                     # saver.save(sess, './encoder.weights', write_meta_graph = False)
-                    saver.save(sess, './generator.weights')
+                    saver.save(sess, './generator-lstm.weights')
             print
 
     def __init__(self, config, embedding_path, train_path, dev_path, test_path, rationals, aspect = 0):

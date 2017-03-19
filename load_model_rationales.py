@@ -8,7 +8,7 @@ sess.run(init)
 
 # saver = tf.train.Saver()
 saver = tf.train.import_meta_graph('./generator.weights.meta')
-saver.restore(sess, tf.train.latest_checkpoint('./'))
+#saver.restore(sess, tf.train.latest_checkpoint('./'))
 #saver.restore(sess, './generator.weights')
 
 all_vars = tf.get_collection('vars')

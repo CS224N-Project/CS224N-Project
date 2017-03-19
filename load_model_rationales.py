@@ -9,9 +9,26 @@ sess.run(init)
 # saver = tf.train.Saver()
 saver = tf.train.import_meta_graph('./generator.weights.meta')
 saver.restore(sess, tf.train.latest_checkpoint('./'))
-saver.restore(sess, './generator.weights')
+#saver.restore(sess, './generator.weights')
+
 all_vars = tf.get_collection('vars')
-print all_vars
+
+train_op = tf.get_collection('train_op')
+print ''
+print 'train_op:'
+for v in train_op:
+     print ''
+     print v.name
+
+global_vars = tf.global_variables()
+print ''
+print 'global_vars:'
+for v in global_vars:
+     print ''
+     print v.name
+     print v.get_shape()
+     print v.dtype
+
 for v in all_vars:
      v_ = sess.run(v)
      print(v_)

@@ -1,4 +1,139 @@
+==========================================
+Run 4
 
+Comment: first LSTM run with precision above 18%
+
+Date: Sat, 3/19/2017
+Start Time: 8:25am PT
+Complete Time: 2:21pm PT
+# Epochs: 40
+Run Time: 
+Code File: generator-lstm.py
+Processor: Azure GPU
+Screen Output File: generator-lstm_output_2017-03-19-0825.txt
+Data Files: FULL
+train = '/home/neuron/beer/reviews.aspect1.train.txt.gz'
+dev = '/home/neuron/beer/reviews.aspect1.heldout.txt.gz'
+embedding = '/home/neuron/beer/review+wiki.filtered.200.txt.gz'
+test = '/home/neuron/beer/annotations.txt.gz'
+annotations = '/home/neuron/beer/annotations.json'
+
+best dev MSE:
+best rationale precision:
+
+drop_out = 0.5
+hidden_size = 200
+batch_size = 256
+epochs = 100
+lr = 0.0001
+l2Reg = 1.0e-6
+
+review cut off: 300
+data = data[:,0:300]
+
+sigmoid factor: 7.0
+self.zPreds = 1.0 / (1.0 + tf.exp(-7.0*(zProbs-0.5))) # sigmoid to simulate rounding
+
+loss factor: 10.0
+loss = 10.0 * costLogPz + regularization * self.l2RegPH
+
+Weight Saved:
+generator.weights.index_2017-03-19-0825
+generator.weights.data-00000-of-00001_2017-03-19-0825
+checkpoint_2017-03-19-0825
+generator.weights.meta_2017-03-19-0825
+
+
+==========================================
+Run 3
+
+Comment: second LSTM (attempt to avoid NaNs)
+
+Date: Sat, 3/19/2017
+Start Time: 8:25am PT
+Complete Time: 2:21pm PT
+# Epochs: 40
+Run Time: 
+Code File: generator-lstm.py
+Processor: Azure GPU
+Screen Output File: generator-lstm_output_2017-03-19-0825.txt
+Data Files: FULL
+train = '/home/neuron/beer/reviews.aspect1.train.txt.gz'
+dev = '/home/neuron/beer/reviews.aspect1.heldout.txt.gz'
+embedding = '/home/neuron/beer/review+wiki.filtered.200.txt.gz'
+test = '/home/neuron/beer/annotations.txt.gz'
+annotations = '/home/neuron/beer/annotations.json'
+
+best dev MSE:
+best rationale precision:
+
+drop_out = 0.5
+hidden_size = 200
+batch_size = 256
+epochs = 100
+lr = 0.0001
+l2Reg = 1.0e-6
+
+review cut off: 300
+data = data[:,0:300]
+
+sigmoid factor: 7.0
+self.zPreds = 1.0 / (1.0 + tf.exp(-7.0*(zProbs-0.5))) # sigmoid to simulate rounding
+
+loss factor: 10.0
+loss = 10.0 * costLogPz + regularization * self.l2RegPH
+
+Weight Saved:
+generator.weights.index_2017-03-19-0825
+generator.weights.data-00000-of-00001_2017-03-19-0825
+checkpoint_2017-03-19-0825
+generator.weights.meta_2017-03-19-0825
+
+
+==========================================
+Run 2
+
+Comment: first LSTM run with precision above 18%
+
+Date: Sat, 3/19/2017
+Start Time: 12:50am PT
+Complete Time: 8am?
+# Epochs: cut short in the morning (8am?)
+Run Time: 
+Code File: generator-lstm.py
+Processor: Azure GPU
+Screen Output File: generator-lstm_output_2017-03-19-0050.txt
+Data Files: FULL
+train = '/home/neuron/beer/reviews.aspect1.train.txt.gz'
+dev = '/home/neuron/beer/reviews.aspect1.heldout.txt.gz'
+embedding = '/home/neuron/beer/review+wiki.filtered.200.txt.gz'
+test = '/home/neuron/beer/annotations.txt.gz'
+annotations = '/home/neuron/beer/annotations.json'
+
+best dev MSE:
+best rationale precision:
+
+drop_out = 0.5
+hidden_size = 200
+batch_size = 256
+epochs = 100
+lr = 0.0001
+l2Reg = 1.0e-6
+
+review cut off: 300
+data = data[:,0:300]
+
+sigmoid factor: 60.0
+self.zPreds = 1.0 / (1.0 + tf.exp(-60.0*(zProbs-0.5))) # sigmoid to simulate rounding
+
+loss factor: 10.0
+loss = 10.0 * costLogPz + regularization * self.l2RegPH
+
+Weight Saved:
+generator.weights.index_2017-03-19-0050
+generator.weights.data-00000-of-00001_2017-03-19-0050
+checkpoint_2017-03-19-0050
+generator.weights.meta_2017-03-19-0050
 
 
 ==========================================
@@ -7,10 +142,10 @@ Run 1
 Comment: first 2-layer RNN run with precision above 18%
 
 Date: Sat, 3/18/2017
-Start Time: 4:02pm PT (approx)
-Complete Time: 
-# Epochs: 
-Run Time:
+Start Time: 4:02pm PT
+Complete Time: 11:22 PT
+# Epochs: 100
+Run Time: 7 hours 20 minutes
 Code File: generator.py
 Processor: Azure GPU
 Screen Output File: generator_2017-03-18-1602.txt
@@ -20,7 +155,6 @@ dev = '/home/neuron/beer/reviews.aspect1.heldout.txt.gz'
 embedding = '/home/neuron/beer/review+wiki.filtered.200.txt.gz'
 test = '/home/neuron/beer/annotations.txt.gz'
 annotations = '/home/neuron/beer/annotations.json'
-Run Time:
 
 best dev MSE:
 best rationale precision:
@@ -44,7 +178,7 @@ loss = 10.0 * costLogPz + regularization * self.l2RegPH
 Weight Saved:
 generator.weights.index_2017-03-18-1602.txt
 generator.weights.data-00000-of-00001_2017-03-18-1602.txt
-checkpoint_2017-03-18-1602.txt
+checkpoint_2017-03-18-1602
 generator.weights.meta_2017-03-18-1602.txt
 
 

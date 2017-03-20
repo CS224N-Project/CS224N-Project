@@ -109,17 +109,12 @@ We find that...
 
 \section{Related Work}
 
-Both tasks of text summarization and sentiment analysis are highly popular
-subfields of natural language processing. However, the idea of combining such
-processes was first proposed in October 2016. The framework which we are
-exploring was initially proposed in the paper \textit{Rationalizing Neural
-Predictions} by Lei, Barzilay, and Jaakkola. This paper was the first to propose
-such a novel approach.
-
 \subsection{Framework}
 
-The paper prescribes a two-part model which predicts a multi-sentiment analysis
-(called encoder) and extracts summary phrases (called generator).
+Our experiment relied heavily on the work down by Lei et al in
+\textit{Rationalizing Neural Predictions} \cite{Lei}. The paper prescribes a
+two-part model which predicts a multi-sentiment analysis (called encoder) and
+extracts summary phrases (called generator).
 
 The encoder (enc) is a supervised learning problem which predicts a rating given
 a text review. Training samples are (x, y) pairs,  where $x = \{x_t\}_{t=1}^T$
@@ -136,16 +131,20 @@ L(x,y)\hspace{1mm} =
 The generator (gen) is a text summarization task which selects a subset of words
 of the text review as a rationale describing rating. There is no target
 rationale, but rather both the encoder and generator are jointly trained. The
-output of the generator is a z layer, such that $z_t \in [0, 1]$ is an indicator
-variable for each word in a text sequences indicating if a given word was chosen
-as rationale. There is no target rationale, but rather both the encoder and
-generator are jointly trained. That is, our final predictions are trained on the
-rationale output from the generator, not the full text review. Thus, our final
-prediction in enc(gen(z,x)).
+output of the generator are probabilities of each word in the original review
+being selected as part of the rationale. We use these probabilities to sample a
+$z-layer$, where each $z_t \in \{0, 1\}$ is an indicator variable for each word
+in a text sequences indicating if a given word was chosen as rationale. There is
+no target rationale, but rather both the encoder and generator are jointly
+trained. That is, our final predictions are trained on the rationale output from
+the generator, not the full text review. Thus, our final prediction in
+enc(gen(z,x)).
 
-The author notes that we want to ensure rationalizations are both concise and
-coherent. To ensure this, penalty terms are added to the loss function. Final
-cost is defined as:
+Since the generator is not trained on labels, we need to introduce
+regularization to force the number of words that are predicted in the $z-layer$
+to be small. Further, rationales need to be coherent, so we need to enforce that
+words selected are within a range. The authors suggest that we add in a sparsity
+and coherency penalization. The final cost is defined as:
 
 \begin{gather}
 Cost(z,x,y) = 
@@ -156,9 +155,21 @@ L(x,y) + \lambda \textsubscript{1} \parallel z \parallel +
 where $\lambda \textsubscript{1}$ penalizes number of words and $\lambda
 \textsubscript{2}$ penalizes distance between chosen words.
 
+\subsection{Expected Cost}
+
+The $z-layer$ sampling method is necessary to tractably compute the cost. If we
+did not sample from the generator's probability distribution, we would need to
+compute the full expected cost. This would require us realizing all possible
+sequences of rationales, computing the cost, and then weighting it by the
+probability of that specific rational being sampled. For each review of size
+$k$, we would need to realize a total of $2^{k}$ possible rationales, which is
+computationally infeasible.
+
+\textbf{ADD BINARY CROSS ENTROPY}
+
 \section{Approach}
 
-\subsection{Tensorflow Framework}
+\subsection{TensorFlow Framework}
 
 The original model as outlined in \textit{Rationalizing Neural Predictions} was
 created in Theano. A main goal of our project was to recreate this model in

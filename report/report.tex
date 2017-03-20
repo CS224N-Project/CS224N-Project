@@ -51,37 +51,59 @@ little insight as to why the model predicted sentiment the way it did.
 Businesses relying on these models might be less likely to act on insight given
 the lack of evidence for predictions. These people would be more likely to trust
 such predictions if a brief explanation of the outcome is provided. Recent work
-by Lei et al. has set forth a framework for a multi-aspect sentiment analysis
-concurrently providing text rationalization with each prediction. This framework
-sets forth a two-part approach, which summarizes a review and predicts a
-sentiment. In this paper, we explore the performance of this framework, seeking
-to recreate and improve upon it in TensorFlow.
+by Lei et al \cite{Lei}. has set forth a framework for a multi-aspect sentiment
+analysis concurrently providing text rationalization with each prediction. This
+framework sets forth a two-part approach, which summarizes a review and predicts
+a sentiment. In this paper, we explore the performance of this framework,
+seeking to recreate and improve upon it in TensorFlow.
 
 \end{abstract}
 
 \section{Introduction}
 
-In our highly connected world, we are constantly trying to digest information as
-quickly as possible. When buying products, services, or even eating at a
-restaurant, we scour the Internet for ratings to help us make a more informed
-decision. Often times when we see a rating, we may wish to understand why such a
-rating was given, however we are unwilling to do so at the cost of reading an
-entire review. A rating would be more easily interpreted if it was provided in
-tandem with a brief summary of a review.
+Many businesses and organizations can find a use for sentiment analysis.
+Customer reviews can provide insights on which products are popular and which
+need to be redesigned. Communications via email can be scanned to find clients
+that are dissatisfied with services so that they can be accommodated. Current
+state-of-the-art sentiment analysis models utilize deep learning architectures
+and achieve fairly high accuracy when predicting positive or negative sentiment
+- on the order of $80\%$ to $90\%$ \cite{Socher}.
 
-This problem can be solved using a two-part approach. The first task is to
-provide a rationalization of each rating, which selects a subset of words or
-phrases from the original text review. A rationale should be a short but
-comprehensible summary of a review. We frame this as an unsupervised learning
-problem, creating a bidirectional recurrent neural net (RNN) which passes over
-each word in the text.
+Unfortunately, with many applications knowing the sentiment of a communication
+or a review may not be enough. For a sentiment prediction to be useful, a user
+may need to know why the model predicted sentiment the way it did. Further, deep
+learning models are notoriously uninterpretable, lending to some users not
+trusting model results, and in some industries and nations, leading to the
+complete prohibition of their use \cite{Goodman}.
 
-Using the output of the first task, our second task is a supervised learning
-problem which predicts a rating of each review using a two-hidden layer RNN. By
-forcing ratings to be predicted using only the rationale of the review and not
-the review itself, we can jointly train tasks. We can force coherency and
-consistency for a rationale by adding penalization terms to any regression loss
-function for size and distance of words of rationale selected.
+In \textit{Rationalizing Neural Predictions} \cite{Lei}, Lei et al propose a
+framework for to address this problem. The first task (Generator) is to provide
+a rationalization of each rating, which selects a subset of words or phrases
+from the original text review. A rationale should be a short but comprehensible
+summary of a review. The authors frame this as a semi-unsupervised learning
+problem, creating a two-layer bidirectional recurrent neural net (RCNN) which
+passes over each word in the original text. The result is the probability that
+each word from the original text is selected as the summary text.
+
+These probabilities are used to sample summary text, which is fed into the
+second task (Encoder). This is a supervised learning task where the sampled
+summary text is used to predict the sentiment. The authors used a two-layer RCNN
+for this task. By forcing ratings to be predicted using only the rationale of
+the review and not the review itself, we can jointly train tasks by having the
+first task place higher probabilities on words that are relevant to the
+sentiment. Further, to force rationale coherency and brevity by adding in a
+regularization factor that penalizes for selecting too large of a rationale and
+for not selecting spans of words.
+
+Lei et al implemented this framework in Theano. We use this framework as an
+inspiration for our own implementation in TensorFlow and try to match the
+author's sentiment prediction and rationale results as a baseline. We then
+experiment with different encoder and generator architectures to see if we can
+improve upon our baseline model. We try a LSTM and GRU implementation of both
+the encoder and generator. Further, we experiment with forcing a fixed-width
+coherence and remove the sparsity and coherency regularization parameters.
+
+We find that...
 
 \textbf{[Add some high lever results here.]}
 

@@ -584,11 +584,11 @@ embedding = '/home/neuron/beer/review+wiki.filtered.200.txt.gz'
 test = '/home/neuron/beer/annotations.txt.gz'
 annotations = '/home/neuron/beer/annotations.json'
 
-train = '/Users/henryneeb/CS224N-Project/source/rcnn-master/beer/reviews.aspect1.small.train.txt.gz'
-dev = '/Users/henryneeb/CS224N-Project/source/rcnn-master/beer/reviews.aspect1.small.heldout.txt.gz'
-embedding = '/Users/henryneeb/CS224N-Project/source/rcnn-master/beer/review+wiki.filtered.200.txt.gz'
-test = '/Users/henryneeb/CS224N-Project/source/rcnn-master/beer/annotations.txt.gz'
-annotations = '/Users/henryneeb/CS224N-Project/source/rcnn-master/beer/annotations.json'
+#train = '/Users/henryneeb/CS224N-Project/source/rcnn-master/beer/reviews.aspect1.small.train.txt.gz'
+#dev = '/Users/henryneeb/CS224N-Project/source/rcnn-master/beer/reviews.aspect1.small.heldout.txt.gz'
+#embedding = '/Users/henryneeb/CS224N-Project/source/rcnn-master/beer/review+wiki.filtered.200.txt.gz'
+#test = '/Users/henryneeb/CS224N-Project/source/rcnn-master/beer/annotations.txt.gz'
+#annotations = '/Users/henryneeb/CS224N-Project/source/rcnn-master/beer/annotations.json'
 
 def main(debug=False):
     print 80 * "="

@@ -175,9 +175,50 @@ The original model as outlined in \textit{Rationalizing Neural Predictions} was
 created in Theano. A main goal of our project was to recreate this model in
 Tensorflow. We spent a large portion of time working to translate Theano code to
 Tensorflow code line by line. This was a huge learning experience, as we found
-that these deep learning platforms are somewhat incompatible. \\
+that these deep learning platforms have some fundamental differences. \\
 
-\textbf{Talk to Kevin, add details here.}
+For the intial translation attempt, the first step was to map out the code files and included functions across Tao Lei's implementation in theano.  This exercise suggested similarities to Tensorflow, but it was already apparent in comparison to our homeworks that Tao Lei was doing much more calculation "by hand" in Python and numpy.  The code could be better organized, variables relevantly named and additional comments and documentation.
+
+Overall, theano seems to provide a lower level framework that can by much more effectively and efficiently wrapped in hand-coded Python numpy operations (vs. Tensorflow.)
+
+Given similar "compile" and "run" phases of working with a computational graph, both Theano and Tensorflow allow certain hacks like the following to print variable values at run time:
+\begin{verbatim}
+variable = variable + (1e-11 * theano.printing.Print('x is: ')(x))
+variable = variable + tf.Print(0.0, data=[x])
+\end{verbatim}
+
+Also, Theano and Tensorflow have a series of roughly equivalent functions.  For example:
+\begin{verbatim}
+theano.tensor.dimshuffle() --> Tensorflow's tf.expand_dims()
+theano.gradient.disconnected_grad() --> Tensorflow's tf.stop_gradient() 
+\end{verbatim}
+
+Tensorflow requires more explicit type specification (so we used tf.cast() extensively in the in the initial attempt at Theano to Tensorflow baseline translation) as well as variable specification.  For example:
+
+\begin{verbatim}
+# theano
+X = theano.tensor.matrix("X")
+# vs. tensorflow (dtypes and shapes required)
+X_tf = tf.placeholder(dtype=tf.float32, shape=(SIZE,SIZE))
+\end{verbatim}
+
+Finally, Tao Lei makes extensive use of the theano.scan() function.  So, we also studied and replicated theano.scan() using tf.scan() which was added relatively recently to tensorflow:
+\begin{verbatim}
+# theano.scan calls compute_one_element(v) below for each ** row ** of X (passed in as variable v)
+results, _ = theano.scan(
+		fn = compute_one_element,
+		sequences = X
+	)
+
+# tf.scan also calls compute_one_element_tf(prev, curr) below for each ** row ** of X (passed in as variable curr)
+scan_func_tf = tf.scan(
+	fn = compute_one_element_tf,
+	elems = X_tf,
+	initializer = tf.zeros(shape=(1,SIZE), dtype=tf.float32)
+	)
+\end{verbatim}
+
+We found performance of tf.scan() was an order of magnitude worse than running theano.scan() on the GPU.  At this point, we decided to start writing our Tensorflow code from scratch.
 
 \subsection{Data}
 
@@ -363,6 +404,9 @@ One vs two layer RNNS \\
 
 \subsection{Henry Approach}
 \subsection{Kevin Approach}
+
+One of the more significant challenges we ran into was an attempt in Tensorflow to pass a gradient through a sample.  Our framework for producing rationales (excerpts from reviews) is based on selecting subsets of words (a sample) that best predicts sentiment for a specific aspect while also attempting to minimize weights related to sparsity (fewer words selected) and coherence (words close together.)  Tao Lei does not seem to have gradient passing challenge in Theano.  He simply uses: \begin{verbatim} theano.disconnected_gradient() \end{verbatim}  However, in Tensorflow any casting to boolean or integer or even rounding a float kills the propagation of the gradient.  Digging into this issue required us to build a separate minimal back propagation example and try many different approaches.  The approach that ultimately worked for us was to simulate rounding via a differentiable sigmoid function: \begin{verbatim} 1.0 / (1.0 + tf.exp(-60.0*(zProbs-0.5))) # sigmoid to simulate rounding \end{verbatim}.  Eureka!  This allowed the gradient to pass and the rationales to be trained in Tensorflow.  However, we continue to be open to other better Tensorflow-based approaches to achieving this same result.
+
 %\begin{figure}[h]
 %\begin{center}
 %\framebox[4.0in]{$\;$}
